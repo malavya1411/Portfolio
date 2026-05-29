@@ -1,5 +1,3 @@
-
-
 /* ─── Type Interfaces ─── */
 
 export interface NavItem {
@@ -12,17 +10,14 @@ export interface SiteMetadata {
   role: string;
   description: string;
   url: string;
-  ogImage: string;
 }
 
 export interface HeroData {
-  greeting: string;
-  name: string;
-  role: string;
-  tagline: string;
-  ctaPrimary: string;
-  ctaSecondary: string;
-  metadata: { label: string; value: string }[];
+  headline: string;
+  subheadline: string;
+  description: string;
+  ctaPrimary: { label: string; href: string };
+  ctaSecondary: { label: string; href: string };
 }
 
 export interface AboutData {
@@ -41,12 +36,15 @@ export interface Project {
   slug: string;
   summary: string;
   role: string;
+  context: string;
   techStack: string[];
   outcome: string;
   tags: string[];
   github: string;
-  demo: string;
+  demo: string | null;
+  badge: string | null;
   featured: boolean;
+  year: string;
 }
 
 export interface Achievement {
@@ -55,6 +53,7 @@ export interface Achievement {
   description: string;
   year: string;
   highlight: boolean;
+  rank?: string;
 }
 
 export interface ContactLink {
@@ -70,8 +69,7 @@ export const siteMetadata: SiteMetadata = {
   role: "AI & Full-Stack Developer",
   description:
     "AI & Full-Stack Developer building intelligent, production-ready systems. First-year B.E. student in AI & Data Science at VESIT, Mumbai.",
-  url: "https://malavya.dev", // placeholder
-  ogImage: "/og-image.png",
+  url: "https://malavya.dev",
 };
 
 /* ─── Navigation ─── */
@@ -88,45 +86,26 @@ export const navItems: NavItem[] = [
 /* ─── Hero ─── */
 
 export const heroData: HeroData = {
-  greeting: "Hi, I'm",
-  name: "Malavya Mankar",
-  role: "AI & Full-Stack Developer",
-  tagline:
-    "I build intelligent, production-ready systems that turn ideas into shipped products.",
-  ctaPrimary: "View Projects",
-  ctaSecondary: "Get in Touch",
-  metadata: [
-    { label: "University", value: "VESIT, Mumbai" },
-    { label: "CGPA", value: "9.73" },
-    { label: "Focus", value: "AI & Data Science" },
-    { label: "Team", value: "AlgoMinds" },
-  ],
+  headline: "Building AI-powered products that solve real-world problems.",
+  subheadline: "Malavya Mankar",
+  description:
+    "First-year AI & Data Science student at VESIT with a 9.73 CGPA, focused on full-stack systems, developer tooling, and applied AI.",
+  ctaPrimary: { label: "View Projects", href: "#projects" },
+  ctaSecondary: { label: "Get in Touch", href: "#contact" },
 };
 
 /* ─── About ─── */
 
 export const aboutData: AboutData = {
   bio: [
-    "I'm a first-year B.E. student in Artificial Intelligence & Data Science at VESIT, Mumbai. I focus on building intelligent software — systems that combine strong engineering with practical AI.",
-    "From autonomous onboarding agents with multi-tier RAG to real-time emergency coordination platforms, I ship production-grade projects that solve actual problems. I lead AlgoMinds, a hackathon team that consistently delivers under pressure.",
-    "I care about clean architecture, developer experience, and writing code that other people can actually read and maintain.",
+    "I'm a first-year B.E. student in Artificial Intelligence & Data Science at VESIT, Mumbai. I focus on building intelligent software — systems that combine strong engineering fundamentals with practical AI.",
+    "From autonomous onboarding agents with multi-tier RAG to real-time emergency coordination platforms, I ship production-grade projects that solve real problems. I lead AlgoMinds, a hackathon team that consistently delivers under pressure.",
+    "I care about clean architecture, developer experience, and writing code that other engineers can read and maintain.",
   ],
   stats: [
-    {
-      label: "CGPA",
-      value: "9.73",
-      description: "Academic performance",
-    },
-    {
-      label: "Hackathons",
-      value: "5+",
-      description: "Competitions entered",
-    },
-    {
-      label: "Projects",
-      value: "6+",
-      description: "Production-grade builds",
-    },
+    { label: "CGPA", value: "9.73", description: "First year, B.E. AI & DS" },
+    { label: "5+", value: "5+", description: "Hackathons competed" },
+    { label: "6+", value: "6+", description: "Production projects shipped" },
   ],
 };
 
@@ -135,31 +114,17 @@ export const aboutData: AboutData = {
 export const skillGroups: SkillGroup[] = [
   {
     category: "Frontend",
-    description: "Building responsive, performant interfaces",
-    skills: [
-      "Next.js 15",
-      "React",
-      "Vite",
-      "TypeScript",
-      "Tailwind CSS",
-      "Flutter",
-    ],
+    description: "Responsive, performant interfaces",
+    skills: ["Next.js 15", "React", "Vite", "TypeScript", "Tailwind CSS", "Flutter"],
   },
   {
     category: "Backend",
     description: "APIs, databases, and server-side logic",
-    skills: [
-      "Node.js",
-      "Express",
-      "PostgreSQL",
-      "Supabase",
-      "Firebase",
-      "JWT Auth",
-    ],
+    skills: ["Node.js", "Express", "PostgreSQL", "Supabase", "Firebase", "JWT Auth"],
   },
   {
     category: "AI / ML",
-    description: "Intelligence layers and automation",
+    description: "Intelligence layers and applied AI",
     skills: [
       "Gemini API",
       "Vector Embeddings",
@@ -171,7 +136,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: "Tools & Platforms",
-    description: "DevOps, integrations, and infrastructure",
+    description: "DevOps, integrations, and cloud",
     skills: [
       "Vercel",
       "Render",
@@ -183,124 +148,93 @@ export const skillGroups: SkillGroup[] = [
   },
 ];
 
-/* ─── Projects ─── */
+/* ─── Projects — real GitHub URLs where available ─── */
 
 export const projects: Project[] = [
   {
     title: "OnboardAI",
     slug: "onboard-ai",
-    summary: "Autonomous developer onboarding agent with multi-tier codebase intelligence",
-    role: "Syrus 2026 Hackathon — Top 6 Finalist",
-    techStack: [
-      "Next.js 15",
-      "RAG",
-      "Slack Block Kit",
-      "Nodemailer",
-      "GitHub API",
-    ],
+    summary:
+      "Autonomous developer onboarding agent that indexes codebases, generates context-aware tasks, and integrates with GitHub, Slack, and email.",
+    role: "Lead Developer",
+    context: "Syrus 2026 Hackathon — Top 6 Finalist (500+ teams)",
+    techStack: ["Next.js 15", "RAG", "Slack Block Kit", "Nodemailer", "GitHub API"],
     outcome:
-      "Three-tier RAG system, GitHub issue creation, Slack integration, persona detection, environment verification agent, and checklist tracking — all in 36 hours.",
+      "Three-tier RAG architecture for codebase intelligence. Automated GitHub issue creation, Slack onboarding flows, and persona-driven checklist generation — shipped in 36 hours.",
     tags: ["AI", "Full-Stack", "DevTools"],
-    github: "https://github.com/malavya-mankar/onboard-ai", // placeholder
-    demo: "https://onboard-ai.vercel.app", // placeholder
+    github: "https://github.com/CMPN-CODECELL/Syrus2026_AlgoMinds",
+    demo: null,
+    badge: "Top 6 — Syrus 2026",
     featured: true,
+    year: "2026",
   },
   {
     title: "CrisisSync",
     slug: "crisis-sync",
     summary:
-      "AI-powered real-time emergency coordination platform for hospitality venues",
-    role: "Google Solution Challenge 2026 — Team Lead",
-    techStack: [
-      "Flutter",
-      "Firebase",
-      "Gemini AI",
-      "Google Maps SDK",
-    ],
+      "Real-time emergency coordination platform for hospitality venues, powered by Gemini AI and Google Maps.",
+    role: "Team Lead",
+    context: "Google Solution Challenge 2026",
+    techStack: ["Flutter", "Firebase", "Gemini AI", "Google Maps SDK"],
     outcome:
-      "End-to-end emergency response system with live location tracking, AI-driven triage, and real-time coordination across multiple venues.",
+      "End-to-end emergency response system with live location tracking, AI-driven triage recommendations, and multi-venue coordination in real time.",
     tags: ["AI", "Mobile", "Full-Stack"],
-    github: "https://github.com/malavya-mankar/crisis-sync", // placeholder
-    demo: "https://crisis-sync.web.app", // placeholder
+    github: "https://github.com/krishnasahoo11156/crisissync",
+    demo: "https://crisissync-web-5ah5sevnmq-el.a.run.app/",
+    badge: "Google Solution Challenge",
     featured: true,
+    year: "2026",
   },
   {
     title: "GitStat",
     slug: "git-stat",
-    summary: "GitHub contributor health dashboard with AI-powered insights",
-    role: "Hackathon Runner-Up",
-    techStack: [
-      "React",
-      "Vite",
-      "Tailwind CSS",
-      "Node.js",
-      "Express",
-      "Supabase",
-      "GitHub OAuth",
-      "Gemini 1.5 Flash",
-    ],
+    summary:
+      "GitHub contributor health dashboard — visualise team velocity, commit patterns, and AI-generated contributor insights.",
+    role: "Lead Developer",
+    context: "Hackathon — Runner-Up",
+    techStack: ["React", "Vite", "Tailwind", "Node.js", "Express", "Supabase", "GitHub OAuth", "Gemini 1.5 Flash"],
     outcome:
-      "Solved complex CORS and OAuth deployment issues. Built a full analytics dashboard with contributor health scoring powered by Gemini.",
+      "Full analytics dashboard with GitHub OAuth, contributor health scoring, and AI-generated summaries. Resolved complex CORS and OAuth deployment issues at speed.",
     tags: ["Full-Stack", "AI", "DevTools"],
-    github: "https://github.com/malavya-mankar/git-stat", // placeholder
-    demo: "https://git-stat.vercel.app", // placeholder
+    github: "https://github.com/malavya1411/GitStat",
+    demo: "https://git-stat-olive.vercel.app",
+    badge: "Runner-Up",
     featured: true,
+    year: "2025",
   },
   {
     title: "AI Finder",
     slug: "ai-finder",
-    summary: "AI tool discovery SaaS with 80+ curated agents",
+    summary:
+      "Curated SaaS for discovering and comparing 80+ AI agents and tools, with intelligent search powered by Gemini.",
     role: "Solo Developer",
-    techStack: [
-      "React",
-      "TypeScript",
-      "Vite",
-      "Gemini API",
-    ],
+    context: "Personal Project",
+    techStack: ["React", "TypeScript", "Vite", "Gemini API"],
     outcome:
-      "80+ agent database with intelligent search, rate limiting, input validation, and a polished dark-theme UI.",
+      "80+ agent database with intelligent semantic search, rate limiting, input validation, and a refined dark-mode UI.",
     tags: ["AI", "Frontend", "SaaS"],
-    github: "https://github.com/malavya-mankar/ai-finder", // placeholder
-    demo: "https://ai-finder.vercel.app", // placeholder
+    github: "https://github.com/malavya1411/AI-FINDER",
+    demo: null,
+    badge: null,
     featured: false,
+    year: "2026",
   },
   {
     title: "JR-06",
     slug: "jr-06",
-    summary: "PCB inventory management system with analytics dashboard",
-    role: "Invictus Hackathon, ISTE-VESIT",
-    techStack: [
-      "React",
-      "Node.js",
-      "Express",
-      "PostgreSQL",
-      "JWT",
-      "Tailwind CSS",
-      "Recharts",
-    ],
+    summary:
+      "PCB component inventory management system with role-based access, real-time analytics, and audit logging.",
+    role: "Full-Stack Developer",
+    context: "Invictus Hackathon, ISTE-VESIT",
+    techStack: ["React", "Node.js", "Express", "PostgreSQL", "JWT", "Tailwind", "Recharts"],
     outcome:
-      "Full CRUD inventory system with JWT authentication, role-based access, and analytics visualizations via Recharts.",
+      "Full CRUD inventory system with JWT authentication, role-based access control, and Recharts analytics dashboard.",
     tags: ["Full-Stack", "Enterprise"],
-    github: "https://github.com/malavya-mankar/jr-06", // placeholder
-    demo: "https://jr-06.vercel.app", // placeholder
+    github: "https://github.com/malavya1411/electrolyte-inventory-system",
+    demo: null,
+    badge: null,
     featured: false,
-  },
-  {
-    title: "HandDraw",
-    slug: "hand-draw",
-    summary: "Browser-based hand-gesture drawing app with pinch detection",
-    role: "Solo Developer",
-    techStack: [
-      "MediaPipe Hands",
-      "HTML5 Canvas",
-      "JavaScript",
-    ],
-    outcome:
-      "Real-time hand tracking with pinch-to-draw, neon brush effect, and zero backend — runs entirely in the browser.",
-    tags: ["AI", "Creative", "Frontend"],
-    github: "https://github.com/malavya-mankar/hand-draw", // placeholder
-    demo: "https://hand-draw.vercel.app", // placeholder
-    featured: false,
+    year: "2025",
   },
 ];
 
@@ -311,31 +245,33 @@ export const achievements: Achievement[] = [
     title: "Top 6 Finalist",
     event: "Syrus 2026 Hackathon",
     description:
-      "Built OnboardAI, an autonomous developer onboarding agent with a three-tier RAG system, among 500+ teams.",
+      "Built OnboardAI — an autonomous developer onboarding agent with a three-tier RAG system — finishing in the top 6 among 500+ competing teams.",
     year: "2026",
     highlight: true,
+    rank: "#6 / 500+",
   },
   {
     title: "Runner-Up",
     event: "Hackathon by Parth Narkar",
     description:
-      "Built GitStat — a contributor health dashboard solving complex OAuth and CORS deployment challenges.",
+      "Built GitStat, a GitHub contributor health dashboard with AI-powered insights, OAuth integration, and production-grade deployment.",
     year: "2025",
     highlight: true,
+    rank: "#2",
   },
   {
-    title: "Participant — Google Solution Challenge",
+    title: "Google Solution Challenge",
     event: "Google Solution Challenge 2026",
     description:
-      "Led team AlgoMinds to build CrisisSync, an AI-powered emergency coordination platform for Google's global challenge.",
+      "Led team AlgoMinds in building CrisisSync, selected for Google's global developer challenge focused on real-world impact.",
     year: "2026",
     highlight: false,
   },
   {
-    title: "Participant — Invictus Hackathon",
-    event: "ISTE-VESIT, Invictus",
+    title: "Invictus Hackathon",
+    event: "ISTE-VESIT",
     description:
-      "Built JR-06, a PCB inventory management system with a full analytics dashboard.",
+      "Competed with JR-06, a full-stack PCB inventory system with real-time analytics and role-based access control.",
     year: "2025",
     highlight: false,
   },
@@ -343,8 +279,8 @@ export const achievements: Achievement[] = [
     title: "CGPA 9.73",
     event: "VESIT — B.E. AI & Data Science",
     description:
-      "Maintained a strong academic record while actively competing in hackathons and building production-grade projects.",
-    year: "2025",
+      "Top academic record maintained while actively competing in hackathons and shipping production software.",
+    year: "2024–25",
     highlight: false,
   },
 ];
@@ -354,22 +290,22 @@ export const achievements: Achievement[] = [
 export const contactLinks: ContactLink[] = [
   {
     label: "Email",
-    href: "mailto:malavya.mankar@example.com", // placeholder
+    href: "mailto:malavya.mankar@example.com", // update with real email
     icon: "mail",
   },
   {
     label: "GitHub",
-    href: "https://github.com/malavya-mankar", // placeholder
+    href: "https://github.com/malavya1411",
     icon: "github",
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com/in/malavya-mankar", // placeholder
+    href: "https://www.linkedin.com/in/malavya-mankar-002037382",
     icon: "linkedin",
   },
 ];
 
-/* ─── All unique tags from projects ─── */
+/* ─── Filter tags ─── */
 
 export const allTags: string[] = [
   "All",

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider, themeScript } from "@/components/ui/ThemeProvider";
+import { PageLoader } from "@/components/ui/PageLoader";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { ClickSpark } from "@/components/ui/ClickSpark";
 import "./globals.css";
 
 const inter = Inter({
@@ -67,7 +70,20 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-screen bg-bg text-text-primary antialiased">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <div className="grain-layer" />
+          <PageLoader />
+          <ScrollProgress />
+          <ClickSpark
+            sparkColor="var(--accent)"
+            sparkSize={20}
+            sparkRadius={20}
+            sparkCount={8}
+            duration={400}
+          >
+            {children}
+          </ClickSpark>
+        </ThemeProvider>
       </body>
     </html>
   );

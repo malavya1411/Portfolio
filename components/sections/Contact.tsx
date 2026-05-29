@@ -1,12 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, ArrowUpRight } from "lucide-react";
+import { Mail, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Button } from "@/components/ui/Button";
-import { contactLinks, siteMetadata } from "@/lib/data";
-import { SITE_CONFIG } from "@/lib/constants";
+import { contactLinks } from "@/lib/data";
+import { StarBorder } from "@/components/ui/StarBorder";
 
 function GithubIcon({ size = 20 }: { size?: number }) {
   return (
@@ -24,49 +22,60 @@ function LinkedinIcon({ size = 20 }: { size?: number }) {
   );
 }
 
-const iconMap: Record<string, React.ComponentType<{ size?: number }>> = {
-  mail: ({ size }) => <Mail size={size} />,
+const socialIcons: Record<string, React.ComponentType<{ size?: number }>> = {
   github: GithubIcon,
   linkedin: LinkedinIcon,
+  mail: ({ size }) => <Mail size={size} />,
 };
 
 export function Contact() {
+  const emailLink = contactLinks.find((l) => l.icon === "mail");
+  const socials = contactLinks.filter((l) => l.icon !== "mail");
+
   return (
-    <section id="contact" className="section-padding">
+    <section id="contact" className="section-padding border-t border-border-t">
       <Container>
-        <SectionHeading
-          label="Contact"
-          title="Let's Connect"
-          description="Have an idea, a project, or just want to say hi? I'm always open to interesting conversations."
-        />
-
-        <motion.div
-          className="mx-auto max-w-lg text-center"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{
-            duration: SITE_CONFIG.animationDuration.normal,
-            ease: SITE_CONFIG.ease,
-          }}
-        >
-          {/* Email CTA */}
-          <Button
-            variant="primary"
-            size="lg"
-            href={contactLinks.find((l) => l.icon === "mail")?.href || "mailto:hello@malavya.dev"}
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+          {/* Left */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <Mail size={18} />
-            Send me an email
-            <ArrowUpRight size={14} />
-          </Button>
+            <span className="mb-4 inline-block text-sm font-medium tracking-widest uppercase text-accent">
+              Contact
+            </span>
+            <h2 className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+              Let's build something.
+            </h2>
+            <p className="mt-5 text-base leading-relaxed text-text-secondary max-w-md">
+              Open to internship opportunities, interesting projects, and good engineering conversations. If you're building something ambitious, let's talk.
+            </p>
 
-          {/* Social icons */}
-          <div className="mt-8 flex items-center justify-center gap-4">
-            {contactLinks
-              .filter((l) => l.icon !== "mail")
-              .map((link) => {
-                const Icon = iconMap[link.icon] || iconMap.mail;
+            {/* Email CTA */}
+            {emailLink && (
+              <div className="mt-8 inline-block">
+                <StarBorder
+                  as="a"
+                  href={emailLink.href}
+                  className="hover:scale-[0.98] active:scale-95 transition-all duration-200"
+                  speed="5s"
+                  thickness={1.5}
+                >
+                  <span className="flex items-center gap-2.5 font-semibold text-sm">
+                    <Mail size={16} />
+                    {emailLink.href.replace("mailto:", "")}
+                    <ArrowRight size={14} />
+                  </span>
+                </StarBorder>
+              </div>
+            )}
+
+            {/* Social links */}
+            <div className="mt-6 flex items-center gap-3">
+              {socials.map((link) => {
+                const Icon = socialIcons[link.icon];
                 return (
                   <a
                     key={link.label}
@@ -74,21 +83,56 @@ export function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={link.label}
-                    className="flex h-12 w-12 items-center justify-center rounded-2xl border border-border-custom text-text-secondary transition-all duration-200 hover:border-accent/40 hover:text-accent hover:bg-accent/5"
+                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-border-t text-text-secondary transition-all duration-200 hover:text-text-primary hover:border-border-strong hover:bg-elevated"
                   >
-                    <Icon size={20} />
+                    <Icon size={18} />
                   </a>
                 );
               })}
-          </div>
+            </div>
+          </motion.div>
 
-          {/* Closing line */}
-          <p className="mt-10 text-sm text-text-secondary">
-            Currently building with{" "}
-            <span className="font-medium text-text-primary">AlgoMinds</span>.
-            Always shipping.
-          </p>
-        </motion.div>
+          {/* Right: availability card */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.55, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            <div className="card card-trace p-8">
+              <div className="flex items-center gap-3 mb-5">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400" />
+                </span>
+                <span className="text-sm font-semibold text-text-primary">Available for opportunities</span>
+              </div>
+
+              <div className="space-y-4 text-sm text-text-secondary">
+                <div className="flex justify-between py-3 border-b border-border-t">
+                  <span className="text-text-tertiary">Role</span>
+                  <span className="font-medium text-text-primary">Internship / SWE Roles</span>
+                </div>
+                <div className="flex justify-between py-3 border-b border-border-t">
+                  <span className="text-text-tertiary">Focus</span>
+                  <span className="font-medium text-text-primary">AI · Full-Stack · DevTools</span>
+                </div>
+                <div className="flex justify-between py-3 border-b border-border-t">
+                  <span className="text-text-tertiary">Timeline</span>
+                  <span className="font-medium text-text-primary">Open to discuss</span>
+                </div>
+                <div className="flex justify-between py-3">
+                  <span className="text-text-tertiary">Location</span>
+                  <span className="font-medium text-text-primary">Mumbai · Remote</span>
+                </div>
+              </div>
+
+              <p className="mt-6 text-xs text-text-tertiary leading-relaxed">
+                Currently building with AlgoMinds. Always shipping.
+              </p>
+            </div>
+          </motion.div>
+        </div>
       </Container>
     </section>
   );
