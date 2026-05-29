@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, FileDown, Home, User, Code2, Briefcase, Award, Mail } from "lucide-react";
+import { Menu, FileText, Home, User, Code2, Briefcase, Award, Mail } from "lucide-react";
 import { navItems, siteMetadata } from "@/lib/data";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { MobileMenu } from "@/components/ui/MobileMenu";
@@ -21,6 +21,11 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavItemClick = (id: string) => {
+    setActiveSection(id);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
     const sectionIds = navItems.map((item) => item.href.replace("#", ""));
     const observers: IntersectionObserver[] = [];
@@ -30,7 +35,7 @@ export function Navbar() {
       if (!el) return;
       const observer = new IntersectionObserver(
         ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { rootMargin: "-40% 0px -55% 0px" }
+        { rootMargin: "-15% 0px -40% 0px" }
       );
       observer.observe(el);
       observers.push(observer);
@@ -44,37 +49,37 @@ export function Navbar() {
       id: "home",
       icon: <Home className="w-5 h-5" />,
       label: "Home",
-      onClick: () => document.getElementById("home")?.scrollIntoView({ behavior: "smooth" }),
+      onClick: () => handleNavItemClick("home"),
     },
     {
       id: "about",
       icon: <User className="w-5 h-5" />,
       label: "About",
-      onClick: () => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }),
+      onClick: () => handleNavItemClick("about"),
     },
     {
       id: "skills",
       icon: <Code2 className="w-5 h-5" />,
       label: "Skills",
-      onClick: () => document.getElementById("skills")?.scrollIntoView({ behavior: "smooth" }),
+      onClick: () => handleNavItemClick("skills"),
     },
     {
       id: "projects",
       icon: <Briefcase className="w-5 h-5" />,
       label: "Projects",
-      onClick: () => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" }),
+      onClick: () => handleNavItemClick("projects"),
     },
     {
       id: "achievements",
       icon: <Award className="w-5 h-5" />,
       label: "Achievements",
-      onClick: () => document.getElementById("achievements")?.scrollIntoView({ behavior: "smooth" }),
+      onClick: () => handleNavItemClick("achievements"),
     },
     {
       id: "contact",
       icon: <Mail className="w-5 h-5" />,
       label: "Contact",
-      onClick: () => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }),
+      onClick: () => handleNavItemClick("contact"),
     },
   ];
 
@@ -100,7 +105,7 @@ export function Navbar() {
             {/* Wordmark */}
             <a
               href="#home"
-              className="text-sm font-bold tracking-tight text-text-primary transition-colors duration-200 hover:text-accent"
+              className="text-lg font-bold tracking-tight text-text-primary transition-colors duration-200 hover:text-accent"
               aria-label="Home"
             >
               Malavya Mankar
@@ -125,9 +130,9 @@ export function Navbar() {
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden items-center gap-1.5 rounded-[12px] border border-border-t px-4 py-2 text-sm font-medium text-text-secondary transition-all duration-200 hover:text-text-primary hover:border-border-strong sm:inline-flex"
+                className="hidden items-center gap-1.5 rounded-full border border-border-t bg-surface/30 backdrop-blur-sm px-4.5 py-2 text-sm font-medium text-text-secondary transition-all duration-200 hover:text-text-primary hover:border-border-strong sm:inline-flex hover:scale-[0.98] active:scale-95"
               >
-                <FileDown size={14} />
+                <FileText size={14} />
                 Resume
               </a>
 

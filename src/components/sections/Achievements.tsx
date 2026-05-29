@@ -71,7 +71,19 @@ export function Achievements() {
                     </div>
                     <p className="mt-0.5 text-xs font-medium text-accent/80">{a.event}</p>
                     <p className="mt-2 text-sm leading-relaxed text-text-secondary">{a.description}</p>
-                    <p className="mt-2 text-xs text-text-tertiary">{a.year}</p>
+                    <div className="mt-3 flex items-center justify-between flex-wrap gap-2">
+                      <p className="text-xs text-text-tertiary">{a.year}</p>
+                      {a.certificate && (
+                        <a
+                          href={a.certificate}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-xs font-bold text-accent hover:text-accent-hover transition-colors cursor-pointer"
+                        >
+                          View Certificate ↗
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </motion.div>

@@ -2,10 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from "framer-motion";
-import { ArrowRight, MapPin, Users } from "lucide-react";
+import { ArrowRight, MapPin, Users, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { heroData, projects } from "@/lib/data";
-import { StarBorder } from "@/components/ui/StarBorder";
 
 const TYPING_PHRASES = [
   "AI & Full-Stack Developer",
@@ -68,27 +67,36 @@ export function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
 
+      {/* Background Tech Illustration */}
+      <div className="absolute inset-0 pointer-events-none select-none z-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-bg/90 via-bg/40 to-bg z-10" />
+        <div className="absolute inset-0 bg-bg/85 dark:bg-bg/90 mix-blend-multiply dark:mix-blend-normal z-10" />
+        <img
+          src="/images/hero_bg.png"
+          alt=""
+          className="w-full h-full object-cover opacity-[0.25] dark:opacity-[0.35]"
+        />
+      </div>
+
       {/* Scanlines overlay */}
       <div className="scanlines" />
 
-      {/* Parallax background layer — subtle dot field */}
-      <motion.div
-        className="pointer-events-none absolute inset-[-8%] z-0"
-      >
-        <svg className="w-full h-full opacity-[0.07]" xmlns="http://www.w3.org/2000/svg">
+      {/* Subtle dot field on top for tech grid texture */}
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-[0.06] dark:opacity-[0.09]">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <pattern id="hero-dot" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-              <circle cx="1" cy="1" r="1.2" fill="currentColor" className="text-accent" />
+            <pattern id="hero-dot" x="0" y="0" width="36" height="36" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="currentColor" className="text-accent" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#hero-dot)" />
         </svg>
-      </motion.div>
+      </div>
 
-      {/* Soft accent radial — one, very muted */}
+      {/* Soft accent radial */}
       <div
-        className="pointer-events-none absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-[0.06] z-0"
-        style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)", filter: "blur(80px)" }}
+        className="pointer-events-none absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.05] z-0"
+        style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)", filter: "blur(90px)" }}
       />
 
       <Container className="relative z-10 pt-28 pb-20 lg:pt-36 lg:pb-28">
@@ -104,9 +112,8 @@ export function Hero() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              <span className="h-px w-6 bg-accent" />
-              <span className="section-label" style={{ marginBottom: 0 }}>
-                Malavya Mankar
+              <span className="text-accent font-mono text-xs font-semibold tracking-wider uppercase">
+                —— MALAVYA MANKAR
               </span>
             </motion.div>
 
@@ -122,12 +129,12 @@ export function Hero() {
 
             {/* Typing line */}
             <motion.div
-              className="mt-6 flex items-center min-h-[2rem]"
+              className="mt-4 flex items-center min-h-[2rem]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.35 }}
             >
-              <span className="text-lg font-medium text-text-secondary sm:text-xl">{typed}</span>
+              <span className="text-lg font-semibold text-accent sm:text-xl">{typed}</span>
               <span className="typing-cursor" />
             </motion.div>
 
@@ -151,7 +158,7 @@ export function Hero() {
               {[
                 { icon: <MapPin size={12} />, text: "Mumbai, India" },
                 { icon: <Users size={12} />, text: "AlgoMinds" },
-                { icon: null, text: "CGPA 9.73" },
+                { icon: <Star size={12} />, text: "CGPA 9.73" },
               ].map(({ icon, text }) => (
                 <span
                   key={text}
@@ -170,21 +177,16 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.65, ease: "easeOut" }}
             >
-              <StarBorder
-                as="a"
+              <a
                 href={heroData.ctaPrimary.href}
-                className="hover:scale-[0.98] active:scale-95 transition-all duration-200"
-                speed="5s"
-                thickness={1.5}
+                className="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-accent-hover hover:scale-[0.98] active:scale-95 shadow-[0_4px_20px_rgba(32,191,175,0.25)] dark:shadow-[0_4px_20px_rgba(32,191,175,0.15)]"
               >
-                <span className="flex items-center gap-2 font-semibold text-sm">
-                  {heroData.ctaPrimary.label}
-                  <ArrowRight size={15} />
-                </span>
-              </StarBorder>
+                {heroData.ctaPrimary.label}
+                <ArrowRight size={15} />
+              </a>
               <a
                 href={heroData.ctaSecondary.href}
-                className="inline-flex items-center gap-2 rounded-[14px] border border-border-t px-7 py-3.5 text-sm font-medium text-text-secondary transition-all duration-200 hover:text-text-primary hover:border-border-strong hover:scale-[0.98]"
+                className="inline-flex items-center gap-2 rounded-full border border-border-t bg-surface/30 backdrop-blur-sm px-8 py-3.5 text-sm font-semibold text-text-secondary transition-all duration-200 hover:text-text-primary hover:border-border-strong hover:scale-[0.98] active:scale-95"
               >
                 {heroData.ctaSecondary.label}
               </a>
@@ -327,95 +329,159 @@ function CrisisSyncHeroVisual() {
 
 const HERO_PROJECTS = [
   {
-    title: "GitStat",
-    path: "git-stat / analytics",
-    badge: "Runner-Up",
-    summary: "GitHub contributor health dashboard — visualise team velocity, commit patterns, and AI-generated contributor insights.",
-    stats: "Contributor health · GitHub OAuth",
-    visual: <GitStatHeroVisual />,
+    title: "CrisisSync",
+    path: "crisis-sync / emergency-api",
+    badge: "Google Solution Challenge",
+    summary: "Real-time emergency response platform. Live location tracking, AI-driven triage recommendations, and venue coordination in real time.",
+    image: "/images/crisis_sync.png",
+    techText: "Flutter  •  Firebase  •  Gemini AI  •  Google Maps SDK",
   },
   {
     title: "OnboardAI",
     path: "onboard-ai / architecture",
     badge: "Top 6 · Syrus 2026",
     summary: "Autonomous developer onboarding agent. Three-tier RAG for codebase intelligence, GitHub issue creation, Slack flows, and persona-driven checklists.",
-    stats: "Built in 36h · 500+ teams",
-    visual: <OnboardAiHeroVisual />,
+    image: "/images/onboard_ai.png",
+    techText: "Next.js 15  •  RAG  •  Slack Block Kit  •  GitHub API",
   },
   {
-    title: "CrisisSync",
-    path: "crisis-sync / emergency-api",
-    badge: "Google Solution Challenge",
-    summary: "Real-time emergency response platform. Live location tracking, AI-driven triage recommendations, and venue coordination in real time.",
-    stats: "Real-time · Firebase · Gemini AI",
-    visual: <CrisisSyncHeroVisual />,
+    title: "GitStat",
+    path: "git-stat / analytics",
+    badge: "Runner-Up",
+    summary: "GitHub contributor health dashboard — visualise team velocity, commit patterns, and AI-generated contributor insights.",
+    image: "/images/git_stat.png",
+    techText: "React  •  Vite  •  Node.js  •  Express  •  Supabase",
   },
 ];
 
 function HeroProjectCard() {
   const [activeIdx, setActiveIdx] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const startTimer = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setActiveIdx((prev) => (prev + 1) % HERO_PROJECTS.length);
+    }, 3000);
+  };
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveIdx((prev) => (prev + 1) % HERO_PROJECTS.length);
-    }, 2800);
-    return () => clearInterval(timer);
+    startTimer();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
   }, []);
+
+  const nextProject = () => {
+    setActiveIdx((prev) => (prev + 1) % HERO_PROJECTS.length);
+    startTimer();
+  };
+
+  const prevProject = () => {
+    setActiveIdx((prev) => (prev - 1 + HERO_PROJECTS.length) % HERO_PROJECTS.length);
+    startTimer();
+  };
+
+  const handleDotClick = (idx: number) => {
+    setActiveIdx(idx);
+    startTimer();
+  };
 
   const project = HERO_PROJECTS[activeIdx];
 
   return (
-    <div className="card card-trace bracket-tl bracket-br overflow-hidden h-[378px] flex flex-col">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeIdx}
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -6 }}
-          transition={{ duration: 0.28, ease: "easeInOut" }}
-          className="flex flex-col flex-1"
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-full card card-trace bracket-tl bracket-br h-[440px] flex flex-col bg-surface/50 backdrop-blur-md border border-border-t">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeIdx}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.28, ease: "easeInOut" }}
+            className="flex flex-col flex-1"
+          >
+            {/* Header */}
+            <div className="border-b border-border-t px-6 py-3.5 flex items-center justify-between">
+              <div className="flex items-center">
+                <span className="text-xs font-semibold text-text-primary/90 font-mono">
+                  {project.path}
+                </span>
+              </div>
+              {project.badge && (
+                <span className="rounded-full bg-accent-muted px-2.5 py-0.5 text-[9px] font-bold text-accent border border-accent/30 tracking-wider uppercase">
+                  {project.badge}
+                </span>
+              )}
+            </div>
+
+            {/* Visual area */}
+            <div className="relative overflow-hidden bg-elevated/40 h-[240px] border-b border-border-t/40 rounded-t-[15px]">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover rounded-t-[15px]"
+              />
+              {/* Tech stack overlay at the bottom of the visual area */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 to-transparent px-6 py-2.5 flex items-center">
+                <span className="text-[10px] text-text-secondary font-mono tracking-wider uppercase font-semibold">
+                  {project.techText}
+                </span>
+              </div>
+            </div>
+
+            {/* Body */}
+            <div className="px-6 py-5 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className="text-base font-bold text-text-primary">{project.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-text-secondary line-clamp-2">
+                  {project.summary}
+                </p>
+              </div>
+              <div className="mt-4 flex items-center justify-end">
+                <a
+                  href="#projects"
+                  className="inline-flex items-center gap-1 text-sm font-semibold text-accent hover:text-accent-hover transition-colors"
+                >
+                  All projects <ArrowRight size={13} />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Manual Slider Controls */}
+      <div className="flex items-center gap-3 text-text-secondary select-none mt-2">
+        <button
+          onClick={prevProject}
+          className="p-1.5 rounded-full hover:text-text-primary hover:bg-elevated/80 transition-colors cursor-pointer border border-border-t/30"
+          aria-label="Previous project"
         >
-          {/* Header */}
-          <div className="border-b border-border-t px-6 py-3.5 flex items-center justify-between">
-            <div className="flex items-center gap-1.5">
-              <div className="h-2.5 w-2.5 rounded-full bg-red-400/60" />
-              <div className="h-2.5 w-2.5 rounded-full bg-yellow-400/60" />
-              <div className="h-2.5 w-2.5 rounded-full bg-green-400/60" />
-              <span className="ml-3 text-xs font-medium text-text-tertiary" style={{ fontFamily: "monospace" }}>
-                {project.path}
-              </span>
-            </div>
-            {project.badge && (
-              <span className="rounded-full bg-accent/10 px-2.5 py-0.5 text-[10px] font-bold text-accent border border-accent/20 tracking-wide uppercase">
-                {project.badge}
-              </span>
-            )}
-          </div>
+          <ChevronLeft size={16} />
+        </button>
 
-          {/* Visual area */}
-          <div className="relative overflow-hidden bg-elevated h-[192px]">
-            {project.visual}
-          </div>
+        <div className="flex items-center gap-1.5">
+          {HERO_PROJECTS.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => handleDotClick(idx)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                idx === activeIdx ? 'bg-accent w-4' : 'bg-text-tertiary/40 hover:bg-text-tertiary/80'
+              }`}
+              aria-label={`Go to project ${idx + 1}`}
+            />
+          ))}
+        </div>
 
-          {/* Body */}
-          <div className="px-6 py-5 flex-1 flex flex-col justify-between">
-            <div>
-              <h3 className="text-base font-bold text-text-primary">{project.title}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-text-secondary line-clamp-2">
-                {project.summary}
-              </p>
-            </div>
-            <div className="mt-4 flex items-center justify-between">
-              <span className="text-xs text-text-tertiary" style={{ fontFamily: "monospace" }}>
-                {project.stats}
-              </span>
-              <a href="#projects" className="inline-flex items-center gap-1 text-sm font-semibold text-accent hover:text-accent-hover transition-colors">
-                All projects <ArrowRight size={13} />
-              </a>
-            </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
+        <button
+          onClick={nextProject}
+          className="p-1.5 rounded-full hover:text-text-primary hover:bg-elevated/80 transition-colors cursor-pointer border border-border-t/30"
+          aria-label="Next project"
+        >
+          <ChevronRight size={16} />
+        </button>
+      </div>
     </div>
   );
 }

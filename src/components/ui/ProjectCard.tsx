@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ExternalLink, ArrowUpRight } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ExternalLink, X } from "lucide-react";
 import type { Project } from "@/lib/data";
 
 function GithubIcon({ size = 14 }: { size?: number }) {
@@ -12,212 +13,259 @@ function GithubIcon({ size = 14 }: { size?: number }) {
   );
 }
 
-/* Unique abstract visual per project — no generic code windows */
-function ProjectVisual({ slug }: { slug: string }) {
-  const visuals: Record<string, React.ReactNode> = {
-    "on-board-ai": null,
-    "crisis-sync": <CrisisSyncVisual />,
-    "git-stat": <GitStatVisual />,
-    "ai-finder": <AiFinderVisual />,
-    "jr-06": <Jr06Visual />,
-  };
-  return (
-    <div
-      className="relative overflow-hidden bg-elevated"
-      style={{ height: "148px" }}
-    >
-      {visuals[slug] || <DefaultVisual slug={slug} />}
-    </div>
-  );
-}
-
-function CrisisSyncVisual() {
-  return (
-    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 148" fill="none" preserveAspectRatio="xMidYMid slice">
-      <pattern id="cs-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-        <circle cx="1" cy="1" r="0.8" fill="var(--border-strong)" opacity="0.6" />
-      </pattern>
-      <rect width="100%" height="100%" fill="url(#cs-dots)" />
-      {/* Map pin cluster */}
-      <circle cx="180" cy="74" r="36" stroke="var(--accent)" strokeWidth="1" opacity="0.15" />
-      <circle cx="180" cy="74" r="20" stroke="var(--accent)" strokeWidth="1" opacity="0.25" />
-      <circle cx="180" cy="74" r="5" fill="var(--accent)" opacity="0.9" />
-      <circle cx="220" cy="55" r="4" fill="var(--text-secondary)" opacity="0.5" />
-      <circle cx="155" cy="95" r="3" fill="var(--text-secondary)" opacity="0.4" />
-      <line x1="180" y1="74" x2="220" y2="55" stroke="var(--accent)" strokeWidth="0.8" opacity="0.3" />
-      <line x1="180" y1="74" x2="155" y2="95" stroke="var(--accent)" strokeWidth="0.8" opacity="0.3" />
-      <text x="16" y="130" fontSize="9" fill="var(--text-tertiary)" fontFamily="monospace">Real-time · Firebase · Gemini AI</text>
-    </svg>
-  );
-}
-
-function GitStatVisual() {
-  const bars = [32, 48, 28, 60, 44, 72, 38, 56, 50, 68];
-  return (
-    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 148" fill="none" preserveAspectRatio="xMidYMid slice">
-      <pattern id="gs-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-        <circle cx="1" cy="1" r="0.8" fill="var(--border-strong)" opacity="0.6" />
-      </pattern>
-      <rect width="100%" height="100%" fill="url(#gs-dots)" />
-      {bars.map((h, i) => (
-        <rect
-          key={i}
-          x={60 + i * 28}
-          y={110 - h}
-          width="16"
-          height={h}
-          rx="3"
-          fill={i === 5 ? "var(--accent)" : "var(--text-secondary)"}
-          opacity={i === 5 ? 0.8 : 0.2}
-        />
-      ))}
-      <text x="16" y="130" fontSize="9" fill="var(--text-tertiary)" fontFamily="monospace">Contributor health · GitHub OAuth · Gemini</text>
-    </svg>
-  );
-}
-
-function AiFinderVisual() {
-  const items = ["Search AI tools", "Rate limit: 60/hr", "80+ agents indexed", "Semantic match"];
-  return (
-    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 148" fill="none" preserveAspectRatio="xMidYMid slice">
-      <pattern id="af-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-        <circle cx="1" cy="1" r="0.8" fill="var(--border-strong)" opacity="0.6" />
-      </pattern>
-      <rect width="100%" height="100%" fill="url(#af-dots)" />
-      {items.map((item, i) => (
-        <g key={i}>
-          <rect x="40" y={24 + i * 26} width="220" height="18" rx="4" fill="var(--surface)" opacity="0.8" />
-          <text x="52" y={36 + i * 26} fontSize="8.5" fill={i === 0 ? "var(--accent)" : "var(--text-secondary)"} fontFamily="monospace">{item}</text>
-        </g>
-      ))}
-    </svg>
-  );
-}
-
-function Jr06Visual() {
-  return (
-    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 148" fill="none" preserveAspectRatio="xMidYMid slice">
-      <pattern id="jr-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-        <circle cx="1" cy="1" r="0.8" fill="var(--border-strong)" opacity="0.6" />
-      </pattern>
-      <rect width="100%" height="100%" fill="url(#jr-dots)" />
-      {/* Table rows */}
-      {[0,1,2,3].map(i => (
-        <g key={i}>
-          <rect x="40" y={28 + i * 24} width="300" height="16" rx="3" fill={i === 0 ? "var(--accent)" : "var(--surface)"} opacity={i === 0 ? 0.15 : 0.7} />
-          <rect x="40" y={28 + i * 24} width="300" height="16" rx="3" stroke="var(--border-strong)" strokeWidth="0.5" />
-          {i === 0 && <text x="52" y={40 + i * 24} fontSize="8" fill="var(--accent)" fontFamily="monospace" fontWeight="600">Part ID · Component · Qty · Location</text>}
-          {i > 0 && <text x="52" y={40 + i * 24} fontSize="8" fill="var(--text-secondary)" fontFamily="monospace">PCB-{100+i} · Capacitor · {i*12} · Shelf-{i}</text>}
-        </g>
-      ))}
-      <text x="16" y="130" fontSize="9" fill="var(--text-tertiary)" fontFamily="monospace">PostgreSQL · JWT · Recharts</text>
-    </svg>
-  );
-}
-
-function DefaultVisual({ slug }: { slug: string }) {
-  return (
-    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 148" fill="none" preserveAspectRatio="xMidYMid slice">
-      <pattern id="def-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-        <circle cx="1" cy="1" r="0.8" fill="var(--border-strong)" opacity="0.6" />
-      </pattern>
-      <rect width="100%" height="100%" fill="url(#def-dots)" />
-    </svg>
-  );
-}
-
 interface ProjectCardProps {
   project: Project;
   index: number;
 }
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
-  return (
-    <motion.article
-      className="card card-trace group flex flex-col overflow-hidden"
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-48px" }}
-      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
-    >
-      {/* Visual area */}
-      <ProjectVisual slug={project.slug} />
+  const [showModal, setShowModal] = useState(false);
 
-      {/* Content */}
-      <div className="flex flex-1 flex-col p-6">
-        {/* Header */}
-        <div className="flex items-start justify-between gap-3 mb-3">
-          <div>
-            {project.badge && (
-              <span className="mb-2 inline-block rounded-full bg-accent/10 px-2.5 py-0.5 text-[11px] font-semibold text-accent border border-accent/20">
-                {project.badge}
+  const renderStatusBadge = (status: string) => {
+    if (status === "HACKATHON") {
+      return (
+        <span className="inline-flex items-center rounded bg-rose-600 px-3 py-1 text-[11px] font-bold text-white tracking-wider uppercase">
+          HACKATHON
+        </span>
+      );
+    }
+    if (status === "RUNNER-UP") {
+      return (
+        <span className="inline-flex items-center rounded bg-emerald-600 px-3 py-1 text-[11px] font-bold text-white tracking-wider uppercase">
+          RUNNER-UP
+        </span>
+      );
+    }
+    if (status === "GOOGLE CHALLENGE") {
+      return (
+        <span className="inline-flex items-center rounded bg-sky-600 px-3 py-1 text-[11px] font-bold text-white tracking-wider uppercase">
+          GOOGLE CHALLENGE
+        </span>
+      );
+    }
+    return (
+      <span className="inline-flex items-center gap-1.5 rounded border border-amber-500/40 bg-amber-500/5 px-3 py-1 text-[11px] font-bold text-amber-400 tracking-wider uppercase">
+        <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
+        IN PROGRESS
+      </span>
+    );
+  };
+
+  return (
+    <>
+      <motion.article
+        onClick={() => setShowModal(true)}
+        className="card card-trace group flex flex-col overflow-hidden bg-surface cursor-pointer h-full transition-all duration-300 hover:translate-y-[-4px]"
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-48px" }}
+        transition={{ duration: 0.5, delay: index * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
+      >
+        {/* Cover visual area with View Project overlay on hover */}
+        <div className="relative overflow-hidden h-[200px] w-full border-b border-border-t bg-elevated">
+          {/* Overlay showing "VIEW PROJECT" on hover - clean dark neutral blur mask */}
+          <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10 pointer-events-none">
+            <div className="border border-white/90 px-6 py-2.5 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+              <span className="text-white text-xs font-bold tracking-[0.25em] uppercase">
+                VIEW PROJECT
+              </span>
+            </div>
+          </div>
+          {/* Image */}
+          <img
+            src={project.coverImage || "/images/placeholder.png"}
+            alt={project.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+
+        {/* Content details below image */}
+        <div className="flex flex-1 flex-col p-6">
+          {/* Tag row */}
+          <div className="flex items-center gap-2 mb-4">
+            {renderStatusBadge(project.status || "COMPLETED")}
+            <span className="rounded border border-border-strong/50 bg-elevated/40 px-2.5 py-1 text-[10px] font-bold text-text-secondary tracking-wider uppercase">
+              {project.categoryTag || "FULL STACK"}
+            </span>
+          </div>
+
+          {/* Title */}
+          <h3 className="text-xl font-extrabold text-text-primary tracking-wider uppercase mb-2 group-hover:text-accent transition-colors duration-200">
+            {project.title}
+          </h3>
+
+          {/* Description */}
+          <p className="text-sm leading-relaxed text-text-secondary flex-1 mb-4 line-clamp-3">
+            {project.summary}
+          </p>
+
+          {/* Tech Badges */}
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {project.techStack.slice(0, 5).map((tech) => (
+              <span
+                key={tech}
+                className="rounded border border-border-strong/30 bg-surface/30 px-2 py-0.5 text-[10px] font-bold text-text-secondary tracking-wide uppercase"
+              >
+                {tech}
+              </span>
+            ))}
+            {project.techStack.length > 5 && (
+              <span className="rounded border border-border-strong/30 bg-surface/30 px-2 py-0.5 text-[10px] font-bold text-text-tertiary tracking-wide uppercase">
+                +{project.techStack.length - 5}
               </span>
             )}
-            <h3 className="text-base font-bold text-text-primary group-hover:text-accent transition-colors duration-200 mt-1">
-              {project.title}
-            </h3>
-            <p className="mt-0.5 text-xs text-text-tertiary">{project.context}</p>
           </div>
-          <span className="text-xs text-text-tertiary shrink-0 mt-1">{project.year}</span>
-        </div>
 
-        <p className="text-sm leading-relaxed text-text-secondary flex-1">
-          {project.summary}
-        </p>
+          {/* Context footer / Date */}
+          <div className="text-[10px] text-text-tertiary font-mono tracking-wider uppercase mb-5">
+            {project.dateString || `${project.year} · COMPLETED`}
+          </div>
 
-        {/* Outcome */}
-        <p className="mt-3 text-xs leading-relaxed text-text-tertiary border-l-2 border-accent/30 pl-3">
-          {project.outcome}
-        </p>
-
-        {/* Tech chips */}
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {project.techStack.slice(0, 5).map((tech) => (
-            <span
-              key={tech}
-              className="rounded-md bg-elevated px-2 py-0.5 text-[11px] font-medium text-text-secondary border border-border-t"
-            >
-              {tech}
-            </span>
-          ))}
-          {project.techStack.length > 5 && (
-            <span className="rounded-md bg-elevated px-2 py-0.5 text-[11px] font-medium text-text-tertiary border border-border-t">
-              +{project.techStack.length - 5}
-            </span>
-          )}
-        </div>
-
-        {/* Actions */}
-        <div className="mt-5 flex items-center gap-2.5">
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${project.title} on GitHub`}
-            className="inline-flex items-center gap-1.5 rounded-xl border border-border-t px-3.5 py-2 text-xs font-medium text-text-secondary transition-all duration-200 hover:text-text-primary hover:border-border-strong"
-          >
-            <GithubIcon size={13} />
-            GitHub
-          </a>
-          {project.demo ? (
+          {/* Buttons */}
+          <div className="flex items-center gap-2.5 border-t border-border-t/40 pt-4 mt-auto">
             <a
-              href={project.demo}
+              href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${project.title} live demo`}
-              className="inline-flex items-center gap-1.5 rounded-xl bg-accent px-3.5 py-2 text-xs font-medium text-white transition-colors duration-200 hover:bg-accent-hover"
+              onClick={(e) => e.stopPropagation()}
+              className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-accent/30 px-3.5 py-2 text-xs font-bold text-accent hover:bg-accent/10 transition-colors uppercase tracking-wider"
             >
-              <ExternalLink size={12} />
-              Live Demo
+              <GithubIcon size={13} />
+              GitHub
             </a>
-          ) : (
-            <span className="inline-flex items-center gap-1.5 rounded-xl border border-border-t px-3.5 py-2 text-xs font-medium text-text-tertiary cursor-not-allowed opacity-60">
-              <ExternalLink size={12} />
-              Private
-            </span>
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-accent/30 px-3.5 py-2 text-xs font-bold text-accent hover:bg-accent/10 transition-colors uppercase tracking-wider"
+              >
+                <ExternalLink size={12} />
+                Live Demo
+              </a>
+            )}
+          </div>
+
+          {/* Features list */}
+          {project.features && project.features.length > 0 && (
+            <div className="mt-5 border-t border-border-t/40 pt-4 flex flex-col gap-1.5">
+              {project.features.map((feat, fidx) => (
+                <div key={fidx} className="flex items-start gap-2 text-xs text-text-secondary">
+                  <span className="text-accent shrink-0 font-bold">→</span>
+                  <span>{feat}</span>
+                </div>
+              ))}
+            </div>
           )}
         </div>
-      </div>
-    </motion.article>
+      </motion.article>
+
+      {/* Details Dialog Modal */}
+      <AnimatePresence>
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+            <div className="absolute inset-0" onClick={() => setShowModal(false)} />
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+              className="relative bg-surface border border-border-strong rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl z-10 flex flex-col"
+            >
+              {/* Modal Cover Image */}
+              <div className="relative h-48 w-full border-b border-border-t">
+                <img
+                  src={project.coverImage || "/images/placeholder.png"}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="absolute top-3 right-3 p-1.5 rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors z-20 cursor-pointer"
+                  aria-label="Close details"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+
+              {/* Modal Body */}
+              <div className="p-6 flex flex-col gap-5">
+                {/* Header info */}
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    {renderStatusBadge(project.status || "COMPLETED")}
+                    <span className="rounded border border-border-strong/50 bg-elevated/40 px-2.5 py-0.5 text-[10px] font-bold text-text-secondary tracking-wider uppercase">
+                      {project.categoryTag}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-extrabold text-text-primary tracking-wider uppercase">
+                    {project.title}
+                  </h3>
+                  <span className="text-[10px] text-text-tertiary font-mono tracking-wider uppercase block mt-1">
+                    {project.dateString}
+                  </span>
+                </div>
+
+                {/* Description */}
+                <div>
+                  <h4 className="text-xs font-bold text-accent tracking-wider uppercase mb-1.5">
+                    Description &amp; Outcome
+                  </h4>
+                  <p className="text-sm text-text-secondary leading-relaxed">
+                    {project.summary}
+                  </p>
+                  <p className="text-sm text-text-secondary leading-relaxed mt-2.5 border-l-2 border-accent/30 pl-3">
+                    {project.outcome}
+                  </p>
+                </div>
+
+                {/* Tech stack */}
+                <div>
+                  <h4 className="text-xs font-bold text-accent tracking-wider uppercase mb-2">
+                    Tech Stack
+                  </h4>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.techStack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded border border-border-strong/30 bg-surface/30 px-2.5 py-1 text-[10px] font-bold text-text-primary tracking-wide uppercase"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center gap-3 mt-2 border-t border-border-t/40 pt-4">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-accent/30 px-4 py-2.5 text-xs font-bold text-accent hover:bg-accent/10 transition-colors uppercase tracking-wider"
+                  >
+                    <GithubIcon size={14} />
+                    GitHub
+                  </a>
+                  {project.demo && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-xs font-bold text-white hover:bg-accent-hover transition-colors uppercase tracking-wider"
+                    >
+                      <ExternalLink size={14} />
+                      Live Demo
+                    </a>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

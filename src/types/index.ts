@@ -44,6 +44,7 @@ export interface Project {
   badge: string | null;
   featured: boolean;
   year: string;
+  certificate?: string;
 }
 
 export interface Achievement {
@@ -53,6 +54,7 @@ export interface Achievement {
   year: string;
   highlight: boolean;
   rank?: string;
+  certificate?: string;
 }
 
 export interface ContactLink {

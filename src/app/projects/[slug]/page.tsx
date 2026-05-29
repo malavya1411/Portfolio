@@ -41,10 +41,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
 
         {/* Content Card */}
-        <article className="card p-8 lg:p-12 relative overflow-hidden bracket-tl bracket-br bg-surface">
+        <article className="card p-8 lg:p-12 relative bracket-tl bracket-br bg-surface">
           {/* Accent light indicator */}
           <div
-            className="pointer-events-none absolute top-0 left-0 w-full h-[3px] bg-accent"
+            className="pointer-events-none absolute top-0 left-0 w-full h-[3px] bg-accent rounded-t-2xl"
           />
 
           {/* Header Info */}
@@ -99,6 +99,29 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   {project.outcome}
                 </p>
               </section>
+
+              {project.certificate && (
+                <section>
+                  <h2 className="text-sm font-mono font-semibold tracking-wider text-text-tertiary uppercase mb-4 flex items-center gap-2">
+                    <Milestone className="w-4 h-4 text-accent" />
+                    Official Certificate
+                  </h2>
+                  <div className="border border-border-t rounded-xl overflow-hidden bg-elevated/20 group relative">
+                    <a
+                      href={project.certificate}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block cursor-zoom-in"
+                    >
+                      <img
+                        src={project.certificate}
+                        alt={`${project.title} Certificate`}
+                        className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-[1.01]"
+                      />
+                    </a>
+                  </div>
+                </section>
+              )}
             </div>
 
             {/* Right details sidebar */}

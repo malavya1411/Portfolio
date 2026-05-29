@@ -45,6 +45,12 @@ export interface Project {
   badge: string | null;
   featured: boolean;
   year: string;
+  certificate?: string;
+  coverImage?: string;
+  status?: string;
+  categoryTag?: string;
+  dateString?: string;
+  features?: string[];
 }
 
 export interface Achievement {
@@ -54,6 +60,7 @@ export interface Achievement {
   year: string;
   highlight: boolean;
   rank?: string;
+  certificate?: string;
 }
 
 export interface ContactLink {
@@ -167,6 +174,16 @@ export const projects: Project[] = [
     badge: "Top 6 — Syrus 2026",
     featured: true,
     year: "2026",
+    certificate: "/images/syrus_certificate.png",
+    coverImage: "/images/onboard_ai.png",
+    status: "HACKATHON",
+    categoryTag: "AI SYSTEM · NEXT.JS",
+    dateString: "MARCH 2026 · SYRUS 2026 HACKATHON",
+    features: [
+      "Three-tier RAG for codebase intelligence",
+      "Automated GitHub issue creation & Slack onboarding flow",
+      "Persona-driven checklist generation & team updates"
+    ]
   },
   {
     title: "CrisisSync",
@@ -184,6 +201,15 @@ export const projects: Project[] = [
     badge: "Google Solution Challenge",
     featured: true,
     year: "2026",
+    coverImage: "/images/crisis_sync.png",
+    status: "GOOGLE CHALLENGE",
+    categoryTag: "MOBILE · FULL STACK",
+    dateString: "FEBRUARY 2026 · GOOGLE SOLUTION CHALLENGE",
+    features: [
+      "Real-time coordination & venue tracking",
+      "AI-driven triage recommendations via Gemini AI",
+      "Google Maps SDK live location updates"
+    ]
   },
   {
     title: "GitStat",
@@ -201,6 +227,16 @@ export const projects: Project[] = [
     badge: "Runner-Up",
     featured: true,
     year: "2025",
+    certificate: "/images/unimerge_certificate.jpg",
+    coverImage: "/images/git_stat.png",
+    status: "RUNNER-UP",
+    categoryTag: "ANALYTICS · FULL STACK",
+    dateString: "DECEMBER 2025 · RUNNER-UP HACKATHON",
+    features: [
+      "Contributor health scoring analytics dashboard",
+      "GitHub OAuth secure integration & analytics",
+      "Commit velocity & team frequency charts"
+    ]
   },
   {
     title: "AI Finder",
@@ -218,6 +254,15 @@ export const projects: Project[] = [
     badge: null,
     featured: false,
     year: "2026",
+    coverImage: "/images/ai_finder.png",
+    status: "COMPLETED",
+    categoryTag: "FRONTEND · SAAS",
+    dateString: "JANUARY 2026 · PERSONAL PROJECT",
+    features: [
+      "Semantic match searching via Gemini API",
+      "API request rate limiting & form validation",
+      "80+ AI agents directory listing"
+    ]
   },
   {
     title: "JR-06",
@@ -235,6 +280,15 @@ export const projects: Project[] = [
     badge: null,
     featured: false,
     year: "2025",
+    coverImage: "/images/jr_06.png",
+    status: "COMPLETED",
+    categoryTag: "ENTERPRISE · BACKEND",
+    dateString: "NOVEMBER 2025 · INVICTUS HACKATHON",
+    features: [
+      "PCB inventory CRUD database system",
+      "Role-based access controls via JWT",
+      "Interactive data analytics using Recharts"
+    ]
   },
 ];
 
@@ -249,6 +303,7 @@ export const achievements: Achievement[] = [
     year: "2026",
     highlight: true,
     rank: "#6 / 500+",
+    certificate: "/images/syrus_certificate.png",
   },
   {
     title: "Runner-Up",
@@ -258,6 +313,7 @@ export const achievements: Achievement[] = [
     year: "2025",
     highlight: true,
     rank: "#2",
+    certificate: "/images/unimerge_certificate.jpg",
   },
   {
     title: "Google Solution Challenge",
@@ -282,6 +338,15 @@ export const achievements: Achievement[] = [
       "Top academic record maintained while actively competing in hackathons and shipping production software.",
     year: "2024–25",
     highlight: false,
+  },
+  {
+    title: "Successful Completion",
+    event: "Hack-AI-Thon 4.0",
+    description:
+      "Successfully completed the 24-hour online Hack-AI-Thon 4.0 organized by AI-CoLegion, the department committee of Artificial Intelligence and Data Science at VESIT.",
+    year: "2025",
+    highlight: false,
+    certificate: "/images/hackaithon_certificate.png",
   },
 ];
 
