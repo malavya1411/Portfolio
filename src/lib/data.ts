@@ -226,7 +226,7 @@ export const projects: Project[] = [
     demo: "https://git-stat-olive.vercel.app",
     badge: "Runner-Up",
     featured: true,
-    year: "2025",
+    year: "2026",
     certificate: "/images/unimerge_certificate.jpg",
     coverImage: "/images/git_stat.png",
     status: "RUNNER-UP",
@@ -265,7 +265,7 @@ export const projects: Project[] = [
     ]
   },
   {
-    title: "JR-06",
+    title: "Inventory Management",
     slug: "jr-06",
     summary:
       "PCB component inventory management system with role-based access, real-time analytics, and audit logging.",
@@ -280,7 +280,7 @@ export const projects: Project[] = [
     badge: null,
     featured: false,
     year: "2025",
-    coverImage: "/images/jr_06.png",
+    coverImage: "/images/inventory_management.png",
     status: "COMPLETED",
     categoryTag: "ENTERPRISE · BACKEND",
     dateString: "NOVEMBER 2025 · INVICTUS HACKATHON",

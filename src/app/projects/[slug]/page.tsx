@@ -27,10 +27,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-bg text-text-primary antialiased py-16 lg:py-24">
+    <div className="min-h-screen bg-bg text-text-primary antialiased pt-14 pb-16 lg:pt-16 lg:pb-24">
       <Container className="max-w-4xl">
         {/* Back Link */}
-        <div className="mb-10">
+        <div className="mb-6">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-sm font-medium text-text-secondary hover:text-accent transition-colors group cursor-pointer"
@@ -41,7 +41,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
 
         {/* Content Card */}
-        <article className="card p-8 lg:p-12 relative bracket-tl bracket-br bg-surface">
+        <article className="card p-8 lg:p-12 relative bg-surface">
           {/* Accent light indicator */}
           <div
             className="pointer-events-none absolute top-0 left-0 w-full h-[3px] bg-accent rounded-t-2xl"

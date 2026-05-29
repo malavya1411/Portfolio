@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { ExternalLink } from "lucide-react";
 import type { Project } from "@/lib/data";
 
 function GithubIcon({ size = 14 }: { size?: number }) {
@@ -19,7 +19,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
-  const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
 
   const renderStatusBadge = (status: string) => {
     if (status === "HACKATHON") {
@@ -54,7 +54,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <>
       <motion.article
-        onClick={() => setShowModal(true)}
+        onClick={() => router.push(`/projects/${project.slug}`)}
         className="card card-trace group flex flex-col overflow-hidden bg-surface cursor-pointer h-full transition-all duration-300 hover:translate-y-[-4px]"
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -64,13 +64,17 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         {/* Cover visual area with View Project overlay on hover */}
         <div className="relative overflow-hidden h-[200px] w-full border-b border-border-t bg-elevated">
           {/* Overlay showing "VIEW PROJECT" on hover - clean dark neutral blur mask */}
-          <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10 pointer-events-none">
+          <a
+            href={`/projects/${project.slug}`}
+            onClick={(e) => e.stopPropagation()}
+            className="absolute inset-0 bg-slate-950/80 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10"
+          >
             <div className="border border-white/90 px-6 py-2.5 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
               <span className="text-white text-xs font-bold tracking-[0.25em] uppercase">
                 VIEW PROJECT
               </span>
             </div>
-          </div>
+          </a>
           {/* Image */}
           <img
             src={project.coverImage || "/images/placeholder.png"}
@@ -160,112 +164,6 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           )}
         </div>
       </motion.article>
-
-      {/* Details Dialog Modal */}
-      <AnimatePresence>
-        {showModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-            <div className="absolute inset-0" onClick={() => setShowModal(false)} />
-            
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.22, ease: "easeOut" }}
-              className="relative bg-surface border border-border-strong rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl z-10 flex flex-col"
-            >
-              {/* Modal Cover Image */}
-              <div className="relative h-48 w-full border-b border-border-t">
-                <img
-                  src={project.coverImage || "/images/placeholder.png"}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                />
-                <button
-                  onClick={() => setShowModal(false)}
-                  className="absolute top-3 right-3 p-1.5 rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors z-20 cursor-pointer"
-                  aria-label="Close details"
-                >
-                  <X size={16} />
-                </button>
-              </div>
-
-              {/* Modal Body */}
-              <div className="p-6 flex flex-col gap-5">
-                {/* Header info */}
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    {renderStatusBadge(project.status || "COMPLETED")}
-                    <span className="rounded border border-border-strong/50 bg-elevated/40 px-2.5 py-0.5 text-[10px] font-bold text-text-secondary tracking-wider uppercase">
-                      {project.categoryTag}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-extrabold text-text-primary tracking-wider uppercase">
-                    {project.title}
-                  </h3>
-                  <span className="text-[10px] text-text-tertiary font-mono tracking-wider uppercase block mt-1">
-                    {project.dateString}
-                  </span>
-                </div>
-
-                {/* Description */}
-                <div>
-                  <h4 className="text-xs font-bold text-accent tracking-wider uppercase mb-1.5">
-                    Description &amp; Outcome
-                  </h4>
-                  <p className="text-sm text-text-secondary leading-relaxed">
-                    {project.summary}
-                  </p>
-                  <p className="text-sm text-text-secondary leading-relaxed mt-2.5 border-l-2 border-accent/30 pl-3">
-                    {project.outcome}
-                  </p>
-                </div>
-
-                {/* Tech stack */}
-                <div>
-                  <h4 className="text-xs font-bold text-accent tracking-wider uppercase mb-2">
-                    Tech Stack
-                  </h4>
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded border border-border-strong/30 bg-surface/30 px-2.5 py-1 text-[10px] font-bold text-text-primary tracking-wide uppercase"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Actions */}
-                <div className="flex items-center gap-3 mt-2 border-t border-border-t/40 pt-4">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-accent/30 px-4 py-2.5 text-xs font-bold text-accent hover:bg-accent/10 transition-colors uppercase tracking-wider"
-                  >
-                    <GithubIcon size={14} />
-                    GitHub
-                  </a>
-                  {project.demo && (
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-xs font-bold text-white hover:bg-accent-hover transition-colors uppercase tracking-wider"
-                    >
-                      <ExternalLink size={14} />
-                      Live Demo
-                    </a>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </>
   );
 }

@@ -1,73 +1,56 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from "framer-motion";
-import { ArrowRight, MapPin, Users, Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, Trophy, Globe } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { heroData, projects } from "@/lib/data";
 
-const TYPING_PHRASES = [
-  "AI & Full-Stack Developer",
-  "Hackathon Finalist",
-  "RAG Systems Builder",
-  "AlgoMinds Lead",
+function GithubIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+    </svg>
+  );
+}
+
+const FEATURED_PROJECTS = [
+  {
+    label: "FEATURED PROJECT",
+    badge: "Runner-Up",
+    title: "GitStat",
+    image: "/images/git_stat.png",
+    description:
+      "GitHub contributor health dashboard — visualise team velocity, commit patterns, and AI-generated contributor insights.",
+    techStack: ["React", "Vite", "Node.js", "Express", "Supabase", "Gemini AI"],
+    slug: "git-stat",
+  },
+  {
+    label: "FEATURED PROJECT",
+    badge: "Top 6 · Syrus 2026",
+    title: "OnboardAI",
+    image: "/images/onboard_ai.png",
+    description:
+      "Three-tier RAG system for developer onboarding, with GitHub automation, Slack workflows, and personalized AI assistance.",
+    techStack: ["Next.js", "TypeScript", "RAG", "Slack", "GitHub API", "PostgreSQL"],
+    slug: "onboard-ai",
+  },
+  {
+    label: "FEATURED PROJECT",
+    badge: "Google Solution Challenge",
+    title: "CrisisSync",
+    image: "/images/crisis_sync.png",
+    description:
+      "Real-time emergency coordination platform with live location tracking, AI-driven triage, and multi-venue management.",
+    techStack: ["Flutter", "Firebase", "Gemini AI", "Google Maps SDK"],
+    slug: "crisis-sync",
+  },
 ];
 
-function useTypingEffect(phrases: string[], speed = 60, pause = 1800) {
-  const [displayed, setDisplayed] = useState("");
-  const [phraseIdx, setPhraseIdx] = useState(0);
-  const [charIdx, setCharIdx] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-
-  useEffect(() => {
-    const current = phrases[phraseIdx];
-    let timeout: ReturnType<typeof setTimeout>;
-
-    if (!deleting && charIdx < current.length) {
-      timeout = setTimeout(() => setCharIdx((c) => c + 1), speed);
-    } else if (!deleting && charIdx === current.length) {
-      timeout = setTimeout(() => setDeleting(true), pause);
-    } else if (deleting && charIdx > 0) {
-      timeout = setTimeout(() => setCharIdx((c) => c - 1), speed / 2.2);
-    } else if (deleting && charIdx === 0) {
-      setDeleting(false);
-      setPhraseIdx((i) => (i + 1) % phrases.length);
-    }
-
-    setDisplayed(current.slice(0, charIdx));
-    return () => clearTimeout(timeout);
-  }, [charIdx, deleting, phraseIdx, phrases, speed, pause]);
-
-  return displayed;
-}
-
-function useMouseParallax() {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const smoothX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  const smoothY = useSpring(mouseY, { stiffness: 50, damping: 20 });
-
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      const cx = window.innerWidth / 2;
-      const cy = window.innerHeight / 2;
-      mouseX.set((e.clientX - cx) / cx);
-      mouseY.set((e.clientY - cy) / cy);
-    };
-    window.addEventListener("mousemove", handler, { passive: true });
-    return () => window.removeEventListener("mousemove", handler);
-  }, [mouseX, mouseY]);
-
-  return { smoothX, smoothY };
-}
-
 export function Hero() {
-  const typed = useTypingEffect(TYPING_PHRASES);
-
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
 
-      {/* Background Tech Illustration */}
+      {/* Background */}
       <div className="absolute inset-0 pointer-events-none select-none z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-bg/90 via-bg/40 to-bg z-10" />
         <div className="absolute inset-0 bg-bg/85 dark:bg-bg/90 mix-blend-multiply dark:mix-blend-normal z-10" />
@@ -78,10 +61,10 @@ export function Hero() {
         />
       </div>
 
-      {/* Scanlines overlay */}
+      {/* Scanlines */}
       <div className="scanlines" />
 
-      {/* Subtle dot field on top for tech grid texture */}
+      {/* Dot grid texture */}
       <div className="pointer-events-none absolute inset-0 z-0 opacity-[0.06] dark:opacity-[0.09]">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -93,113 +76,115 @@ export function Hero() {
         </svg>
       </div>
 
-      {/* Soft accent radial */}
+      {/* Soft accent glow */}
       <div
         className="pointer-events-none absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.05] z-0"
         style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)", filter: "blur(90px)" }}
       />
 
-      <Container className="relative z-10 pt-28 pb-20 lg:pt-36 lg:pb-28">
-        <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-10">
+      <Container className="relative z-10 pt-20 pb-16 lg:pt-24 lg:pb-24">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-14">
 
           {/* ── Left: Text ── */}
-          <motion.div>
-
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             {/* Name tag */}
-            <motion.div
-              className="mb-5 inline-flex items-center gap-2"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-            >
-              <span className="text-accent font-mono text-xs font-semibold tracking-wider uppercase">
+            <div className="mb-6 inline-flex items-center gap-2">
+              <span className="text-accent font-mono text-xs font-semibold tracking-[0.2em] uppercase">
                 —— MALAVYA MANKAR
               </span>
-            </motion.div>
+            </div>
 
             {/* Big headline */}
-            <motion.h1
-              className="text-[2.5rem] font-bold leading-[1.13] tracking-tight text-text-primary sm:text-5xl lg:text-[3.4rem]"
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.08, ease: "easeOut" }}
-            >
-              {heroData.headline}
-            </motion.h1>
+            <h1 className="text-[2.8rem] font-extrabold leading-[1.1] tracking-tight text-text-primary sm:text-5xl lg:text-[3.6rem]">
+              Building intelligent{" "}
+              <span className="text-accent">products</span>{" "}
+              for{" "}
+              <span className="text-[#7c6af5]">developers</span>
+              {", "}
+              <span className="text-[#3b8bff]">teams</span>
+              {","}
+              <br />
+              and real-world impact.
+            </h1>
 
-            {/* Typing line */}
-            <motion.div
-              className="mt-4 flex items-center min-h-[2rem]"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.35 }}
-            >
-              <span className="text-lg font-semibold text-accent sm:text-xl">{typed}</span>
-              <span className="typing-cursor" />
-            </motion.div>
+            {/* Sub role */}
+            <p className="mt-5 text-lg font-medium text-text-secondary">
+              AI Engineer &amp; Full-Stack Developer
+            </p>
 
             {/* Description */}
-            <motion.p
-              className="mt-4 text-base leading-relaxed text-text-secondary max-w-[480px]"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.45, ease: "easeOut" }}
-            >
-              {heroData.description}
-            </motion.p>
+            <p className="mt-3 text-base leading-relaxed text-text-secondary max-w-[480px]">
+              I build end-to-end products that combine AI, clean architecture,
+              and seamless integrations to solve real problems.
+            </p>
 
-            {/* Meta pills */}
+            {/* Achievement badge pills */}
             <motion.div
-              className="mt-5 flex flex-wrap gap-3"
-              initial={{ opacity: 0, y: 12 }}
+              className="mt-7 flex flex-wrap gap-3"
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.55, ease: "easeOut" }}
+              transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
             >
-              {[
-                { icon: <MapPin size={12} />, text: "Mumbai, India" },
-                { icon: <Users size={12} />, text: "AlgoMinds" },
-                { icon: <Star size={12} />, text: "CGPA 9.73" },
-              ].map(({ icon, text }) => (
-                <span
-                  key={text}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border-t px-3 py-1 text-xs font-medium text-text-secondary"
-                >
-                  {icon && <span className="text-accent">{icon}</span>}
-                  {text}
-                </span>
-              ))}
+              <div className="inline-flex items-center gap-2.5 rounded-xl border border-border-strong/60 bg-surface/60 backdrop-blur-sm px-4 py-2.5">
+                <Trophy size={14} className="text-emerald-400 shrink-0" />
+                <div>
+                  <div className="text-xs font-bold text-text-primary leading-none">Runner-Up</div>
+                  <div className="text-[10px] text-text-tertiary mt-0.5">Unimerge Hackathon</div>
+                </div>
+              </div>
+              <div className="inline-flex items-center gap-2.5 rounded-xl border border-border-strong/60 bg-surface/60 backdrop-blur-sm px-4 py-2.5">
+                <Trophy size={14} className="text-amber-400 shrink-0" />
+                <div>
+                  <div className="text-xs font-bold text-text-primary leading-none">Top 6 Finalist</div>
+                  <div className="text-[10px] text-text-tertiary mt-0.5">Syrus 2026</div>
+                </div>
+              </div>
+              <div className="inline-flex items-center gap-2.5 rounded-xl border border-border-strong/60 bg-surface/60 backdrop-blur-sm px-4 py-2.5">
+                <Globe size={14} className="text-blue-400 shrink-0" />
+                <div>
+                  <div className="text-xs font-bold text-text-primary leading-none">Google Solution</div>
+                  <div className="text-[10px] text-text-tertiary mt-0.5">Challenge</div>
+                </div>
+              </div>
             </motion.div>
 
             {/* CTAs */}
             <motion.div
-              className="mt-9 flex flex-wrap items-center gap-3"
-              initial={{ opacity: 0, y: 16 }}
+              className="mt-8 flex flex-wrap items-center gap-3"
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.65, ease: "easeOut" }}
+              transition={{ duration: 0.5, delay: 0.45, ease: "easeOut" }}
             >
               <a
-                href={heroData.ctaPrimary.href}
-                className="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-accent-hover hover:scale-[0.98] active:scale-95 shadow-[0_4px_20px_rgba(32,191,175,0.25)] dark:shadow-[0_4px_20px_rgba(32,191,175,0.15)]"
+                href="#projects"
+                className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:bg-accent-hover hover:scale-[0.98] active:scale-95 shadow-[0_4px_20px_rgba(32,191,175,0.3)]"
               >
-                {heroData.ctaPrimary.label}
-                <ArrowRight size={15} />
+                Explore My Work
+                <ArrowUpRight size={15} />
               </a>
               <a
-                href={heroData.ctaSecondary.href}
-                className="inline-flex items-center gap-2 rounded-full border border-border-t bg-surface/30 backdrop-blur-sm px-8 py-3.5 text-sm font-semibold text-text-secondary transition-all duration-200 hover:text-text-primary hover:border-border-strong hover:scale-[0.98] active:scale-95"
+                href="https://github.com/malavya1411"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/40 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-text-secondary transition-all duration-200 hover:text-text-primary hover:border-border-strong hover:scale-[0.98] active:scale-95"
               >
-                {heroData.ctaSecondary.label}
+                <GithubIcon size={15} />
+                GitHub
               </a>
             </motion.div>
           </motion.div>
 
-          {/* ── Right: Featured card with entry animation ── */}
+          {/* ── Right: Featured Project Card ── */}
           <motion.div
             initial={{ opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
           >
-            <HeroProjectCard />
+            <FeaturedProjectCard />
           </motion.div>
 
         </div>
@@ -208,280 +193,120 @@ export function Hero() {
   );
 }
 
-function GitStatHeroVisual() {
-  const bars = [24, 45, 18, 55, 38, 85, 42, 60, 48, 70, 32, 50, 68];
-  return (
-    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 480 192" fill="none" preserveAspectRatio="xMidYMid slice">
-      <pattern id="gs-hero-grid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-        <circle cx="0.5" cy="0.5" r="0.8" fill="var(--border-strong)" opacity="0.8" />
-      </pattern>
-      <rect width="100%" height="100%" fill="url(#gs-hero-grid)" />
-      
-      {bars.map((h, i) => (
-        <rect
-          key={i}
-          x={50 + i * 28}
-          y={140 - h}
-          width="16"
-          height={h}
-          rx="3"
-          fill={i === 5 ? "var(--accent)" : "var(--text-secondary)"}
-          opacity={i === 5 ? 0.9 : 0.25}
-        />
-      ))}
-      <circle cx={50 + 5 * 28 + 8} cy={140 - 85} r="16" stroke="var(--accent)" strokeWidth="0.8" opacity="0.25" />
-      <circle cx={50 + 5 * 28 + 8} cy={140 - 85} r="6" fill="var(--accent)" opacity="0.9" />
-
-      <path
-        d="M 58 130 Q 120 70 218 80 T 362 50"
-        stroke="var(--accent)"
-        strokeWidth="1.5"
-        fill="none"
-        opacity="0.3"
-        strokeDasharray="4 2"
-      />
-
-      <text x="16" y="178" fontSize="9" fill="var(--text-tertiary)" fontFamily="monospace" opacity="0.8">
-        React · Vite · Node.js · Express · Supabase · GitHub OAuth · Gemini 1.5 Flash
-      </text>
-    </svg>
-  );
-}
-
-function OnboardAiHeroVisual() {
-  return (
-    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 480 192" fill="none" preserveAspectRatio="xMidYMid slice">
-      <pattern id="hero-grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-        <circle cx="0.5" cy="0.5" r="0.8" fill="var(--border-strong)" opacity="0.8" />
-      </pattern>
-      <rect width="100%" height="100%" fill="url(#hero-grid)" />
-
-      {[
-        { x: 60,  y: 96, label: "Codebase",   sub: "Tier 1" },
-        { x: 200, y: 50, label: "Embeddings", sub: "Tier 2" },
-        { x: 200, y: 96, label: "Context",    sub: "Tier 2" },
-        { x: 200, y: 142,label: "Persona",    sub: "Tier 2" },
-        { x: 340, y: 60, label: "GitHub",     sub: "Output" },
-        { x: 340, y: 96, label: "Slack",      sub: "Output" },
-        { x: 340, y: 132,label: "Email",      sub: "Output" },
-      ].map((n, i) => (
-        <g key={i}>
-          {i > 0 && i < 4 && (
-            <line x1="80" y1="96" x2={n.x - 20} y2={n.y} stroke="var(--accent)" strokeWidth="0.8" opacity="0.3" strokeDasharray="4 3" />
-          )}
-          {i >= 4 && (
-            <line x1="220" y1={[50,96,142][i-4]} x2={n.x - 20} y2={n.y} stroke="var(--text-secondary)" strokeWidth="0.8" opacity="0.25" strokeDasharray="4 3" />
-          )}
-          <rect x={n.x - 20} y={n.y - 12} width={n.label.length * 7 + 16} height="24" rx="4" fill="var(--surface)" stroke="var(--border-strong)" strokeWidth="0.7" />
-          <text x={n.x - 12} y={n.y + 4} fontSize="8.5" fill={i === 0 ? "var(--accent)" : "var(--text-secondary)"} fontFamily="monospace">{n.label}</text>
-        </g>
-      ))}
-
-      <circle cx="80" cy="96" r="8" fill="var(--accent)" opacity="0.85" />
-      <circle cx="80" cy="96" r="16" stroke="var(--accent)" strokeWidth="0.8" opacity="0.25" />
-      <circle cx="80" cy="96" r="24" stroke="var(--accent)" strokeWidth="0.5" opacity="0.12" />
-
-      <text x="16" y="178" fontSize="9" fill="var(--text-tertiary)" fontFamily="monospace" opacity="0.8">
-        Next.js 15 · RAG · Slack Block Kit · GitHub API · Nodemailer
-      </text>
-    </svg>
-  );
-}
-
-function CrisisSyncHeroVisual() {
-  return (
-    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 480 192" fill="none" preserveAspectRatio="xMidYMid slice">
-      <pattern id="cs-hero-grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-        <circle cx="0.5" cy="0.5" r="0.8" fill="var(--border-strong)" opacity="0.8" />
-      </pattern>
-      <rect width="100%" height="100%" fill="url(#cs-hero-grid)" />
-      
-      <circle cx="240" cy="96" r="54" stroke="var(--accent)" strokeWidth="1" opacity="0.12" />
-      <circle cx="240" cy="96" r="32" stroke="var(--accent)" strokeWidth="1" opacity="0.22" />
-      <circle cx="240" cy="96" r="6" fill="var(--accent)" opacity="0.95" />
-      
-      {[
-        { x: 170, y: 60, r: 4 },
-        { x: 310, y: 70, r: 3 },
-        { x: 190, y: 140, r: 3.5 },
-        { x: 290, y: 130, r: 4 },
-      ].map((pt, i) => (
-        <g key={i}>
-          <circle cx={pt.x} cy={pt.y} r={pt.r} fill="var(--text-secondary)" opacity="0.6" />
-          <line x1="240" y1="96" x2={pt.x} y2={pt.y} stroke="var(--accent)" strokeWidth="0.8" opacity="0.3" strokeDasharray="3 3" />
-        </g>
-      ))}
-
-      <path
-        d="M 120 96 C 170 60, 310 132, 360 96"
-        stroke="var(--accent)"
-        strokeWidth="1.2"
-        fill="none"
-        opacity="0.25"
-      />
-
-      <text x="16" y="178" fontSize="9" fill="var(--text-tertiary)" fontFamily="monospace" opacity="0.8">
-        Flutter · Firebase · Gemini AI · Google Maps SDK
-      </text>
-    </svg>
-  );
-}
-
-const HERO_PROJECTS = [
-  {
-    title: "CrisisSync",
-    path: "crisis-sync / emergency-api",
-    badge: "Google Solution Challenge",
-    summary: "Real-time emergency response platform. Live location tracking, AI-driven triage recommendations, and venue coordination in real time.",
-    image: "/images/crisis_sync.png",
-    techText: "Flutter  •  Firebase  •  Gemini AI  •  Google Maps SDK",
-  },
-  {
-    title: "OnboardAI",
-    path: "onboard-ai / architecture",
-    badge: "Top 6 · Syrus 2026",
-    summary: "Autonomous developer onboarding agent. Three-tier RAG for codebase intelligence, GitHub issue creation, Slack flows, and persona-driven checklists.",
-    image: "/images/onboard_ai.png",
-    techText: "Next.js 15  •  RAG  •  Slack Block Kit  •  GitHub API",
-  },
-  {
-    title: "GitStat",
-    path: "git-stat / analytics",
-    badge: "Runner-Up",
-    summary: "GitHub contributor health dashboard — visualise team velocity, commit patterns, and AI-generated contributor insights.",
-    image: "/images/git_stat.png",
-    techText: "React  •  Vite  •  Node.js  •  Express  •  Supabase",
-  },
-];
-
-function HeroProjectCard() {
+function FeaturedProjectCard() {
   const [activeIdx, setActiveIdx] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const startTimer = () => {
-    if (timerRef.current) clearInterval(timerRef.current);
-    timerRef.current = setInterval(() => {
-      setActiveIdx((prev) => (prev + 1) % HERO_PROJECTS.length);
-    }, 3000);
-  };
-
   useEffect(() => {
-    startTimer();
+    timerRef.current = setInterval(() => {
+      setActiveIdx((prev) => (prev + 1) % FEATURED_PROJECTS.length);
+    }, 3000);
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
   }, []);
 
-  const nextProject = () => {
-    setActiveIdx((prev) => (prev + 1) % HERO_PROJECTS.length);
-    startTimer();
-  };
-
-  const prevProject = () => {
-    setActiveIdx((prev) => (prev - 1 + HERO_PROJECTS.length) % HERO_PROJECTS.length);
-    startTimer();
-  };
-
-  const handleDotClick = (idx: number) => {
-    setActiveIdx(idx);
-    startTimer();
-  };
-
-  const project = HERO_PROJECTS[activeIdx];
+  const project = FEATURED_PROJECTS[activeIdx];
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <div className="w-full card card-trace bracket-tl bracket-br h-[440px] flex flex-col bg-surface/50 backdrop-blur-md border border-border-t">
+    <div className="w-full rounded-2xl border border-border-strong/50 bg-surface/60 backdrop-blur-md overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.35)]">
+
+      {/* Card header — static */}
+      <div className="flex items-center justify-between px-5 py-3.5 border-b border-border-t/60">
+        <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-text-tertiary font-mono">
+          FEATURED PROJECT
+        </span>
         <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIdx}
-            initial={{ opacity: 0, y: 6 }}
+          <motion.span
+            key={project.badge}
+            initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.28, ease: "easeInOut" }}
-            className="flex flex-col flex-1"
+            exit={{ opacity: 0, y: 4 }}
+            transition={{ duration: 0.22 }}
+            className="rounded-full bg-accent-muted border border-accent/30 px-3 py-0.5 text-[10px] font-bold text-accent tracking-wider uppercase"
           >
-            {/* Header */}
-            <div className="border-b border-border-t px-6 py-3.5 flex items-center justify-between">
-              <div className="flex items-center">
-                <span className="text-xs font-semibold text-text-primary/90 font-mono">
-                  {project.path}
-                </span>
-              </div>
-              {project.badge && (
-                <span className="rounded-full bg-accent-muted px-2.5 py-0.5 text-[9px] font-bold text-accent border border-accent/30 tracking-wider uppercase">
-                  {project.badge}
-                </span>
-              )}
-            </div>
-
-            {/* Visual area */}
-            <div className="relative overflow-hidden bg-elevated/40 h-[240px] border-b border-border-t/40 rounded-t-[15px]">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover rounded-t-[15px]"
-              />
-              {/* Tech stack overlay at the bottom of the visual area */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 to-transparent px-6 py-2.5 flex items-center">
-                <span className="text-[10px] text-text-secondary font-mono tracking-wider uppercase font-semibold">
-                  {project.techText}
-                </span>
-              </div>
-            </div>
-
-            {/* Body */}
-            <div className="px-6 py-5 flex-1 flex flex-col justify-between">
-              <div>
-                <h3 className="text-base font-bold text-text-primary">{project.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-text-secondary line-clamp-2">
-                  {project.summary}
-                </p>
-              </div>
-              <div className="mt-4 flex items-center justify-end">
-                <a
-                  href="#projects"
-                  className="inline-flex items-center gap-1 text-sm font-semibold text-accent hover:text-accent-hover transition-colors"
-                >
-                  All projects <ArrowRight size={13} />
-                </a>
-              </div>
-            </div>
-          </motion.div>
+            {project.badge}
+          </motion.span>
         </AnimatePresence>
       </div>
 
-      {/* Manual Slider Controls */}
-      <div className="flex items-center gap-3 text-text-secondary select-none mt-2">
-        <button
-          onClick={prevProject}
-          className="p-1.5 rounded-full hover:text-text-primary hover:bg-elevated/80 transition-colors cursor-pointer border border-border-t/30"
-          aria-label="Previous project"
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeIdx}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
         >
-          <ChevronLeft size={16} />
-        </button>
+          {/* Project title row */}
+          <div className="flex items-center gap-3 px-5 pt-4 pb-3">
+            <div className="w-9 h-9 rounded-xl bg-accent/15 border border-accent/20 flex items-center justify-center shrink-0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5" />
+                <path d="M2 12l10 5 10-5" />
+              </svg>
+            </div>
+            <h2 className="text-xl font-extrabold text-text-primary tracking-tight">
+              {project.title}
+            </h2>
+          </div>
 
-        <div className="flex items-center gap-1.5">
-          {HERO_PROJECTS.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleDotClick(idx)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                idx === activeIdx ? 'bg-accent w-4' : 'bg-text-tertiary/40 hover:bg-text-tertiary/80'
-              }`}
-              aria-label={`Go to project ${idx + 1}`}
+          {/* Screenshot */}
+          <div className="mx-5 mb-4 rounded-xl overflow-hidden border border-border-t/40 bg-elevated h-[220px]">
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover object-top"
             />
-          ))}
-        </div>
+          </div>
 
-        <button
-          onClick={nextProject}
-          className="p-1.5 rounded-full hover:text-text-primary hover:bg-elevated/80 transition-colors cursor-pointer border border-border-t/30"
-          aria-label="Next project"
-        >
-          <ChevronRight size={16} />
-        </button>
-      </div>
+          {/* Description + tech + CTA */}
+          <div className="px-5 pb-5">
+            <p className="text-sm text-text-secondary leading-relaxed mb-4">
+              {project.description}
+            </p>
+
+            {/* Tech stack pills */}
+            <div className="flex flex-wrap gap-1.5 mb-5">
+              {project.techStack.map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full border border-border-strong/40 bg-elevated/60 px-2.5 py-0.5 text-[10px] font-semibold text-text-secondary tracking-wide"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            {/* Dot indicators + View Case Study */}
+            <div className="flex items-center justify-between border-t border-border-t/40 pt-3">
+              <div className="flex items-center gap-1.5">
+                {FEATURED_PROJECTS.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveIdx(idx)}
+                    className={`rounded-full transition-all duration-300 cursor-pointer ${
+                      idx === activeIdx
+                        ? "w-4 h-1.5 bg-accent"
+                        : "w-1.5 h-1.5 bg-text-tertiary/40 hover:bg-text-tertiary/70"
+                    }`}
+                    aria-label={`Switch to project ${idx + 1}`}
+                  />
+                ))}
+              </div>
+              <a
+                href={`/projects/${project.slug}`}
+                className="inline-flex items-center gap-1.5 text-sm font-bold text-accent hover:text-accent-hover transition-colors"
+              >
+                View Case Study
+                <ArrowUpRight size={14} />
+              </a>
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
+

@@ -40,22 +40,27 @@ export function PageLoader() {
         <div className="relative z-10 flex flex-col items-center gap-0">
           {/* Initials */}
           <motion.div
-            className="text-[72px] font-bold tracking-[0.4em] text-white leading-none select-none"
-            initial={{ opacity: 0, letterSpacing: "0.5em" }}
+            className="flex flex-col items-center gap-1 select-none"
+            initial={{ opacity: 0, y: 10 }}
             animate={{
               opacity: phase === "exit" ? 0 : 1,
-              letterSpacing: phase === "pulse" || phase === "exit" ? "0.05em" : "0.4em",
+              y: phase === "exit" ? -10 : 0,
             }}
             transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
             style={{ fontFamily: "var(--font-inter)" }}
           >
-            MM
+            <span className="text-[2.6rem] font-bold tracking-[0.08em] text-white leading-tight">
+              Malavya Mankar
+            </span>
+            <span className="text-[1rem] font-light tracking-[0.35em] text-white/60 uppercase">
+              Portfolio
+            </span>
           </motion.div>
 
           {/* Accent line */}
           <div
             className="h-[1.5px] bg-accent mt-3 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
-            style={{ width: lineExpand ? "min(220px, 60vw)" : 0 }}
+            style={{ width: lineExpand ? "min(300px, 70vw)" : 0 }}
           />
 
           {/* Role text */}
