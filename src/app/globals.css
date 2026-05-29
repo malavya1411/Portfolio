@@ -62,7 +62,10 @@
 /* ─── Base ─── */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 76px;
+}
+
+section[id]:not(#home) {
+  scroll-margin-top: 72px; /* Sticky navbar height */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -92,12 +95,34 @@ body {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-*:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 
 /* ─── Layout ─── */
-.section-padding { padding-top: 100px; padding-bottom: 100px; }
-@media (max-width: 1024px) { .section-padding { padding-top: 72px; padding-bottom: 72px; } }
-@media (max-width: 640px)  { .section-padding { padding-top: 60px;  padding-bottom: 60px; } }
+.section-padding {
+  padding-top: 32px;
+  padding-bottom: 88px;
+}
+@media (max-width: 1024px) {
+  .section-padding {
+    padding-top: 24px;
+    padding-bottom: 72px;
+  }
+}
+@media (max-width: 640px) {
+  .section-padding {
+    padding-top: 16px;
+    padding-bottom: 64px;
+  }
+}
 
 /* ─── Card ─── */
 .card {

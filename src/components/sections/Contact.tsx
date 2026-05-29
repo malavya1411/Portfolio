@@ -33,7 +33,7 @@ export function Contact() {
   const socials = contactLinks.filter((l) => l.icon !== "mail");
 
   return (
-    <section id="contact" className="section-padding border-t border-border-t">
+    <section id="contact" className="section-padding">
       <Container>
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           {/* Left */}

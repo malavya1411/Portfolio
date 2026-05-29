@@ -26,7 +26,7 @@ const iconMap: Record<string, React.ComponentType<{ size?: number }>> = {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border-t">
+    <footer>
       <Container>
         <div className="flex flex-col items-center gap-5 py-10 sm:flex-row sm:justify-between">
           <p className="text-sm text-text-tertiary">

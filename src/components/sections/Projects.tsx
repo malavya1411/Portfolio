@@ -15,7 +15,7 @@ export function Projects() {
       : projects.filter((p) => p.tags.includes(activeTag));
 
   return (
-    <section id="projects" className="section-padding border-t border-border-t">
+    <section id="projects" className="section-padding">
       <Container>
         {/* Header row */}
         <div className="flex flex-col gap-6 mb-12 sm:flex-row sm:items-end sm:justify-between">

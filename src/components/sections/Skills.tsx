@@ -93,7 +93,7 @@ function getSkillIcon(skill: string) {
 
 export function Skills() {
   return (
-    <section id="skills" className="section-padding border-t border-border-t bg-bg">
+    <section id="skills" className="section-padding bg-bg">
       <Container>
         {/* Header Block */}
         <motion.div

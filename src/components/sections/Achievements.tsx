@@ -16,7 +16,7 @@ function getIcon(a: Achievement) {
 
 export function Achievements() {
   return (
-    <section id="achievements" className="section-padding border-t border-border-t">
+    <section id="achievements" className="section-padding">
       <Container>
         <motion.div
           className="mb-14"

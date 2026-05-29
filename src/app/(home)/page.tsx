@@ -53,7 +53,7 @@ export default function Home() {
         <Contact />
 
         {/* Tech Stack Logo loop */}
-        <section className="py-12 border-t border-border-t bg-bg">
+        <section className="py-12 bg-bg">
           <Container>
             <div className="text-center mb-8">
               <span className="text-[10px] font-bold tracking-[0.22em] uppercase text-text-tertiary">

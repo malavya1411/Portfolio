@@ -78,7 +78,7 @@ function StatCard({ value, label, description, index }: StatCardProps) {
 
 export function About() {
   return (
-    <section id="about" className="section-padding border-t border-border-t">
+    <section id="about" className="section-padding">
       <Container>
         <div className="grid gap-16 lg:grid-cols-[1fr_300px]">
 
