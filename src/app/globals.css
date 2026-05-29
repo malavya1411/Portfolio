@@ -2,21 +2,22 @@
 
 /* ─── Design Tokens ─── */
 :root {
-  --bg: #F7F8FA;
-  --surface: #FFFFFF;
-  --elevated: #F0F2F5;
-  --border: rgba(15, 23, 42, 0.08);
-  --border-strong: rgba(15, 23, 42, 0.16);
-  --text-primary: #0B1220;
-  --text-secondary: #5B6573;
-  --text-tertiary: #8A929E;
-  --accent: #0E9F8C;
-  --accent-hover: #0B8073;
-  --accent-muted: rgba(14, 159, 140, 0.08);
-  --accent-subtle: rgba(14, 159, 140, 0.14);
-  --nav-bg: rgba(247, 248, 250, 0.88);
-  --card-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 0 0 1px rgba(15,23,42,0.06);
-  --card-shadow-hover: 0 8px 24px rgba(0,0,0,0.08), 0 0 0 1px rgba(15,23,42,0.08);
+  --bg: #F5F2E8;
+  --surface: #F1EEDF;
+  --elevated: #EBE6D4;
+  --border: rgba(20, 20, 20, 0.08);
+  --border-strong: rgba(20, 20, 20, 0.16);
+  --border-custom: rgba(20, 20, 20, 0.08);
+  --text-primary: #141414;
+  --text-secondary: #5C5C57;
+  --text-tertiary: #7B7B75;
+  --accent: #B96A3B;
+  --accent-hover: #9E562F;
+  --accent-muted: rgba(185, 106, 59, 0.08);
+  --accent-subtle: rgba(185, 106, 59, 0.12);
+  --nav-bg: rgba(245, 242, 232, 0.88);
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  --card-shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.05);
   --primary: var(--accent);
 }
 
@@ -24,8 +25,9 @@
   --bg: #080D12;
   --surface: #0E1620;
   --elevated: #141F2C;
-  --border: rgba(255,255,255,0.07);
-  --border-strong: rgba(255,255,255,0.14);
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --border-custom: rgba(255, 255, 255, 0.08);
   --text-primary: #F0F4F8;
   --text-secondary: #8A9AB0;
   --text-tertiary: #5A6A7A;
@@ -34,8 +36,8 @@
   --accent-muted: rgba(32, 191, 175, 0.08);
   --accent-subtle: rgba(32, 191, 175, 0.16);
   --nav-bg: rgba(8, 13, 18, 0.90);
-  --card-shadow: 0 1px 3px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
-  --card-shadow-hover: 0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --card-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
   --primary: var(--accent);
 }
 
@@ -46,6 +48,7 @@
   --color-elevated: var(--elevated);
   --color-border-t: var(--border);
   --color-border-strong: var(--border-strong);
+  --color-border-custom: var(--border-custom);
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-tertiary: var(--text-tertiary);
@@ -290,4 +293,193 @@ textarea:focus-visible,
   color: #f472b6;
   opacity: 0.4;
   animation: glitch-x 0.4s steps(1) 1 0.05s;
+}
+
+/* ─── Light Theme Design Language Redesign ─── */
+
+/* 1. Body warm paper texture, radial gradient & vignette */
+html:not(.dark) body {
+  background-image: 
+    radial-gradient(circle at center, transparent 40%, rgba(20, 20, 20, 0.02) 100%),
+    linear-gradient(to bottom, transparent, rgba(20, 20, 20, 0.01)) !important;
+  background-attachment: fixed !important;
+}
+
+html:not(.dark) .grain-layer {
+  opacity: 0.035 !important;
+}
+
+/* Disable Click Spark Canvas in Light Mode (No particles) */
+html:not(.dark) canvas {
+  display: none !important;
+}
+
+/* 2. Card Styling Overrides (Rounded 24px, Soft borders, Warm backgrounds, No glassmorphism) */
+html:not(.dark) .card,
+html:not(.dark) .card-base {
+  border-radius: 24px !important;
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--card-shadow) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+html:not(.dark) .card:hover,
+html:not(.dark) .card-base:hover {
+  box-shadow: var(--card-shadow-hover) !important;
+  border-color: var(--border-strong) !important;
+}
+
+/* 3. Button Custom Style Overrides (Primary & Secondary buttons) */
+/* Primary buttons */
+html:not(.dark) .bg-accent.text-white,
+html:not(.dark) button.bg-accent.text-white,
+html:not(.dark) a.bg-accent.text-white {
+  background-color: #141414 !important;
+  color: #F5F2E8 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+  border: none !important;
+}
+html:not(.dark) .bg-accent.text-white:hover,
+html:not(.dark) button.bg-accent.text-white:hover,
+html:not(.dark) a.bg-accent.text-white:hover {
+  background-color: #2A2A2A !important;
+}
+
+/* Secondary / Outline buttons */
+html:not(.dark) .border-border-strong.bg-surface\/40,
+html:not(.dark) .bg-elevated.text-text-primary.border-border-custom,
+html:not(.dark) a.bg-surface\/30.border-border-t {
+  background-color: transparent !important;
+  border: 1px solid rgba(20, 20, 20, 0.16) !important;
+  color: #141414 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+html:not(.dark) .border-border-strong.bg-surface\/40:hover,
+html:not(.dark) .bg-elevated.text-text-primary.border-border-custom:hover,
+html:not(.dark) a.bg-surface\/30.border-border-t:hover {
+  background-color: rgba(20, 20, 20, 0.04) !important;
+  border-color: rgba(20, 20, 20, 0.24) !important;
+  color: #141414 !important;
+}
+
+/* 4. Navigation Overrides */
+/* Background slightly blends, thin border bottom, no glow */
+html:not(.dark) header.glass-nav {
+  background-color: var(--nav-bg) !important;
+  border-bottom: 1px solid var(--border) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  box-shadow: none !important;
+}
+
+/* Active Nav Limelight in Light Mode */
+html:not(.dark) nav.relative.inline-flex.rounded-full {
+  background-color: rgba(218, 215, 200, 0.4) !important; /* Sidebar/Secondary Surface at 40% */
+  border-color: rgba(20, 20, 20, 0.12) !important;
+}
+
+/* Active/Hover Icon color */
+html:not(.dark) nav.relative.inline-flex a svg {
+  color: var(--text-secondary) !important;
+  opacity: 0.6 !important;
+}
+html:not(.dark) nav.relative.inline-flex a svg.opacity-100 {
+  color: var(--accent) !important;
+  opacity: 1 !important;
+}
+html:not(.dark) nav.relative.inline-flex a:hover svg {
+  color: var(--accent) !important;
+  opacity: 1 !important;
+}
+
+/* 5. Typography Custom Overrides (excluding nav bar and buttons) */
+html:not(.dark) {
+  h1, h2, h3 {
+    font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.02em !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  html:not(.dark) #home h1 {
+    font-size: 72px !important;
+    line-height: 1.1 !important;
+    font-weight: 800 !important;
+  }
+}
+
+html:not(.dark) #about h2,
+html:not(.dark) #skills h2,
+html:not(.dark) #projects h2,
+html:not(.dark) #achievements h2,
+html:not(.dark) #contact h2 {
+  font-size: 40px !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;
+}
+
+html:not(.dark) .card h3,
+html:not(.dark) .card-base h3 {
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+}
+
+html:not(.dark) #home p,
+html:not(.dark) #about p,
+html:not(.dark) #skills p,
+html:not(.dark) #projects p.text-sm,
+html:not(.dark) #achievements p,
+html:not(.dark) #contact p {
+  font-size: 18px !important;
+  line-height: 1.6 !important;
+}
+
+/* 6. Clean Card hover project overlays */
+html:not(.dark) .group:hover a[href*="/projects/"] {
+  background-color: rgba(245, 242, 232, 0.95) !important;
+  backdrop-filter: none !important;
+}
+html:not(.dark) .group:hover a[href*="/projects/"] div {
+  border-color: rgba(20, 20, 20, 0.16) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+}
+html:not(.dark) .group:hover a[href*="/projects/"] span {
+  color: #141414 !important;
+}
+
+/* Disable neon gradients/animations in Light Mode */
+html:not(.dark) .star-border-container .border-gradient-bottom,
+html:not(.dark) .star-border-container .border-gradient-top {
+  display: none !important;
+}
+html:not(.dark) .star-border-container {
+  padding: 0 !important;
+  border: 1px solid rgba(20, 20, 20, 0.16) !important;
+  border-radius: 14px !important;
+}
+html:not(.dark) .star-border-container .inner-content {
+  border: none !important;
+  border-radius: 13px !important;
+  background: var(--surface) !important;
+}
+html:not(.dark) .star-border-container:hover .inner-content {
+  background: var(--elevated) !important;
+}
+
+/* Calm Badge styles */
+html:not(.dark) .inline-flex.rounded.bg-rose-600 {
+  background-color: var(--accent) !important;
+  color: #F5F2E8 !important;
+}
+html:not(.dark) .inline-flex.rounded.bg-emerald-600 {
+  background-color: #6E8E59 !important;
+  color: #F5F2E8 !important;
+}
+html:not(.dark) .inline-flex.rounded.bg-sky-600 {
+  background-color: #DAD7C8 !important;
+  color: #141414 !important;
+  border: 1px solid rgba(20, 20, 20, 0.12) !important;
 }

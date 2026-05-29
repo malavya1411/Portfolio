@@ -164,7 +164,7 @@ export const projects: Project[] = [
     summary:
       "Autonomous developer onboarding agent that indexes codebases, generates context-aware tasks, and integrates with GitHub, Slack, and email.",
     role: "Lead Developer",
-    context: "Syrus 2026 Hackathon — Top 6 Finalist (500+ teams)",
+    context: "Syrus 2026 Hackathon — Top 6 Finalist",
     techStack: ["Next.js 15", "RAG", "Slack Block Kit", "Nodemailer", "GitHub API"],
     outcome:
       "Three-tier RAG architecture for codebase intelligence. Automated GitHub issue creation, Slack onboarding flows, and persona-driven checklist generation — shipped in 36 hours.",
@@ -355,7 +355,7 @@ export const achievements: Achievement[] = [
 export const contactLinks: ContactLink[] = [
   {
     label: "Email",
-    href: "mailto:malavya.mankar@example.com", // update with real email
+    href: "mailto:malavyamankar@gmail.com",
     icon: "mail",
   },
   {

@@ -52,13 +52,18 @@ export function Hero() {
 
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none select-none z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-bg/90 via-bg/40 to-bg z-10" />
-        <div className="absolute inset-0 bg-bg/85 dark:bg-bg/90 mix-blend-multiply dark:mix-blend-normal z-10" />
+        <img
+          src="/images/hero_bg_light.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.85] dark:hidden transition-opacity duration-300"
+        />
         <img
           src="/images/hero_bg.png"
           alt=""
-          className="w-full h-full object-cover opacity-[0.25] dark:opacity-[0.35]"
+          className="absolute inset-0 w-full h-full object-cover opacity-0 dark:opacity-[0.60] transition-opacity duration-300 hidden dark:block"
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-bg/10 via-bg/40 to-bg z-10" />
+        <div className="absolute inset-0 bg-bg/15 dark:bg-transparent mix-blend-multiply dark:mix-blend-normal z-10" />
       </div>
 
       {/* Scanlines */}
@@ -98,17 +103,8 @@ export function Hero() {
               </span>
             </div>
 
-            {/* Big headline */}
             <h1 className="text-[2.8rem] font-extrabold leading-[1.1] tracking-tight text-text-primary sm:text-5xl lg:text-[3.6rem]">
-              Building intelligent{" "}
-              <span className="text-accent">products</span>{" "}
-              for{" "}
-              <span className="text-[#7c6af5]">developers</span>
-              {", "}
-              <span className="text-[#3b8bff]">teams</span>
-              {","}
-              <br />
-              and real-world impact.
+              Building intelligent <span className="text-accent">products</span> for <span className="text-[#6E8E59] dark:text-[#a78bfa]">developers</span>, <span className="text-[#B96A3B] dark:text-[#60a5fa]">teams</span>, and real-world impact.
             </h1>
 
             {/* Sub role */}
