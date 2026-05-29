@@ -48,22 +48,21 @@ const FEATURED_PROJECTS = [
 
 export function Hero() {
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-bg">
 
       {/* Background */}
-      <div className="absolute inset-0 pointer-events-none select-none z-0">
+      <div className="hero-bg-stage absolute inset-0 pointer-events-none select-none z-0">
         <img
           src="/images/hero_bg_light.png"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-[0.85] dark:hidden transition-opacity duration-300"
+          className="hero-bg-image hero-bg-light absolute inset-0 w-full h-full object-cover dark:hidden transition-opacity duration-300"
         />
         <img
           src="/images/hero_bg.png"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-0 dark:opacity-[0.60] transition-opacity duration-300 hidden dark:block"
+          className="hero-bg-image hero-bg-dark absolute inset-0 w-full h-full object-cover opacity-0 dark:opacity-[0.60] transition-opacity duration-300 hidden dark:block"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-bg/10 via-bg/40 to-bg z-10" />
-        <div className="absolute inset-0 bg-bg/15 dark:bg-transparent mix-blend-multiply dark:mix-blend-normal z-10" />
+        <div className="hero-bg-scrim absolute inset-0 z-10" />
       </div>
 
       {/* Scanlines */}
@@ -87,8 +86,8 @@ export function Hero() {
         style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)", filter: "blur(90px)" }}
       />
 
-      <Container className="relative z-10 pt-20 pb-16 lg:pt-24 lg:pb-24">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-14">
+      <Container className="hero-content relative z-10 pt-20 pb-16 lg:pt-24 lg:pb-24">
+        <div className="hero-grid grid items-center gap-12 lg:grid-cols-2 lg:gap-14">
 
           {/* ── Left: Text ── */}
           <motion.div
@@ -97,7 +96,7 @@ export function Hero() {
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             {/* Name tag */}
-            <div className="mb-6 inline-flex items-center gap-2">
+            <div className="hero-eyebrow mb-6 inline-flex items-center gap-2">
               <span className="text-accent font-mono text-xs font-semibold tracking-[0.2em] uppercase">
                 —— MALAVYA MANKAR
               </span>
@@ -108,38 +107,38 @@ export function Hero() {
             </h1>
 
             {/* Sub role */}
-            <p className="mt-5 text-lg font-medium text-text-secondary">
+            <p className="hero-role mt-5 text-lg font-medium text-text-secondary">
               AI Engineer &amp; Full-Stack Developer
             </p>
 
             {/* Description */}
-            <p className="mt-3 text-base leading-relaxed text-text-secondary max-w-[480px]">
+            <p className="hero-description mt-3 text-base leading-relaxed text-text-secondary max-w-[480px]">
               I build end-to-end products that combine AI, clean architecture,
               and seamless integrations to solve real problems.
             </p>
 
             {/* Achievement badge pills */}
             <motion.div
-              className="mt-7 flex flex-wrap gap-3"
+              className="hero-achievements mt-7 flex flex-wrap gap-3"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
             >
-              <div className="inline-flex items-center gap-2.5 rounded-xl border border-border-strong/60 bg-surface/60 backdrop-blur-sm px-4 py-2.5">
+              <div className="hero-achievement inline-flex items-center gap-2.5 rounded-xl border border-border-strong/60 bg-surface/60 backdrop-blur-sm px-4 py-2.5">
                 <Trophy size={14} className="text-emerald-400 shrink-0" />
                 <div>
                   <div className="text-xs font-bold text-text-primary leading-none">Runner-Up</div>
                   <div className="text-[10px] text-text-tertiary mt-0.5">Unimerge Hackathon</div>
                 </div>
               </div>
-              <div className="inline-flex items-center gap-2.5 rounded-xl border border-border-strong/60 bg-surface/60 backdrop-blur-sm px-4 py-2.5">
+              <div className="hero-achievement inline-flex items-center gap-2.5 rounded-xl border border-border-strong/60 bg-surface/60 backdrop-blur-sm px-4 py-2.5">
                 <Trophy size={14} className="text-amber-400 shrink-0" />
                 <div>
                   <div className="text-xs font-bold text-text-primary leading-none">Top 6 Finalist</div>
                   <div className="text-[10px] text-text-tertiary mt-0.5">Syrus 2026</div>
                 </div>
               </div>
-              <div className="inline-flex items-center gap-2.5 rounded-xl border border-border-strong/60 bg-surface/60 backdrop-blur-sm px-4 py-2.5">
+              <div className="hero-achievement inline-flex items-center gap-2.5 rounded-xl border border-border-strong/60 bg-surface/60 backdrop-blur-sm px-4 py-2.5">
                 <Globe size={14} className="text-blue-400 shrink-0" />
                 <div>
                   <div className="text-xs font-bold text-text-primary leading-none">Google Solution</div>
@@ -150,14 +149,14 @@ export function Hero() {
 
             {/* CTAs */}
             <motion.div
-              className="mt-8 flex flex-wrap items-center gap-3"
+              className="hero-actions mt-8 flex flex-wrap items-center gap-3"
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.45, ease: "easeOut" }}
             >
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:bg-accent-hover hover:scale-[0.98] active:scale-95 shadow-[0_4px_20px_rgba(32,191,175,0.3)]"
+                className="hero-action inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:bg-accent-hover hover:scale-[0.98] active:scale-95 shadow-[0_4px_20px_rgba(32,191,175,0.3)]"
               >
                 Explore My Work
                 <ArrowUpRight size={15} />
@@ -166,7 +165,7 @@ export function Hero() {
                 href="https://github.com/malavya1411"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/40 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-text-secondary transition-all duration-200 hover:text-text-primary hover:border-border-strong hover:scale-[0.98] active:scale-95"
+                className="hero-action inline-flex items-center gap-2 rounded-full border border-border-strong bg-surface/40 backdrop-blur-sm px-7 py-3.5 text-sm font-bold text-text-secondary transition-all duration-200 hover:text-text-primary hover:border-border-strong hover:scale-[0.98] active:scale-95"
               >
                 <GithubIcon size={15} />
                 GitHub
@@ -205,10 +204,10 @@ function FeaturedProjectCard() {
   const project = FEATURED_PROJECTS[activeIdx];
 
   return (
-    <div className="w-full rounded-2xl border border-border-strong/50 bg-surface/60 backdrop-blur-md overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.35)]">
+    <div className="featured-project-card w-full rounded-2xl border border-border-strong/50 bg-surface/60 backdrop-blur-md overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.35)]">
 
       {/* Card header — static */}
-      <div className="flex items-center justify-between px-5 py-3.5 border-b border-border-t/60">
+      <div className="featured-card-header flex items-center justify-between px-5 py-3.5 border-b border-border-t/60">
         <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-text-tertiary font-mono">
           FEATURED PROJECT
         </span>
@@ -235,7 +234,7 @@ function FeaturedProjectCard() {
           transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           {/* Project title row */}
-          <div className="flex items-center gap-3 px-5 pt-4 pb-3">
+          <div className="featured-card-title flex items-center gap-3 px-5 pt-4 pb-3">
             <div className="w-9 h-9 rounded-xl bg-accent/15 border border-accent/20 flex items-center justify-center shrink-0">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 2L2 7l10 5 10-5-10-5z" />
@@ -249,7 +248,7 @@ function FeaturedProjectCard() {
           </div>
 
           {/* Screenshot */}
-          <div className="mx-5 mb-4 rounded-xl overflow-hidden border border-border-t/40 bg-elevated h-[220px]">
+          <div className="featured-card-image mx-5 mb-4 rounded-xl overflow-hidden border border-border-t/40 bg-elevated h-[220px]">
             <img
               src={project.image}
               alt={project.title}
@@ -258,13 +257,13 @@ function FeaturedProjectCard() {
           </div>
 
           {/* Description + tech + CTA */}
-          <div className="px-5 pb-5">
-            <p className="text-sm text-text-secondary leading-relaxed mb-4">
+          <div className="featured-card-body px-5 pb-5">
+            <p className="featured-card-description text-sm text-text-secondary leading-relaxed mb-4">
               {project.description}
             </p>
 
             {/* Tech stack pills */}
-            <div className="flex flex-wrap gap-1.5 mb-5">
+            <div className="featured-card-tech flex flex-wrap gap-1.5 mb-5">
               {project.techStack.map((tech) => (
                 <span
                   key={tech}
@@ -305,4 +304,3 @@ function FeaturedProjectCard() {
     </div>
   );
 }
-
