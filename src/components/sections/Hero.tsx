@@ -64,14 +64,6 @@ function useMouseParallax() {
 
 export function Hero() {
   const typed = useTypingEffect(TYPING_PHRASES);
-  const { smoothX, smoothY } = useMouseParallax();
-
-  const bgX  = useTransform(smoothX, [-1, 1], ["-1.5%",  "1.5%"]);
-  const bgY  = useTransform(smoothY, [-1, 1], ["-1.5%",  "1.5%"]);
-  const fgX  = useTransform(smoothX, [-1, 1], ["-5px",   "5px" ]);
-  const fgY  = useTransform(smoothY, [-1, 1], ["-5px",   "5px" ]);
-  const cardX = useTransform(smoothX, [-1, 1], ["-10px",  "10px"]);
-  const cardY = useTransform(smoothY, [-1, 1], ["-6px",   "6px" ]);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
@@ -82,7 +74,6 @@ export function Hero() {
       {/* Parallax background layer — subtle dot field */}
       <motion.div
         className="pointer-events-none absolute inset-[-8%] z-0"
-        style={{ x: bgX, y: bgY }}
       >
         <svg className="w-full h-full opacity-[0.07]" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -104,7 +95,7 @@ export function Hero() {
         <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-10">
 
           {/* ── Left: Text ── */}
-          <motion.div style={{ x: fgX, y: fgY }}>
+          <motion.div>
 
             {/* Name tag */}
             <motion.div
@@ -121,8 +112,7 @@ export function Hero() {
 
             {/* Big headline */}
             <motion.h1
-              className="glitch-wrap text-[2.5rem] font-bold leading-[1.13] tracking-tight text-text-primary sm:text-5xl lg:text-[3.4rem]"
-              data-text={heroData.headline}
+              className="text-[2.5rem] font-bold leading-[1.13] tracking-tight text-text-primary sm:text-5xl lg:text-[3.4rem]"
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.08, ease: "easeOut" }}
@@ -201,9 +191,8 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* ── Right: Featured card with deeper parallax ── */}
+          {/* ── Right: Featured card with entry animation ── */}
           <motion.div
-            style={{ x: cardX, y: cardY }}
             initial={{ opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
