@@ -170,6 +170,7 @@ export function ClickSpark({
     >
       <canvas
         ref={canvasRef}
+        className="click-spark-canvas"
         style={{
           width: "100%",
           height: "100%",

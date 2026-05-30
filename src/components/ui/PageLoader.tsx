@@ -4,11 +4,22 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShaderAnimation } from "./shader-animation";
 
+// Module-level variable to track if the loader has already finished running.
+// This persists across client-side router navigation, preventing the loader 
+// from showing up again (and getting stuck) when using the browser back/forward buttons.
+let hasLoadedGlobal = false;
+
 export function PageLoader() {
-  const [phase, setPhase] = useState<"loading" | "pulse" | "exit" | "done">("loading");
-  const [lineExpand, setLineExpand] = useState(false);
+  const [phase, setPhase] = useState<"loading" | "pulse" | "exit" | "done">(
+    hasLoadedGlobal ? "done" : "loading"
+  );
+  const [lineExpand, setLineExpand] = useState(hasLoadedGlobal);
 
   useEffect(() => {
+    if (hasLoadedGlobal) {
+      return;
+    }
+
     // Phase 1: show name + expand line
     const t1 = setTimeout(() => setLineExpand(true), 300);
     // Phase 2: pulse
@@ -16,9 +27,17 @@ export function PageLoader() {
     // Phase 3: exit
     const t3 = setTimeout(() => setPhase("exit"), 1400);
     // Phase 4: done
-    const t4 = setTimeout(() => setPhase("done"), 2100);
+    const t4 = setTimeout(() => {
+      setPhase("done");
+      hasLoadedGlobal = true;
+    }, 2100);
 
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      clearTimeout(t4);
+    };
   }, []);
 
   if (phase === "done") return null;

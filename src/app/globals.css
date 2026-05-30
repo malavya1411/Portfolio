@@ -737,7 +737,7 @@ html:not(.dark) .grain-layer {
 }
 
 /* Disable Click Spark Canvas in Light Mode (No particles) */
-html:not(.dark) canvas {
+html:not(.dark) .click-spark-canvas {
   display: none !important;
 }
 
@@ -813,11 +813,11 @@ html:not(.dark) nav.relative.inline-flex a svg {
   opacity: 0.6 !important;
 }
 html:not(.dark) nav.relative.inline-flex a svg.opacity-100 {
-  color: var(--accent) !important;
+  color: var(--text-primary) !important;
   opacity: 1 !important;
 }
 html:not(.dark) nav.relative.inline-flex a:hover svg {
-  color: var(--accent) !important;
+  color: var(--text-primary) !important;
   opacity: 1 !important;
 }
 
