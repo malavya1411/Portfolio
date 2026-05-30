@@ -22,22 +22,24 @@
 }
 
 .dark {
-  --bg: #080D12;
-  --surface: #0E1620;
-  --elevated: #141F2C;
-  --border: rgba(255, 255, 255, 0.07);
-  --border-strong: rgba(255, 255, 255, 0.14);
-  --border-custom: rgba(255, 255, 255, 0.08);
-  --text-primary: #F0F4F8;
-  --text-secondary: #8A9AB0;
-  --text-tertiary: #5A6A7A;
-  --accent: #20BFAF;
-  --accent-hover: #2ED8C6;
-  --accent-muted: rgba(32, 191, 175, 0.08);
-  --accent-subtle: rgba(32, 191, 175, 0.16);
-  --nav-bg: rgba(8, 13, 18, 0.90);
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
-  --card-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  --bg: #111015;
+  --surface: #19171F;
+  --elevated: #24202B;
+  --border: rgba(238, 226, 205, 0.08);
+  --border-strong: rgba(238, 226, 205, 0.16);
+  --border-custom: rgba(238, 226, 205, 0.10);
+  --text-primary: #F4EFE7;
+  --text-secondary: #B9AFA5;
+  --text-tertiary: #81766D;
+  --accent: #D98C5F;
+  --accent-hover: #E9A775;
+  --accent-muted: rgba(217, 140, 95, 0.10);
+  --accent-subtle: rgba(217, 140, 95, 0.18);
+  --accent-secondary: #9DB6A2;
+  --accent-tertiary: #B0A0D8;
+  --nav-bg: rgba(17, 16, 21, 0.90);
+  --card-shadow: 0 18px 48px rgba(0, 0, 0, 0.26), 0 0 0 1px rgba(238, 226, 205, 0.04);
+  --card-shadow-hover: 0 22px 64px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(238, 226, 205, 0.09);
   --primary: var(--accent);
 }
 
@@ -87,6 +89,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.25s ease, color 0.25s ease;
   overflow-x: hidden;
+}
+
+.dark body {
+  background-image:
+    linear-gradient(180deg, rgba(177, 145, 108, 0.045), transparent 36%),
+    linear-gradient(115deg, rgba(87, 71, 110, 0.16), transparent 44%),
+    linear-gradient(245deg, rgba(75, 96, 82, 0.12), transparent 46%);
+  background-attachment: fixed;
 }
 
 ::selection {
@@ -256,7 +266,24 @@ textarea:focus-visible,
 }
 
 .dark #home .hero-bg-scrim {
-  background: linear-gradient(to bottom, rgba(8, 13, 18, 0.10), rgba(8, 13, 18, 0.40), var(--bg));
+  background:
+    linear-gradient(90deg, rgba(17, 16, 21, 0.88) 0%, rgba(17, 16, 21, 0.68) 42%, rgba(17, 16, 21, 0.30) 100%),
+    linear-gradient(180deg, rgba(17, 16, 21, 0.18) 0%, rgba(17, 16, 21, 0.48) 58%, var(--bg) 100%);
+}
+
+.dark #home .hero-bg-dark {
+  filter: saturate(0.84) contrast(0.98) brightness(0.86);
+}
+
+.dark #home .scanlines {
+  opacity: 0.22;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(244, 239, 231, 0.012) 3px,
+    rgba(244, 239, 231, 0.012) 6px
+  );
 }
 
 html:not(.dark) #home .hero-bg-light {
@@ -375,20 +402,20 @@ html:not(.dark) .about-stat-icon {
 
 .dark .about-section {
   background:
-    linear-gradient(180deg, #080d12 0%, #0a1118 48%, #080d12 100%);
+    linear-gradient(180deg, #111015 0%, #17141c 48%, #111015 100%);
 }
 
 .dark .about-copy {
   background:
-    linear-gradient(135deg, rgba(14, 22, 32, 0.72), rgba(8, 13, 18, 0.36));
-  border-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.26);
+    linear-gradient(135deg, rgba(30, 27, 37, 0.82), rgba(19, 17, 23, 0.62));
+  border-color: rgba(238, 226, 205, 0.10);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.24);
 }
 
 .dark .about-stat {
   background:
-    linear-gradient(145deg, rgba(14, 22, 32, 0.86), rgba(14, 22, 32, 0.54));
-  box-shadow: 0 18px 58px rgba(0, 0, 0, 0.30);
+    linear-gradient(145deg, rgba(31, 27, 39, 0.90), rgba(24, 21, 30, 0.66));
+  box-shadow: 0 18px 52px rgba(0, 0, 0, 0.26);
 }
 
 @media (max-width: 1023px) {
@@ -451,6 +478,248 @@ html:not(.dark) .about-stat-icon {
   color: #f472b6;
   opacity: 0.4;
   animation: glitch-x 0.4s steps(1) 1 0.05s;
+}
+
+/* ─── Dark Theme Editorial Pass ─── */
+.dark h1,
+.dark h2,
+.dark h3 {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  font-weight: 700;
+  letter-spacing: 0 !important;
+}
+
+.dark p,
+.dark li {
+  line-height: 1.72;
+}
+
+.dark .section-label,
+.dark #contact span.mb-4,
+.dark #projects span.mb-4,
+.dark #achievements span.mb-4 {
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  letter-spacing: 0 !important;
+  text-transform: none;
+  color: var(--accent-hover);
+}
+
+.dark .card,
+.dark .card-base {
+  background:
+    linear-gradient(145deg, rgba(31, 28, 38, 0.92), rgba(23, 21, 29, 0.84));
+  border-color: rgba(238, 226, 205, 0.10);
+  box-shadow: var(--card-shadow);
+}
+
+.dark .card:hover,
+.dark .card-base:hover {
+  border-color: rgba(238, 226, 205, 0.20);
+}
+
+.dark .card-trace::before {
+  opacity: 0.55;
+}
+
+.dark #home .hero-content {
+  min-height: calc(100vh - 72px);
+}
+
+.dark #home .hero-name {
+  max-width: 780px;
+  font-size: 3.35rem;
+  line-height: 0.92;
+}
+
+.dark #home .hero-eyebrow span {
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  letter-spacing: 0 !important;
+  color: var(--accent-hover);
+}
+
+.dark #home .hero-role {
+  color: var(--accent-hover);
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  letter-spacing: 0;
+}
+
+.dark #home .hero-description {
+  color: var(--text-secondary);
+  max-width: 560px;
+}
+
+.dark #home .hero-achievement {
+  background: rgba(31, 28, 38, 0.74);
+  border-color: rgba(238, 226, 205, 0.13);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.18);
+}
+
+.dark #home .featured-project-card {
+  background:
+    linear-gradient(150deg, rgba(31, 28, 38, 0.88), rgba(19, 17, 24, 0.78));
+  border-color: rgba(238, 226, 205, 0.13);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.30);
+}
+
+.dark #home .featured-card-image {
+  border-color: rgba(238, 226, 205, 0.12);
+  background: #17141c;
+}
+
+.dark #skills,
+.dark #contact {
+  background:
+    linear-gradient(180deg, rgba(17, 16, 21, 0), rgba(31, 27, 37, 0.42), rgba(17, 16, 21, 0));
+}
+
+.dark #skills .card {
+  border-radius: 12px;
+}
+
+.dark #skills h2,
+.dark #contact h2 {
+  font-size: 2.25rem;
+  line-height: 1.02;
+}
+
+@media (min-width: 640px) {
+  .dark #home .hero-name {
+    font-size: 4.35rem;
+  }
+
+  .dark #skills h2,
+  .dark #contact h2 {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dark #home .hero-name {
+    font-size: 6.35rem;
+  }
+
+  .dark #skills h2,
+  .dark #contact h2 {
+    font-size: 3.7rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  #home .hero-content {
+    min-height: calc(100vh - 72px);
+    display: flex;
+    align-items: center;
+    padding-top: 5.5rem !important;
+    padding-bottom: 4.5rem !important;
+  }
+
+  #home .hero-grid {
+    width: 100%;
+    grid-template-columns: minmax(0, 0.9fr) minmax(500px, 1.1fr);
+    gap: 4.75rem !important;
+  }
+
+  #home .hero-role {
+    font-size: 1.75rem !important;
+    line-height: 1.25 !important;
+  }
+
+  #home .hero-description {
+    font-size: 1.15rem !important;
+    line-height: 1.7 !important;
+  }
+
+  #home .featured-card-image {
+    height: 270px !important;
+  }
+
+  #home .featured-card-description {
+    font-size: 1rem !important;
+    line-height: 1.65 !important;
+  }
+}
+
+/* ─── Projects showcase ─── */
+.projects-showcase {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card {
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--surface) 94%, var(--accent) 6%), var(--surface));
+}
+
+.project-card:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
+.project-card-media {
+  height: 210px;
+}
+
+.project-card-body {
+  min-height: 430px;
+}
+
+.project-card-title {
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  text-transform: uppercase;
+}
+
+@media (min-width: 1024px) {
+  .projects-feature-grid .project-card-media {
+    height: 220px;
+  }
+
+  .projects-feature-grid .project-card-body {
+    min-height: 500px;
+  }
+}
+
+.dark .projects-showcase {
+  background:
+    linear-gradient(180deg, rgba(17, 16, 21, 0), rgba(31, 27, 37, 0.36), rgba(17, 16, 21, 0));
+}
+
+.dark .project-card {
+  background:
+    linear-gradient(155deg, rgba(34, 30, 42, 0.94), rgba(18, 17, 23, 0.92));
+  border-color: rgba(238, 226, 205, 0.12);
+}
+
+.dark .project-card-media {
+  background: #17141c;
+}
+
+.dark .project-card-title {
+  letter-spacing: 0 !important;
+}
+
+.dark #skills .bg-elevated\/30 {
+  background-color: rgba(36, 32, 43, 0.58);
+}
+
+.dark .star-border-container {
+  padding: 0 !important;
+  border: 1px solid rgba(238, 226, 205, 0.18);
+  border-radius: 12px;
+}
+
+.dark .star-border-container .border-gradient-bottom,
+.dark .star-border-container .border-gradient-top {
+  display: none;
+}
+
+.dark .star-border-container .inner-content {
+  border: none;
+  border-radius: 11px;
+  background: var(--elevated);
+}
+
+.dark .star-border-container:hover .inner-content {
+  background: color-mix(in srgb, var(--elevated) 88%, var(--accent) 12%);
 }
 
 /* ─── Light Theme Design Language Redesign ─── */
@@ -561,9 +830,9 @@ html:not(.dark) {
 }
 
 @media (min-width: 1024px) {
-  html:not(.dark) #home h1 {
-    font-size: 3.6rem !important;
-    line-height: 1.1 !important;
+  html:not(.dark) #home .hero-name {
+    font-size: 6.15rem !important;
+    line-height: 0.94 !important;
     font-weight: 800 !important;
   }
 }
@@ -582,10 +851,10 @@ html:not(.dark) {
     gap: 2.75rem !important;
   }
 
-  #home h1,
-  html:not(.dark) #home h1 {
-    font-size: 3.25rem !important;
-    line-height: 1.06 !important;
+  #home .hero-name,
+  html:not(.dark) #home .hero-name {
+    font-size: 5rem !important;
+    line-height: 0.94 !important;
   }
 
   #home .hero-eyebrow {
@@ -678,6 +947,16 @@ html:not(.dark) #achievements p,
 html:not(.dark) #contact p {
   font-size: 18px !important;
   line-height: 1.6 !important;
+}
+
+html:not(.dark) #home .hero-role {
+  color: var(--accent);
+  font-size: 1.35rem !important;
+  line-height: 1.35 !important;
+}
+
+html:not(.dark) #home .hero-description {
+  max-width: 560px !important;
 }
 
 /* 6. Clean Card hover project overlays */

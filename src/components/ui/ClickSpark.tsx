@@ -101,7 +101,7 @@ export function ClickSpark({
       let resolvedColor = sparkColor;
       if (sparkColor.startsWith("var(")) {
         const varName = sparkColor.slice(4, -1).trim();
-        resolvedColor = window.getComputedStyle(canvas).getPropertyValue(varName).trim() || "#20BFAF";
+        resolvedColor = window.getComputedStyle(canvas).getPropertyValue(varName).trim() || "#D98C5F";
       }
 
       sparksRef.current = sparksRef.current.filter((spark) => {

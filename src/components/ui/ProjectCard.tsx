@@ -55,22 +55,22 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
     <>
       <motion.article
         onClick={() => router.push(`/projects/${project.slug}`)}
-        className="card card-trace group flex flex-col overflow-hidden bg-surface cursor-pointer h-full transition-all duration-300 hover:translate-y-[-4px]"
+        className="project-card card group flex h-full cursor-pointer flex-col overflow-hidden bg-surface transition-all duration-300 hover:translate-y-[-4px]"
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-48px" }}
         transition={{ duration: 0.5, delay: index * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
       >
         {/* Cover visual area with View Project overlay on hover */}
-        <div className="relative overflow-hidden h-[200px] w-full border-b border-border-t bg-elevated">
+        <div className="project-card-media relative h-[230px] w-full overflow-hidden border-b border-border-t bg-elevated">
           {/* Overlay showing "VIEW PROJECT" on hover - clean dark neutral blur mask */}
           <a
             href={`/projects/${project.slug}`}
             onClick={(e) => e.stopPropagation()}
-            className="absolute inset-0 bg-slate-950/80 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10"
+            className="absolute inset-0 z-10 flex items-center justify-center bg-slate-950/78 opacity-0 backdrop-blur-[1.5px] transition-opacity duration-300 group-hover:opacity-100"
           >
-            <div className="border border-white/90 px-6 py-2.5 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-              <span className="text-white text-xs font-bold tracking-[0.25em] uppercase">
+            <div className="rounded-full border border-white/80 px-5 py-2 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-white">
                 VIEW PROJECT
               </span>
             </div>
@@ -79,12 +79,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           <img
             src={project.coverImage || "/images/placeholder.png"}
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full object-cover object-left-top transition-transform duration-500 group-hover:scale-105"
           />
         </div>
 
         {/* Content details below image */}
-        <div className="flex flex-1 flex-col p-6">
+        <div className="project-card-body flex flex-1 flex-col p-6">
           {/* Tag row */}
           <div className="flex items-center gap-2 mb-4">
             {renderStatusBadge(project.status || "COMPLETED")}
@@ -94,12 +94,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="text-xl font-extrabold text-text-primary tracking-wider uppercase mb-2 group-hover:text-accent transition-colors duration-200">
+          <h3 className="project-card-title mb-3 text-2xl font-extrabold tracking-tight text-text-primary transition-colors duration-200 group-hover:text-accent">
             {project.title}
           </h3>
 
           {/* Description */}
-          <p className="text-sm leading-relaxed text-text-secondary flex-1 mb-4 line-clamp-3">
+          <p className="project-card-summary mb-5 flex-1 text-base leading-relaxed text-text-secondary line-clamp-3">
             {project.summary}
           </p>
 

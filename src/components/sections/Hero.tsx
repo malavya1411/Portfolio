@@ -80,12 +80,6 @@ export function Hero() {
         </svg>
       </div>
 
-      {/* Soft accent glow */}
-      <div
-        className="pointer-events-none absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.05] z-0"
-        style={{ background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)", filter: "blur(90px)" }}
-      />
-
       <Container className="hero-content relative z-10 pt-20 pb-16 lg:pt-24 lg:pb-24">
         <div className="hero-grid grid items-center gap-12 lg:grid-cols-2 lg:gap-14">
 
@@ -96,25 +90,24 @@ export function Hero() {
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             {/* Name tag */}
-            <div className="hero-eyebrow mb-6 inline-flex items-center gap-2">
+            <div className="hero-eyebrow mb-5 inline-flex items-center gap-2">
               <span className="text-accent font-mono text-xs font-semibold tracking-[0.2em] uppercase">
-                —— MALAVYA MANKAR
+                Portfolio
               </span>
             </div>
 
-            <h1 className="text-[2.8rem] font-extrabold leading-[1.1] tracking-tight text-text-primary sm:text-5xl lg:text-[3.6rem]">
-              Building intelligent <span className="text-accent">products</span> for <span className="text-[#6E8E59] dark:text-[#a78bfa]">developers</span>, <span className="text-[#B96A3B] dark:text-[#60a5fa]">teams</span>, and real-world impact.
+            <h1 className="hero-name text-[3.35rem] font-extrabold leading-[0.95] tracking-tight text-text-primary sm:text-6xl lg:text-[5rem]">
+              Malavya Mankar
             </h1>
 
             {/* Sub role */}
-            <p className="hero-role mt-5 text-lg font-medium text-text-secondary">
+            <p className="hero-role mt-6 text-xl font-semibold text-text-primary sm:text-2xl">
               AI Engineer &amp; Full-Stack Developer
             </p>
 
             {/* Description */}
-            <p className="hero-description mt-3 text-base leading-relaxed text-text-secondary max-w-[480px]">
-              I build end-to-end products that combine AI, clean architecture,
-              and seamless integrations to solve real problems.
+            <p className="hero-description mt-4 text-base leading-relaxed text-text-secondary max-w-[540px] sm:text-lg">
+              I design and ship practical software, developer tools, and applied AI systems with clean architecture and product-focused execution.
             </p>
 
             {/* Achievement badge pills */}
@@ -156,7 +149,7 @@ export function Hero() {
             >
               <a
                 href="#projects"
-                className="hero-action inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:bg-accent-hover hover:scale-[0.98] active:scale-95 shadow-[0_4px_20px_rgba(32,191,175,0.3)]"
+                className="hero-action inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:bg-accent-hover hover:scale-[0.98] active:scale-95 shadow-[0_12px_30px_rgba(217,140,95,0.22)]"
               >
                 Explore My Work
                 <ArrowUpRight size={15} />

@@ -76,10 +76,10 @@ export default function RootLayout({
           <ScrollProgress />
           <ClickSpark
             sparkColor="var(--accent)"
-            sparkSize={20}
-            sparkRadius={20}
-            sparkCount={8}
-            duration={400}
+            sparkSize={12}
+            sparkRadius={16}
+            sparkCount={6}
+            duration={320}
           >
             {children}
           </ClickSpark>

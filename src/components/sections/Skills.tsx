@@ -65,13 +65,13 @@ function getSkillIcon(skill: string) {
     case "gemini api":
       return <Sparkles className="w-4 h-4 text-[#1A73E8]" />;
     case "vector embeddings":
-      return <Layers className="w-4 h-4 text-[#0E9F8C]" />;
+      return <Layers className="w-4 h-4 text-[#9DB6A2]" />;
     case "rag systems":
-      return <Network className="w-4 h-4 text-[#0E9F8C]" />;
+      return <Network className="w-4 h-4 text-[#9DB6A2]" />;
     case "mediapipe":
       return <Cpu className="w-4 h-4 text-[#34A853]" />;
     case "prompt engineering":
-      return <Brain className="w-4 h-4 text-[#20BFAF]" />;
+      return <Brain className="w-4 h-4 text-accent" />;
     case "persona detection":
       return <Cpu className="w-4 h-4 text-[#FF6D00]" />;
     case "github oauth":

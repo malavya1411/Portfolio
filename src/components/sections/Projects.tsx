@@ -1,24 +1,20 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { ProjectCard } from "@/components/ui/ProjectCard";
-import { projects, allTags } from "@/lib/data";
+import { projects } from "@/lib/data";
 
 export function Projects() {
-  const [activeTag, setActiveTag] = useState("All");
-
-  const filtered =
-    activeTag === "All"
-      ? projects
-      : projects.filter((p) => p.tags.includes(activeTag));
+  const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
 
   return (
-    <section id="projects" className="section-padding">
+    <section id="projects" className="projects-showcase section-padding">
       <Container>
         {/* Header row */}
-        <div className="flex flex-col gap-6 mb-12 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -29,51 +25,36 @@ export function Projects() {
               Projects
             </span>
             <h2 className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-              What I've shipped
+              Selected work
             </h2>
-            <p className="mt-3 text-base text-text-secondary">
+            <p className="mt-3 max-w-xl text-base text-text-secondary">
               Production-grade projects, built under pressure.
             </p>
-          </motion.div>
-
-          {/* Filter pills */}
-          <motion.div
-            className="flex flex-wrap gap-2"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.15 }}
-          >
-            {allTags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setActiveTag(tag)}
-                className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200 cursor-pointer ${
-                  activeTag === tag
-                    ? "bg-text-primary text-bg"
-                    : "border border-border-t text-text-secondary hover:text-text-primary hover:border-border-strong"
-                }`}
-              >
-                {tag}
-              </button>
-            ))}
           </motion.div>
         </div>
 
         {/* Project grid */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((project, i) => (
-              <ProjectCard key={project.slug} project={project} index={i} />
-            ))}
-          </AnimatePresence>
+        <div className="projects-feature-grid grid gap-6 lg:grid-cols-3">
+          {featuredProjects.map((project, i) => (
+            <ProjectCard key={project.slug} project={project} index={i} />
+          ))}
         </div>
 
-        {filtered.length === 0 && (
-          <p className="mt-16 text-center text-text-secondary">
-            No projects match this filter.
-          </p>
-        )}
+        <motion.div
+          className="mt-10 flex justify-center"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-48px" }}
+          transition={{ duration: 0.45, delay: 0.2, ease: "easeOut" }}
+        >
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 rounded-full border border-accent bg-accent px-7 py-3.5 text-sm font-bold text-[#111015] shadow-[0_12px_30px_rgba(217,140,95,0.20)] transition-all duration-200 hover:bg-accent-hover hover:scale-[0.98] active:scale-95"
+          >
+            View all projects
+            <ArrowUpRight size={15} />
+          </Link>
+        </motion.div>
       </Container>
     </section>
   );
