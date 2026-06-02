@@ -105,9 +105,9 @@ export const heroData: HeroData = {
 
 export const aboutData: AboutData = {
   bio: [
-    "I'm a first-year B.E. student in Artificial Intelligence & Data Science at VESIT, Mumbai. I focus on building intelligent software — systems that combine strong engineering fundamentals with practical AI.",
-    "From autonomous onboarding agents with multi-tier RAG to real-time emergency coordination platforms, I ship production-grade projects that solve real problems. I lead AlgoMinds, a hackathon team that consistently delivers under pressure.",
-    "I care about clean architecture, developer experience, and writing code that other engineers can read and maintain.",
+    "I'm a first-year B.E. student in Artificial Intelligence & Data Science at VESIT, Mumbai. I'm a Full Stack Developer focused on building intelligent software — combining strong web development fundamentals with applied AI and modern JavaScript ecosystems.",
+    "I specialize in React.js, Node.js, Express.js, and PostgreSQL — building end-to-end systems that are fast, maintainable, and production-ready. From autonomous developer-onboarding agents with multi-tier RAG to real-time emergency coordination platforms, I ship software that solves real problems.",
+    "As a hackathon participant and software engineer, I lead AlgoMinds — a team that has placed in the top 6 at Syrus 2026 (500+ teams) and won runner-up at a national hackathon. I care deeply about clean architecture, developer experience, and writing code that other engineers can read and maintain.",
   ],
   stats: [
     { label: "CGPA", value: "9.73", description: "First year, B.E. AI & DS" },
@@ -367,6 +367,11 @@ export const contactLinks: ContactLink[] = [
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/malavya-mankar-002037382",
     icon: "linkedin",
+  },
+  {
+    label: "Devpost",
+    href: "https://devpost.com/malavya1411",
+    icon: "devpost",
   },
 ];
 

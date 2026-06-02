@@ -1,9 +1,12 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink, Calendar, Briefcase, Award, Milestone } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { projects } from "@/lib/data";
 import { Container } from "@/components/ui/Container";
+
+const SITE_URL = "https://portfolio-sigma-navy-hx9lng5dcr.vercel.app";
 
 interface ProjectPageProps {
   params: Promise<{
@@ -16,6 +19,43 @@ export async function generateStaticParams() {
   return projects.map((project) => ({
     slug: project.slug,
   }));
+}
+
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((p) => p.slug === slug);
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+    };
+  }
+
+  const pageUrl = `${SITE_URL}/projects/${project.slug}`;
+  const ogImage = project.coverImage
+    ? `${SITE_URL}${project.coverImage}`
+    : `${SITE_URL}/images/og-image.png`;
+
+  return {
+    title: `${project.title} — ${project.context}`,
+    description: `${project.summary} Built by Malavya Mankar using ${project.techStack.slice(0, 4).join(", ")}.`,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${project.title} | Malavya Mankar`,
+      description: project.summary,
+      url: pageUrl,
+      type: "article",
+      images: [{ url: ogImage, alt: `${project.title} project screenshot` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | Malavya Mankar`,
+      description: project.summary,
+      images: [ogImage],
+    },
+  };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
@@ -115,7 +155,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     >
                       <img
                         src={project.certificate}
-                        alt={`${project.title} Certificate`}
+                        alt={`${project.title} — Official Certificate by Malavya Mankar`}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-[1.01]"
                       />
                     </a>

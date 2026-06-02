@@ -55,11 +55,15 @@ export function Hero() {
         <img
           src="/images/hero_bg_light.png"
           alt=""
+          fetchPriority="high"
+          loading="eager"
           className="hero-bg-image hero-bg-light absolute inset-0 w-full h-full object-cover dark:hidden transition-opacity duration-300"
         />
         <img
           src="/images/hero_bg.png"
           alt=""
+          fetchPriority="high"
+          loading="eager"
           className="hero-bg-image hero-bg-dark absolute inset-0 w-full h-full object-cover opacity-0 dark:opacity-[0.60] transition-opacity duration-300 hidden dark:block"
         />
         <div className="hero-bg-scrim absolute inset-0 z-10" />
@@ -102,12 +106,12 @@ export function Hero() {
 
             {/* Sub role */}
             <p className="hero-role mt-6 text-xl font-semibold text-text-primary sm:text-2xl">
-              AI Engineer &amp; Full-Stack Developer
+              Full Stack Developer &amp; AI Engineer
             </p>
 
             {/* Description */}
             <p className="hero-description mt-4 text-base leading-relaxed text-text-secondary max-w-[540px] sm:text-lg">
-              I design and ship practical software, developer tools, and applied AI systems with clean architecture and product-focused execution.
+              React Developer, Node.js Developer &amp; Software Engineer — I design and ship practical web applications, developer tools, and applied AI systems with clean architecture and product-focused execution.
             </p>
 
             {/* Achievement badge pills */}
@@ -245,6 +249,7 @@ function FeaturedProjectCard() {
             <img
               src={project.image}
               alt={project.title}
+              loading="lazy"
               className="w-full h-full object-cover object-top"
             />
           </div>

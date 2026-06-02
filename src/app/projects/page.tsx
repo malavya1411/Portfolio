@@ -1,8 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { projects } from "@/lib/data";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Explore all projects by Malavya Mankar — a Full Stack Developer and AI Engineer. Full archive of shipped web applications, hackathon builds, and developer tools built with React.js, Node.js, Express.js, and PostgreSQL.",
+  alternates: {
+    canonical: "https://portfolio-sigma-navy-hx9lng5dcr.vercel.app/projects",
+  },
+};
 
 export default function ProjectsPage() {
   return (

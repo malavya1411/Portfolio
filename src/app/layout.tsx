@@ -18,41 +18,132 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const SITE_URL = "https://portfolio-sigma-navy-hx9lng5dcr.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Malavya Mankar — AI & Full-Stack Developer",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Malavya Mankar — Full Stack Developer & AI Engineer",
+    template: "%s | Malavya Mankar",
+  },
   description:
-    "AI & Full-Stack Developer building intelligent, production-ready systems. First-year B.E. student in AI & Data Science at VESIT, Mumbai.",
+    "Malavya Mankar is a Full Stack Developer, React Developer, Node.js Developer, and AI Engineer building intelligent, production-ready web applications. B.E. AI & Data Science student at VESIT, Mumbai. Hackathon participant and software engineer with expertise in PostgreSQL, Express.js, and modern web development.",
   keywords: [
     "Malavya Mankar",
-    "AI Developer",
-    "Full-Stack Developer",
+    "Malavya",
+    "Malavya Mankar Portfolio",
+    "Malavya Developer",
+    "Malavya Full Stack Developer",
+    "Full Stack Developer",
+    "React Developer",
+    "Node.js Developer",
+    "PostgreSQL Developer",
+    "Software Engineer",
+    "Hackathon Participant",
+    "AI Engineer",
+    "Web Developer",
+    "React.js",
+    "Express.js",
+    "Next.js Developer",
+    "TypeScript Developer",
+    "JavaScript Developer",
+    "VESIT Mumbai",
     "Portfolio",
-    "VESIT",
-    "Next.js",
-    "React",
-    "TypeScript",
   ],
-  authors: [{ name: "Malavya Mankar" }],
+  authors: [{ name: "Malavya Mankar", url: SITE_URL }],
+  creator: "Malavya Mankar",
+  publisher: "Malavya Mankar",
+  alternates: {
+    canonical: SITE_URL,
+  },
+  verification: {
+    google: "google8c220c28f2a88b7b",
+  },
   openGraph: {
-    title: "Malavya Mankar — AI & Full-Stack Developer",
+    title: "Malavya Mankar — Full Stack Developer & AI Engineer",
     description:
-      "Building intelligent, production-ready systems that turn ideas into shipped products.",
-    url: "https://malavya.dev",
-    siteName: "Malavya Mankar",
+      "Malavya Mankar is a Full Stack Developer specializing in React.js, Node.js, Express.js, and PostgreSQL. Hackathon winner building production-ready AI-powered web applications.",
+    url: SITE_URL,
+    siteName: "Malavya Mankar — Portfolio",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: `${SITE_URL}/images/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "Malavya Mankar — Full Stack Developer & AI Engineer Portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Malavya Mankar — AI & Full-Stack Developer",
+    title: "Malavya Mankar — Full Stack Developer & AI Engineer",
     description:
-      "Building intelligent, production-ready systems that turn ideas into shipped products.",
+      "Malavya Mankar is a Full Stack Developer specializing in React.js, Node.js, Express.js, and PostgreSQL. Hackathon winner building production-ready AI-powered web applications.",
+    images: [`${SITE_URL}/images/og-image.png`],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
+
+/** JSON-LD Person schema for Malavya Mankar */
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Malavya Mankar",
+  alternateName: "Malavya",
+  url: SITE_URL,
+  jobTitle: "Full Stack Developer",
+  description:
+    "Full Stack Developer and AI Engineer specializing in React.js, Node.js, Express.js, PostgreSQL, and modern web development. Hackathon participant and software engineer at VESIT, Mumbai.",
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Vivekanand Education Society's Institute of Technology (VESIT)",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Mumbai",
+      addressCountry: "IN",
+    },
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Mumbai",
+    addressCountry: "IN",
+  },
+  knowsAbout: [
+    "Full Stack Development",
+    "React.js",
+    "Node.js",
+    "Express.js",
+    "PostgreSQL",
+    "JavaScript",
+    "TypeScript",
+    "Next.js",
+    "Web Development",
+    "AI Engineering",
+    "Hackathons",
+    "Software Engineering",
+  ],
+  sameAs: [
+    "https://github.com/malavya1411",
+    "https://www.linkedin.com/in/malavya-mankar-002037382",
+    "https://devpost.com/malavya1411",
+    `mailto:malavyamankar@gmail.com`,
+  ],
+};
+
+/** Conditional Google Analytics — set NEXT_PUBLIC_GA_ID env var to enable */
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export default function RootLayout({
   children,
@@ -68,6 +159,32 @@ export default function RootLayout({
       <head>
         {/* Prevent flash of wrong theme */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+
+        {/* JSON-LD Structured Data — Person Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+
+        {/* Google Analytics (only when GA_ID is set) */}
+        {GA_ID && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${GA_ID}', { page_path: window.location.pathname });
+                `,
+              }}
+            />
+          </>
+        )}
       </head>
       <body className="min-h-screen bg-bg text-text-primary antialiased">
         <ThemeProvider>
@@ -88,3 +205,4 @@ export default function RootLayout({
     </html>
   );
 }
+

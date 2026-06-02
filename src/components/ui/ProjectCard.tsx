@@ -78,7 +78,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           {/* Image */}
           <img
             src={project.coverImage || "/images/placeholder.png"}
-            alt={project.title}
+            alt={`${project.title} — project screenshot by Malavya Mankar`}
+            loading="lazy"
+            decoding="async"
             className="h-full w-full object-cover object-left-top transition-transform duration-500 group-hover:scale-105"
           />
         </div>
