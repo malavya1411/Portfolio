@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, ArrowRight, Code2 } from "lucide-react";
+import { Mail, ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { contactLinks } from "@/lib/data";
 import { StarBorder } from "@/components/ui/StarBorder";
@@ -49,8 +49,7 @@ const socialIcons: Record<string, React.ComponentType<{ size?: number }>> = {
 
 export function Contact() {
   const emailLink = contactLinks.find((l) => l.icon === "mail");
-  const socials = contactLinks.filter((l) => l.icon !== "mail" && l.icon !== "leetcode");
-  const leetcodeLink = contactLinks.find((l) => l.icon === "leetcode");
+  const socials = contactLinks.filter((l) => l.icon !== "mail");
 
   return (
     <section id="contact" className="section-padding">
@@ -145,26 +144,6 @@ export function Contact() {
                   <span className="text-text-tertiary">Location</span>
                   <span className="font-medium text-text-primary">Mumbai · Remote</span>
                 </div>
-
-                {/* LeetCode row */}
-                {leetcodeLink && (
-                  <div className="flex items-center justify-between py-3">
-                    <div className="flex items-center gap-2 text-text-tertiary">
-                      <Code2 size={14} className="text-accent" />
-                      <span>DSA Practice</span>
-                    </div>
-                    <a
-                      href={leetcodeLink.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="View LeetCode profile"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-accent hover:text-accent-hover transition-colors"
-                    >
-                      <LeetCodeIcon size={13} />
-                      LeetCode Profile
-                    </a>
-                  </div>
-                )}
               </div>
 
               <p className="mt-6 text-xs text-text-tertiary leading-relaxed">

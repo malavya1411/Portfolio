@@ -283,7 +283,7 @@ export const projects: Project[] = [
     summary:
       "GitHub contributor health dashboard — visualise team velocity, commit patterns, and AI-generated contributor insights.",
     role: "Lead Developer",
-    context: "Hackathon — Runner-Up",
+    context: "Unimerge Hackathon — Runner-Up",
     techStack: ["React", "Vite", "Tailwind", "Node.js", "Express", "Supabase", "GitHub OAuth", "Gemini 1.5 Flash"],
     outcome:
       "Full analytics dashboard with GitHub OAuth, contributor health scoring, and AI-generated summaries. Resolved complex CORS and OAuth deployment issues at speed.",
@@ -297,7 +297,7 @@ export const projects: Project[] = [
     coverImage: "/images/git_stat.png",
     status: "RUNNER-UP",
     categoryTag: "ANALYTICS · FULL STACK",
-    dateString: "APRIL 2026 · RUNNER-UP HACKATHON",
+    dateString: "APRIL 2026 · UNIMERGE HACKATHON",
     features: [
       "Contributor health scoring analytics dashboard",
       "GitHub OAuth secure integration & analytics",
@@ -402,7 +402,7 @@ export const achievements: Achievement[] = [
   },
   {
     title: "Runner-Up",
-    event: "Hackathon by Parth Narkar",
+    event: "Unimerge Hackathon",
     description:
       "Built GitStat, a GitHub contributor health dashboard with AI-powered insights, OAuth integration, and production-grade deployment.",
     year: "2025",
