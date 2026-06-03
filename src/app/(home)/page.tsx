@@ -6,7 +6,6 @@ import { Skills } from "@/components/sections/Skills";
 import { Projects } from "@/components/sections/Projects";
 import { Achievements } from "@/components/sections/Achievements";
 import { Contact } from "@/components/sections/Contact";
-import { GitHubActivity } from "@/components/sections/GitHubActivity";
 import { LogoLoop } from "@/components/ui/LogoLoop";
 import { Container } from "@/components/ui/Container";
 import {
@@ -55,7 +54,6 @@ export default function Home() {
         <Skills />
         <Projects />
         <Achievements />
-        <GitHubActivity />
         <Contact />
 
         {/* Tech Stack Logo loop — decorative only, no external links */}

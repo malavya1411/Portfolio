@@ -1006,10 +1006,6 @@ html:not(.dark) .inline-flex.rounded.bg-sky-600 {
   border: 1px solid rgba(20, 20, 20, 0.12) !important;
 }
 
-/* ─── GitHub Activity Section ─── */
-#github-activity .card {
-  overflow: hidden;
-}
 
 /* ─── Skill tier badge accents ─── */
 /* Ensure accent/8 and accent/12 work in both themes */
