@@ -204,7 +204,7 @@ export const projects: Project[] = [
     coverImage: "/images/crisis_sync.png",
     status: "GOOGLE CHALLENGE",
     categoryTag: "MOBILE · FULL STACK",
-    dateString: "FEBRUARY 2026 · GOOGLE SOLUTION CHALLENGE",
+    dateString: "APRIL 2026 · GOOGLE SOLUTION CHALLENGE",
     features: [
       "Real-time coordination & venue tracking",
       "AI-driven triage recommendations via Gemini AI",
@@ -231,7 +231,7 @@ export const projects: Project[] = [
     coverImage: "/images/git_stat.png",
     status: "RUNNER-UP",
     categoryTag: "ANALYTICS · FULL STACK",
-    dateString: "DECEMBER 2025 · RUNNER-UP HACKATHON",
+    dateString: "APRIL 2026 · RUNNER-UP HACKATHON",
     features: [
       "Contributor health scoring analytics dashboard",
       "GitHub OAuth secure integration & analytics",
