@@ -2,8 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
-import type { Project } from "@/lib/data";
+import { ExternalLink, MessageCircle, Lock } from "lucide-react";
+import Image from "next/image";
+import type { Project, ProjectStatus } from "@/lib/data";
 
 function GithubIcon({ size = 14 }: { size?: number }) {
   return (
@@ -13,6 +14,59 @@ function GithubIcon({ size = 14 }: { size?: number }) {
   );
 }
 
+const PLACEHOLDER_BLUR =
+  "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgOCA4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiMxOTE3MUYiLz48L3N2Zz4=";
+
+function renderStatusBadge(status: ProjectStatus | undefined) {
+  switch (status) {
+    case "COMPLETED":
+      return (
+        <span className="inline-flex items-center gap-1.5 rounded border border-emerald-500/40 bg-emerald-500/8 px-3 py-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 tracking-wider uppercase">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+          COMPLETED
+        </span>
+      );
+    case "IN_PROGRESS":
+      return (
+        <span className="inline-flex items-center gap-1.5 rounded border border-amber-500/40 bg-amber-500/5 px-3 py-1 text-[11px] font-bold text-amber-600 dark:text-amber-400 tracking-wider uppercase">
+          <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
+          IN PROGRESS
+        </span>
+      );
+    case "PLANNED":
+      return (
+        <span className="inline-flex items-center gap-1.5 rounded border border-blue-500/40 bg-blue-500/5 px-3 py-1 text-[11px] font-bold text-blue-600 dark:text-blue-400 tracking-wider uppercase">
+          PLANNED
+        </span>
+      );
+    case "HACKATHON":
+      return (
+        <span className="inline-flex items-center rounded bg-rose-600 px-3 py-1 text-[11px] font-bold text-white tracking-wider uppercase">
+          HACKATHON
+        </span>
+      );
+    case "RUNNER-UP":
+      return (
+        <span className="inline-flex items-center rounded bg-emerald-600 px-3 py-1 text-[11px] font-bold text-white tracking-wider uppercase">
+          RUNNER-UP
+        </span>
+      );
+    case "GOOGLE CHALLENGE":
+      return (
+        <span className="inline-flex items-center rounded bg-sky-600 px-3 py-1 text-[11px] font-bold text-white tracking-wider uppercase">
+          GOOGLE CHALLENGE
+        </span>
+      );
+    default:
+      return (
+        <span className="inline-flex items-center gap-1.5 rounded border border-amber-500/40 bg-amber-500/5 px-3 py-1 text-[11px] font-bold text-amber-600 dark:text-amber-400 tracking-wider uppercase">
+          <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
+          IN PROGRESS
+        </span>
+      );
+  }
+}
+
 interface ProjectCardProps {
   project: Project;
   index: number;
@@ -20,36 +74,6 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const router = useRouter();
-
-  const renderStatusBadge = (status: string) => {
-    if (status === "HACKATHON") {
-      return (
-        <span className="inline-flex items-center rounded bg-rose-600 px-3 py-1 text-[11px] font-bold text-white tracking-wider uppercase">
-          HACKATHON
-        </span>
-      );
-    }
-    if (status === "RUNNER-UP") {
-      return (
-        <span className="inline-flex items-center rounded bg-emerald-600 px-3 py-1 text-[11px] font-bold text-white tracking-wider uppercase">
-          RUNNER-UP
-        </span>
-      );
-    }
-    if (status === "GOOGLE CHALLENGE") {
-      return (
-        <span className="inline-flex items-center rounded bg-sky-600 px-3 py-1 text-[11px] font-bold text-white tracking-wider uppercase">
-          GOOGLE CHALLENGE
-        </span>
-      );
-    }
-    return (
-      <span className="inline-flex items-center gap-1.5 rounded border border-amber-500/40 bg-amber-500/5 px-3 py-1 text-[11px] font-bold text-amber-400 tracking-wider uppercase">
-        <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
-        IN PROGRESS
-      </span>
-    );
-  };
 
   return (
     <>
@@ -63,11 +87,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       >
         {/* Cover visual area with View Project overlay on hover */}
         <div className="project-card-media relative h-[230px] w-full overflow-hidden border-b border-border-t bg-elevated">
-          {/* Overlay showing "VIEW PROJECT" on hover - clean dark neutral blur mask */}
+          {/* Overlay showing "VIEW PROJECT" on hover */}
           <a
             href={`/projects/${project.slug}`}
             onClick={(e) => e.stopPropagation()}
             className="absolute inset-0 z-10 flex items-center justify-center bg-slate-950/78 opacity-0 backdrop-blur-[1.5px] transition-opacity duration-300 group-hover:opacity-100"
+            aria-label={`View ${project.title} case study`}
           >
             <div className="rounded-full border border-white/80 px-5 py-2 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-white">
@@ -76,20 +101,28 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             </div>
           </a>
           {/* Image */}
-          <img
-            src={project.coverImage || "/images/placeholder.png"}
-            alt={`${project.title} — project screenshot by Malavya Mankar`}
-            loading="lazy"
-            decoding="async"
-            className="h-full w-full object-cover object-left-top transition-transform duration-500 group-hover:scale-105"
-          />
+          {project.coverImage ? (
+            <Image
+              src={project.coverImage}
+              alt={`${project.title} — project screenshot by Malavya Mankar`}
+              fill
+              className="object-cover object-left-top transition-transform duration-500 group-hover:scale-105"
+              placeholder="blur"
+              blurDataURL={PLACEHOLDER_BLUR}
+              sizes="(max-width: 1024px) 100vw, 33vw"
+            />
+          ) : (
+            <div className="h-full w-full flex items-center justify-center bg-elevated">
+              <span className="text-text-tertiary text-xs font-mono">No preview</span>
+            </div>
+          )}
         </div>
 
         {/* Content details below image */}
         <div className="project-card-body flex flex-1 flex-col p-6">
           {/* Tag row */}
-          <div className="flex items-center gap-2 mb-4">
-            {renderStatusBadge(project.status || "COMPLETED")}
+          <div className="flex items-center gap-2 mb-4 flex-wrap">
+            {renderStatusBadge(project.status)}
             <span className="rounded border border-border-strong/50 bg-elevated/40 px-2.5 py-1 text-[10px] font-bold text-text-secondary tracking-wider uppercase">
               {project.categoryTag || "FULL STACK"}
             </span>
@@ -128,29 +161,44 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </div>
 
           {/* Buttons */}
-          <div className="flex items-center gap-2.5 border-t border-border-t/40 pt-4 mt-auto">
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-accent/30 px-3.5 py-2 text-xs font-bold text-accent hover:bg-accent/10 transition-colors uppercase tracking-wider"
-            >
-              <GithubIcon size={13} />
-              GitHub
-            </a>
-            {project.demo && (
+          <div className="flex items-center gap-2.5 border-t border-border-t/40 pt-4 mt-auto flex-wrap">
+            {project.isPrivateRepo ? (
+              <span className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-border-strong/30 px-3.5 py-2 text-xs font-bold text-text-tertiary uppercase tracking-wider cursor-not-allowed">
+                <Lock size={11} />
+                Private
+              </span>
+            ) : (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-accent/30 px-3.5 py-2 text-xs font-bold text-accent hover:bg-accent/10 transition-colors uppercase tracking-wider"
+                aria-label={`View ${project.title} on GitHub`}
+              >
+                <GithubIcon size={13} />
+                GitHub
+              </a>
+            )}
+
+            {project.demo ? (
               <a
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
                 className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-accent/30 px-3.5 py-2 text-xs font-bold text-accent hover:bg-accent/10 transition-colors uppercase tracking-wider"
+                aria-label={`Visit ${project.title} live demo`}
               >
                 <ExternalLink size={12} />
                 Live Demo
               </a>
-            )}
+            ) : project.demoAvailableOnRequest ? (
+              <span className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg border border-border-t/40 px-3.5 py-2 text-xs font-medium text-text-tertiary uppercase tracking-wider">
+                <MessageCircle size={12} className="text-accent" />
+                On Request
+              </span>
+            ) : null}
           </div>
 
           {/* Features list */}

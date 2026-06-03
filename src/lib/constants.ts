@@ -1,3 +1,6 @@
+/** Single source of truth for the canonical domain */
+export const SITE_URL = "https://portfolio-sigma-navy-hx9lng5dcr.vercel.app";
+
 export const SITE_CONFIG = {
   maxWidth: 1200,
   navHeight: 72,

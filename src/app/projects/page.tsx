@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { ProjectCard } from "@/components/ui/ProjectCard";
-import { projects } from "@/lib/data";
+import { projects, allTags } from "@/lib/data";
+import { SITE_URL } from "@/lib/constants";
+import { ProjectsClient } from "./ProjectsClient";
 
 export const metadata: Metadata = {
   title: "Projects",
   description:
     "Explore all projects by Malavya Mankar — a Full Stack Developer and AI Engineer. Full archive of shipped web applications, hackathon builds, and developer tools built with React.js, Node.js, Express.js, and PostgreSQL.",
   alternates: {
-    canonical: "https://portfolio-sigma-navy-hx9lng5dcr.vercel.app/projects",
+    canonical: `${SITE_URL}/projects`,
   },
 };
 
@@ -28,7 +30,7 @@ export default function ProjectsPage() {
           </Link>
         </div>
 
-        <header className="mb-12 max-w-3xl">
+        <header className="mb-10 max-w-3xl">
           <span className="mb-4 inline-block text-sm font-medium uppercase tracking-widest text-accent">
             Projects
           </span>
@@ -40,11 +42,16 @@ export default function ProjectsPage() {
           </p>
         </header>
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.slug} project={project} index={index} />
-          ))}
-        </div>
+        {/* Client component handles filtering + URL sync */}
+        <Suspense fallback={
+          <div className="grid gap-6 lg:grid-cols-3">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="h-[480px] rounded-[18px] bg-elevated/40 border border-border-t animate-pulse" />
+            ))}
+          </div>
+        }>
+          <ProjectsClient projects={projects} allTags={allTags} />
+        </Suspense>
       </Container>
     </main>
   );

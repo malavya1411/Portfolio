@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, ArrowRight } from "lucide-react";
+import { Mail, ArrowRight, Code2 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { contactLinks } from "@/lib/data";
 import { StarBorder } from "@/components/ui/StarBorder";
@@ -30,16 +30,27 @@ function DevpostIcon({ size = 20 }: { size?: number }) {
   );
 }
 
+/** LeetCode SVG icon */
+function LeetCodeIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M16.102 17.93l-2.697 2.607c-.466.467-1.111.662-1.823.662s-1.357-.195-1.824-.662l-4.332-4.363c-.467-.467-.702-1.15-.702-1.863s.235-1.357.702-1.824l4.319-4.38c.467-.467 1.125-.645 1.837-.645s1.357.195 1.823.662l2.697 2.606c.514.515 1.365.497 1.9-.038.535-.536.553-1.387.039-1.901l-2.609-2.519c-.877-.846-2.029-1.362-3.237-1.417l.006-3.051c0-.744-.601-1.345-1.345-1.345s-1.345.601-1.345 1.345v3.052c-1.208.055-2.36.571-3.237 1.417L3.062 10.56c-1.354 1.353-1.354 3.544 0 4.897l4.331 4.331c1.354 1.353 3.544 1.353 4.898 0l2.697-2.607c.514-.515.496-1.366-.039-1.9-.535-.535-1.386-.553-1.847-.351z" />
+    </svg>
+  );
+}
+
 const socialIcons: Record<string, React.ComponentType<{ size?: number }>> = {
   github: GithubIcon,
   linkedin: LinkedinIcon,
   devpost: DevpostIcon,
+  leetcode: LeetCodeIcon,
   mail: ({ size }) => <Mail size={size} />,
 };
 
 export function Contact() {
   const emailLink = contactLinks.find((l) => l.icon === "mail");
-  const socials = contactLinks.filter((l) => l.icon !== "mail");
+  const socials = contactLinks.filter((l) => l.icon !== "mail" && l.icon !== "leetcode");
+  const leetcodeLink = contactLinks.find((l) => l.icon === "leetcode");
 
   return (
     <section id="contact" className="section-padding">
@@ -101,7 +112,7 @@ export function Contact() {
             </div>
           </motion.div>
 
-          {/* Right: availability card */}
+          {/* Right: availability + DSA card */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -130,10 +141,30 @@ export function Contact() {
                   <span className="text-text-tertiary">Timeline</span>
                   <span className="font-medium text-text-primary">Open to discuss</span>
                 </div>
-                <div className="flex justify-between py-3">
+                <div className="flex justify-between py-3 border-b border-border-t">
                   <span className="text-text-tertiary">Location</span>
                   <span className="font-medium text-text-primary">Mumbai · Remote</span>
                 </div>
+
+                {/* LeetCode row */}
+                {leetcodeLink && (
+                  <div className="flex items-center justify-between py-3">
+                    <div className="flex items-center gap-2 text-text-tertiary">
+                      <Code2 size={14} className="text-accent" />
+                      <span>DSA Practice</span>
+                    </div>
+                    <a
+                      href={leetcodeLink.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="View LeetCode profile"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-accent hover:text-accent-hover transition-colors"
+                    >
+                      <LeetCodeIcon size={13} />
+                      LeetCode Profile
+                    </a>
+                  </div>
+                )}
               </div>
 
               <p className="mt-6 text-xs text-text-tertiary leading-relaxed">

@@ -111,15 +111,38 @@ export function Skills() {
           </p>
         </motion.div>
 
+        {/* Legend */}
+        <motion.div
+          className="mb-6 flex items-center gap-5"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-48px" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <div className="flex items-center gap-2 text-xs text-text-tertiary">
+            <span className="inline-block h-2 w-2 rounded-full bg-accent" />
+            Primary
+          </div>
+          <div className="flex items-center gap-2 text-xs text-text-tertiary">
+            <span className="inline-block h-2 w-2 rounded-full bg-border-strong" />
+            Supporting
+          </div>
+        </motion.div>
+
         {/* Rows of Skills */}
         <div className="flex flex-col gap-6">
           {skillGroups.map((group, i) => {
             const CategoryIcon = getCategoryIcon(group.category);
             const displayName = categoryNameMap[group.category] || group.category;
+            // Use skillsWithTier if available, fall back to plain skills list
+            const tieredSkills = group.skillsWithTier ?? group.skills.map((s) => ({ name: s, tier: "secondary" as const }));
+            const primarySkills = tieredSkills.filter((s) => s.tier === "primary");
+            const secondarySkills = tieredSkills.filter((s) => s.tier === "secondary");
+
             return (
               <motion.div
                 key={group.category}
-                className="card card-trace flex flex-col gap-6 p-6 lg:flex-row lg:items-center lg:justify-between"
+                className="card card-trace flex flex-col gap-6 p-6 lg:flex-row lg:items-start lg:justify-between"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-48px" }}
@@ -138,17 +161,37 @@ export function Skills() {
                   </div>
                 </div>
 
-                {/* Badges List */}
-                <div className="flex flex-wrap gap-2 lg:flex-1 lg:pl-6 lg:border-l lg:border-border-t">
-                  {group.skills.map((skill) => (
-                    <div
-                      key={skill}
-                      className="flex items-center gap-2 rounded-xl bg-elevated/30 border border-border-t px-3.5 py-2 text-xs font-semibold text-text-secondary hover:border-accent/30 hover:bg-elevated/60 transition-all cursor-default"
-                    >
-                      {getSkillIcon(skill)}
-                      <span>{skill}</span>
+                {/* Tiered Badges */}
+                <div className="flex flex-col gap-4 lg:flex-1 lg:pl-6 lg:border-l lg:border-border-t">
+                  {/* Primary */}
+                  {primarySkills.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {primarySkills.map((skill) => (
+                        <div
+                          key={skill.name}
+                          className="flex items-center gap-2 rounded-xl bg-accent/8 border border-accent/25 px-3.5 py-2 text-xs font-bold text-text-primary hover:border-accent/45 hover:bg-accent/12 transition-all cursor-default"
+                        >
+                          {getSkillIcon(skill.name)}
+                          <span>{skill.name}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  )}
+
+                  {/* Secondary */}
+                  {secondarySkills.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {secondarySkills.map((skill) => (
+                        <div
+                          key={skill.name}
+                          className="flex items-center gap-2 rounded-xl bg-elevated/30 border border-border-t px-3 py-1.5 text-xs font-medium text-text-secondary hover:border-accent/20 hover:bg-elevated/60 transition-all cursor-default opacity-80"
+                        >
+                          {getSkillIcon(skill.name)}
+                          <span>{skill.name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </motion.div>
             );

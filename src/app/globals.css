@@ -1005,3 +1005,42 @@ html:not(.dark) .inline-flex.rounded.bg-sky-600 {
   color: #141414 !important;
   border: 1px solid rgba(20, 20, 20, 0.12) !important;
 }
+
+/* ─── GitHub Activity Section ─── */
+#github-activity .card {
+  overflow: hidden;
+}
+
+/* ─── Skill tier badge accents ─── */
+/* Ensure accent/8 and accent/12 work in both themes */
+.bg-accent\/8 {
+  background-color: rgba(185, 106, 59, 0.08);
+}
+.dark .bg-accent\/8 {
+  background-color: rgba(217, 140, 95, 0.08);
+}
+.bg-accent\/12 {
+  background-color: rgba(185, 106, 59, 0.12);
+}
+.dark .bg-accent\/12 {
+  background-color: rgba(217, 140, 95, 0.12);
+}
+.border-accent\/25 {
+  border-color: rgba(185, 106, 59, 0.25);
+}
+.dark .border-accent\/25 {
+  border-color: rgba(217, 140, 95, 0.25);
+}
+.hover\:bg-accent\/12:hover {
+  background-color: rgba(185, 106, 59, 0.12);
+}
+.dark .hover\:bg-accent\/12:hover {
+  background-color: rgba(217, 140, 95, 0.12);
+}
+.hover\:border-accent\/45:hover {
+  border-color: rgba(185, 106, 59, 0.45);
+}
+.dark .hover\:border-accent\/45:hover {
+  border-color: rgba(217, 140, 95, 0.45);
+}
+

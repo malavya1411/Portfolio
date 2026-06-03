@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/lib/data";
-
-const SITE_URL = "https://portfolio-sigma-navy-hx9lng5dcr.vercel.app";
+import { SITE_URL } from "@/lib/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [

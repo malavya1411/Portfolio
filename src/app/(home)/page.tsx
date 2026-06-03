@@ -6,6 +6,7 @@ import { Skills } from "@/components/sections/Skills";
 import { Projects } from "@/components/sections/Projects";
 import { Achievements } from "@/components/sections/Achievements";
 import { Contact } from "@/components/sections/Contact";
+import { GitHubActivity } from "@/components/sections/GitHubActivity";
 import { LogoLoop } from "@/components/ui/LogoLoop";
 import { Container } from "@/components/ui/Container";
 import {
@@ -24,20 +25,24 @@ import {
   SiGooglecloud,
 } from "react-icons/si";
 
+/**
+ * Tech logos are decorative — no href so they don't navigate users away from the site.
+ * Title is kept for accessibility / tooltip purposes only.
+ */
 const TECH_LOGOS = [
-  { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
-  { node: <SiReact />, title: "React", href: "https://react.dev" },
-  { node: <SiTypescript />, title: "TypeScript", href: "https://www.typescriptlang.org" },
-  { node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
-  { node: <SiNodedotjs />, title: "Node.js", href: "https://nodejs.org" },
-  { node: <SiPostgresql />, title: "PostgreSQL", href: "https://www.postgresql.org" },
-  { node: <SiSupabase />, title: "Supabase", href: "https://supabase.com" },
-  { node: <SiFirebase />, title: "Firebase", href: "https://firebase.google.com" },
-  { node: <SiFlutter />, title: "Flutter", href: "https://flutter.dev" },
-  { node: <SiVercel />, title: "Vercel", href: "https://vercel.com" },
-  { node: <SiGithub />, title: "GitHub", href: "https://github.com" },
-  { node: <SiSlack />, title: "Slack", href: "https://slack.com" },
-  { node: <SiGooglecloud />, title: "Google Cloud", href: "https://cloud.google.com" },
+  { node: <SiNextdotjs />, title: "Next.js" },
+  { node: <SiReact />, title: "React" },
+  { node: <SiTypescript />, title: "TypeScript" },
+  { node: <SiTailwindcss />, title: "Tailwind CSS" },
+  { node: <SiNodedotjs />, title: "Node.js" },
+  { node: <SiPostgresql />, title: "PostgreSQL" },
+  { node: <SiSupabase />, title: "Supabase" },
+  { node: <SiFirebase />, title: "Firebase" },
+  { node: <SiFlutter />, title: "Flutter" },
+  { node: <SiVercel />, title: "Vercel" },
+  { node: <SiGithub />, title: "GitHub" },
+  { node: <SiSlack />, title: "Slack" },
+  { node: <SiGooglecloud />, title: "Google Cloud" },
 ];
 
 export default function Home() {
@@ -50,10 +55,11 @@ export default function Home() {
         <Skills />
         <Projects />
         <Achievements />
+        <GitHubActivity />
         <Contact />
 
-        {/* Tech Stack Logo loop */}
-        <section className="py-12 bg-bg">
+        {/* Tech Stack Logo loop — decorative only, no external links */}
+        <section className="py-12 bg-bg" aria-label="Core tech stack">
           <Container>
             <div className="text-center mb-8">
               <span className="text-[10px] font-bold tracking-[0.22em] uppercase text-text-tertiary">
@@ -68,6 +74,7 @@ export default function Home() {
               scaleOnHover
               fadeOut
               pauseOnHover
+              ariaLabel="Core technology stack: Next.js, React, TypeScript, Tailwind CSS, Node.js, PostgreSQL, Supabase, Firebase, Flutter, Vercel, GitHub, Slack, Google Cloud"
             />
           </Container>
         </section>

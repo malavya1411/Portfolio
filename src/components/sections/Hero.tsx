@@ -167,6 +167,14 @@ export function Hero() {
                 <GithubIcon size={15} />
                 GitHub
               </a>
+              <a
+                href="/resume.pdf"
+                download
+                aria-label="Download Malavya Mankar's resume"
+                className="hero-action inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/5 px-7 py-3.5 text-sm font-bold text-accent transition-all duration-200 hover:bg-accent/10 hover:border-accent/60 hover:scale-[0.98] active:scale-95"
+              >
+                ↓ Resume
+              </a>
             </motion.div>
           </motion.div>
 

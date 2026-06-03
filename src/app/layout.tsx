@@ -4,6 +4,7 @@ import { ThemeProvider, themeScript } from "@/components/ui/ThemeProvider";
 import { PageLoader } from "@/components/ui/PageLoader";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { ClickSpark } from "@/components/ui/ClickSpark";
+import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
 const inter = Inter({
@@ -17,8 +18,6 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
 });
-
-const SITE_URL = "https://portfolio-sigma-navy-hx9lng5dcr.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -96,14 +95,16 @@ export const metadata: Metadata = {
   },
 };
 
-/** JSON-LD Person schema for Malavya Mankar */
+/** JSON-LD Person schema — https://schema.org/Person */
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Malavya Mankar",
   alternateName: "Malavya",
   url: SITE_URL,
-  jobTitle: "Full Stack Developer",
+  image: `${SITE_URL}/images/og-image.png`,
+  email: "malavyamankar@gmail.com",
+  jobTitle: "Full Stack Developer & AI Engineer",
   description:
     "Full Stack Developer and AI Engineer specializing in React.js, Node.js, Express.js, PostgreSQL, and modern web development. Hackathon participant and software engineer at VESIT, Mumbai.",
   alumniOf: {
@@ -138,7 +139,7 @@ const personSchema = {
     "https://github.com/malavya1411",
     "https://www.linkedin.com/in/malavya-mankar-002037382",
     "https://devpost.com/malavya1411",
-    `mailto:malavyamankar@gmail.com`,
+    "https://leetcode.com/u/Malavya_Mankar/",
   ],
 };
 
@@ -205,4 +206,3 @@ export default function RootLayout({
     </html>
   );
 }
-

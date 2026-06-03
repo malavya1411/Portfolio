@@ -1,3 +1,27 @@
+/* ─── Project Status Type ─── */
+
+export type ProjectStatus =
+  | "COMPLETED"
+  | "IN_PROGRESS"
+  | "PLANNED"
+  | "HACKATHON"
+  | "RUNNER-UP"
+  | "GOOGLE CHALLENGE";
+
+/* ─── Skill Tier ─── */
+export type SkillTier = "primary" | "secondary";
+
+/* ─── Case Study Fields ─── */
+export interface CaseStudySection {
+  overview?: string;
+  problemStatement?: string;
+  architecture?: string;
+  technicalDecisions?: string[];
+  challenges?: string[];
+  learnings?: string[];
+  screenshots?: string[];
+}
+
 /* ─── Type Interfaces ─── */
 
 export interface NavItem {
@@ -25,10 +49,16 @@ export interface AboutData {
   stats: { label: string; value: string; description: string }[];
 }
 
+export interface Skill {
+  name: string;
+  tier: SkillTier;
+}
+
 export interface SkillGroup {
   category: string;
   description: string;
   skills: string[];
+  skillsWithTier?: Skill[];
 }
 
 export interface Project {
@@ -42,15 +72,18 @@ export interface Project {
   tags: string[];
   github: string;
   demo: string | null;
+  demoAvailableOnRequest?: boolean;
+  isPrivateRepo?: boolean;
   badge: string | null;
   featured: boolean;
   year: string;
   certificate?: string;
   coverImage?: string;
-  status?: string;
+  status?: ProjectStatus;
   categoryTag?: string;
   dateString?: string;
   features?: string[];
+  caseStudy?: CaseStudySection;
 }
 
 export interface Achievement {
@@ -123,11 +156,27 @@ export const skillGroups: SkillGroup[] = [
     category: "Frontend",
     description: "Responsive, performant interfaces",
     skills: ["Next.js 15", "React", "Vite", "TypeScript", "Tailwind CSS", "Flutter"],
+    skillsWithTier: [
+      { name: "React", tier: "primary" },
+      { name: "Next.js 15", tier: "primary" },
+      { name: "TypeScript", tier: "primary" },
+      { name: "Tailwind CSS", tier: "primary" },
+      { name: "Vite", tier: "secondary" },
+      { name: "Flutter", tier: "secondary" },
+    ],
   },
   {
     category: "Backend",
     description: "APIs, databases, and server-side logic",
     skills: ["Node.js", "Express", "PostgreSQL", "Supabase", "Firebase", "JWT Auth"],
+    skillsWithTier: [
+      { name: "Node.js", tier: "primary" },
+      { name: "Express", tier: "primary" },
+      { name: "PostgreSQL", tier: "primary" },
+      { name: "Supabase", tier: "secondary" },
+      { name: "Firebase", tier: "secondary" },
+      { name: "JWT Auth", tier: "secondary" },
+    ],
   },
   {
     category: "AI / ML",
@@ -140,6 +189,14 @@ export const skillGroups: SkillGroup[] = [
       "Prompt Engineering",
       "Persona Detection",
     ],
+    skillsWithTier: [
+      { name: "Gemini API", tier: "primary" },
+      { name: "RAG Systems", tier: "primary" },
+      { name: "Prompt Engineering", tier: "primary" },
+      { name: "Vector Embeddings", tier: "secondary" },
+      { name: "MediaPipe", tier: "secondary" },
+      { name: "Persona Detection", tier: "secondary" },
+    ],
   },
   {
     category: "Tools & Platforms",
@@ -151,6 +208,14 @@ export const skillGroups: SkillGroup[] = [
       "Nodemailer / SMTP",
       "Slack Block Kit",
       "Google Maps SDK",
+    ],
+    skillsWithTier: [
+      { name: "Vercel", tier: "primary" },
+      { name: "GitHub OAuth", tier: "primary" },
+      { name: "Render", tier: "secondary" },
+      { name: "Nodemailer / SMTP", tier: "secondary" },
+      { name: "Slack Block Kit", tier: "secondary" },
+      { name: "Google Maps SDK", tier: "secondary" },
     ],
   },
 ];
@@ -171,6 +236,7 @@ export const projects: Project[] = [
     tags: ["AI", "Full-Stack", "DevTools"],
     github: "https://github.com/CMPN-CODECELL/Syrus2026_AlgoMinds",
     demo: null,
+    demoAvailableOnRequest: false,
     badge: "Top 6 — Syrus 2026",
     featured: true,
     year: "2026",
@@ -182,8 +248,8 @@ export const projects: Project[] = [
     features: [
       "Three-tier RAG for codebase intelligence",
       "Automated GitHub issue creation & Slack onboarding flow",
-      "Persona-driven checklist generation & team updates"
-    ]
+      "Persona-driven checklist generation & team updates",
+    ],
   },
   {
     title: "CrisisSync",
@@ -208,8 +274,8 @@ export const projects: Project[] = [
     features: [
       "Real-time coordination & venue tracking",
       "AI-driven triage recommendations via Gemini AI",
-      "Google Maps SDK live location updates"
-    ]
+      "Google Maps SDK live location updates",
+    ],
   },
   {
     title: "GitStat",
@@ -235,8 +301,35 @@ export const projects: Project[] = [
     features: [
       "Contributor health scoring analytics dashboard",
       "GitHub OAuth secure integration & analytics",
-      "Commit velocity & team frequency charts"
-    ]
+      "Commit velocity & team frequency charts",
+    ],
+    caseStudy: {
+      overview:
+        "GitStat is a GitHub contributor health dashboard built to surface team velocity, burnout signals, and AI-generated insights about individual contributors. It was built under hackathon conditions (36 hours) and later shipped to production at git-stat-olive.vercel.app.",
+      problemStatement:
+        "Engineering teams lack real-time visibility into contributor health and code velocity. Burnout often goes undetected until it's too late. GitStat addresses this by aggregating GitHub activity data into an actionable health score per contributor.",
+      architecture:
+        "React + Vite SPA on the frontend, Express + Node.js REST API on the backend (deployed to Render). GitHub OAuth handles secure authentication. Supabase (PostgreSQL) stores user sessions and cached contributor data. Gemini 1.5 Flash generates AI summaries of contributor activity.",
+      technicalDecisions: [
+        "GitHub OAuth instead of PAT tokens — ensures user-scoped data access without exposing repo secrets",
+        "Supabase for auth session storage — avoided rolling a custom session layer under time pressure",
+        "Gemini 1.5 Flash over GPT-4 — cost-free tier with sufficient context window for contributor summaries",
+        "Vite over CRA — faster cold starts during iterative hackathon development",
+        "Express CORS middleware configured per-origin — required to allow the Vercel frontend to call the Render backend across different domains",
+      ],
+      challenges: [
+        "CORS errors between Vercel-deployed frontend and Render-deployed backend — resolved by adding dynamic origin allowlist in Express CORS config",
+        "GitHub OAuth redirect URI mismatch in production — production callback URL was not registered, required adding the Vercel domain to GitHub OAuth App settings",
+        "GitHub API rate limits — implemented response caching in Supabase to avoid repeated calls within the same session",
+        "Burnout prediction heuristic — designed a composite scoring function based on commit frequency variance, PR merge latency, and review-to-commit ratio",
+      ],
+      learnings: [
+        "OAuth callback URIs must be registered for every deployment environment — staging and production need separate entries",
+        "CORS debugging is significantly easier with structured logging on the Express layer",
+        "Hackathon deployments benefit from keeping frontend and backend on the same domain or using a reverse proxy",
+        "Gemini's API quota is generous enough for demo-scale AI features at zero cost",
+      ],
+    },
   },
   {
     title: "AI Finder",
@@ -251,6 +344,7 @@ export const projects: Project[] = [
     tags: ["AI", "Frontend", "SaaS"],
     github: "https://github.com/malavya1411/AI-FINDER",
     demo: null,
+    demoAvailableOnRequest: true,
     badge: null,
     featured: false,
     year: "2026",
@@ -261,8 +355,8 @@ export const projects: Project[] = [
     features: [
       "Semantic match searching via Gemini API",
       "API request rate limiting & form validation",
-      "80+ AI agents directory listing"
-    ]
+      "80+ AI agents directory listing",
+    ],
   },
   {
     title: "Inventory Management",
@@ -277,6 +371,7 @@ export const projects: Project[] = [
     tags: ["Full-Stack", "Enterprise"],
     github: "https://github.com/malavya1411/electrolyte-inventory-system",
     demo: null,
+    demoAvailableOnRequest: false,
     badge: null,
     featured: false,
     year: "2025",
@@ -287,8 +382,8 @@ export const projects: Project[] = [
     features: [
       "PCB inventory CRUD database system",
       "Role-based access controls via JWT",
-      "Interactive data analytics using Recharts"
-    ]
+      "Interactive data analytics using Recharts",
+    ],
   },
 ];
 
@@ -372,6 +467,11 @@ export const contactLinks: ContactLink[] = [
     label: "Devpost",
     href: "https://devpost.com/malavya1411",
     icon: "devpost",
+  },
+  {
+    label: "LeetCode",
+    href: "https://leetcode.com/u/Malavya_Mankar/",
+    icon: "leetcode",
   },
 ];
 
