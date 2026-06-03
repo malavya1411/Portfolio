@@ -4,6 +4,7 @@ import { ThemeProvider, themeScript } from "@/components/ui/ThemeProvider";
 import { PageLoader } from "@/components/ui/PageLoader";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { ClickSpark } from "@/components/ui/ClickSpark";
+import { Analytics } from "@vercel/analytics/react";
 import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
@@ -201,6 +202,7 @@ export default function RootLayout({
           >
             {children}
           </ClickSpark>
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>

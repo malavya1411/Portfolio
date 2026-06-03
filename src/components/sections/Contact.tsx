@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Mail, ArrowRight } from "lucide-react";
+import { SiLeetcode } from "react-icons/si";
 import { Container } from "@/components/ui/Container";
 import { contactLinks } from "@/lib/data";
 import { StarBorder } from "@/components/ui/StarBorder";
@@ -30,20 +31,11 @@ function DevpostIcon({ size = 20 }: { size?: number }) {
   );
 }
 
-/** LeetCode SVG icon */
-function LeetCodeIcon({ size = 20 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M16.102 17.93l-2.697 2.607c-.466.467-1.111.662-1.823.662s-1.357-.195-1.824-.662l-4.332-4.363c-.467-.467-.702-1.15-.702-1.863s.235-1.357.702-1.824l4.319-4.38c.467-.467 1.125-.645 1.837-.645s1.357.195 1.823.662l2.697 2.606c.514.515 1.365.497 1.9-.038.535-.536.553-1.387.039-1.901l-2.609-2.519c-.877-.846-2.029-1.362-3.237-1.417l.006-3.051c0-.744-.601-1.345-1.345-1.345s-1.345.601-1.345 1.345v3.052c-1.208.055-2.36.571-3.237 1.417L3.062 10.56c-1.354 1.353-1.354 3.544 0 4.897l4.331 4.331c1.354 1.353 3.544 1.353 4.898 0l2.697-2.607c.514-.515.496-1.366-.039-1.9-.535-.535-1.386-.553-1.847-.351z" />
-    </svg>
-  );
-}
-
 const socialIcons: Record<string, React.ComponentType<{ size?: number }>> = {
   github: GithubIcon,
   linkedin: LinkedinIcon,
   devpost: DevpostIcon,
-  leetcode: LeetCodeIcon,
+  leetcode: SiLeetcode,
   mail: ({ size }) => <Mail size={size} />,
 };
 
@@ -66,10 +58,10 @@ export function Contact() {
               Contact
             </span>
             <h2 className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-              Let's build something.
+              Let&apos;s build something.
             </h2>
             <p className="mt-5 text-base leading-relaxed text-text-secondary max-w-md">
-              Open to internship opportunities, interesting projects, and good engineering conversations. If you're building something ambitious, let's talk.
+              Open to internship opportunities, interesting projects, and good engineering conversations. If you&apos;re building something ambitious, let&apos;s talk.
             </p>
 
             {/* Email CTA */}
