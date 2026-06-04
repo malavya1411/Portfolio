@@ -1,6 +1,8 @@
 # Malavya Mankar — Portfolio
 
-Personal portfolio website built with **Next.js 15**, **React**, **TypeScript**, **Tailwind CSS v4**, and **Framer Motion**.
+Full Stack Developer & AI Engineer
+
+React Developer, Node.js Developer & Software Engineer — I design and ship practical web applications, developer tools, and applied AI systems with clean architecture and product-focused execution.
 
 ## Tech Stack
 
