@@ -58,5 +58,3 @@ All content lives in `lib/data.ts` — update your info, projects, and links the
 ```bash
 npm run build
 ```
-
-Deploy to [Vercel](https://vercel.com) — zero config needed.
