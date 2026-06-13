@@ -1,60 +1,125 @@
-# Malavya Mankar — Portfolio
+<h1 align="center">Malavya Mankar Portfolio</h1>
 
-Full Stack Developer & AI Engineer
+<p align="center">
+  <strong>AI & Full-Stack Developer</strong><br/>
+  Building intelligent, production-ready systems with modern web technologies and applied AI.
+</p>
 
-React Developer, Node.js Developer & Software Engineer — I design and ship practical web applications, developer tools, and applied AI systems with clean architecture and product-focused execution.
+<p align="center">
+  <a href="https://malavya.dev">Live Website</a> •
+  <a href="mailto:malavyamankar@gmail.com">Contact</a>
+</p>
 
-## Tech Stack
+---
 
-- **Framework:** Next.js 15 (App Router)
-- **UI:** React 19, TypeScript
-- **Styling:** Tailwind CSS v4 with CSS custom property design tokens
-- **Animation:** Framer Motion
-- **Icons:** Lucide React + inline SVGs for brand icons
-- **Deploy:** Vercel-ready
+## About
 
-## Getting Started
+This portfolio showcases my work as an AI & Full-Stack Developer, highlighting projects, hackathon achievements, technical skills, and engineering experience.
 
-```bash
-npm install
-npm run dev
-```
+Currently pursuing a B.E. in Artificial Intelligence & Data Science at VESIT, Mumbai, I focus on building scalable web applications, AI-powered systems, developer tools, and real-world products that solve meaningful problems.
 
-Open [http://localhost:3000](http://localhost:3000).
-
-## Project Structure
-
-```
-app/                    # Next.js App Router
-  layout.tsx            # Root layout with fonts, metadata, theme
-  page.tsx              # Single-page portfolio
-  globals.css           # Design tokens + theme system
-components/
-  layout/               # Navbar, Footer, ThemeToggle
-  sections/             # Hero, About, Skills, Projects, Achievements, Contact
-  ui/                   # Reusable primitives (Button, Tag, Cards, etc.)
-lib/
-  data.ts               # All portfolio content with typed interfaces
-  utils.ts              # Utility functions
-  constants.ts          # Site-wide constants
-```
+---
 
 ## Features
 
-- 🌗 Dark/light theme with system preference detection
-- 🎨 CSS custom property design system
-- ✨ Smooth Framer Motion animations
-- 📱 Fully responsive (mobile → wide)
-- ♿ Accessible (semantic HTML, ARIA, keyboard nav, reduced motion)
-- 🔍 SEO optimized with Open Graph metadata
-- 🚀 Static generation for performance
+- Modern and responsive UI
+- Dark / Light theme support
+- Smooth animations with Framer Motion
+- Project showcase with detailed case studies
+- Achievement and certification sections
+- SEO optimized metadata
+- Mobile-first design
+- Fast performance with Next.js App Router
 
-## Customization
+---
 
-All content lives in `lib/data.ts` — update your info, projects, and links there. Theme colors are defined as CSS custom properties in `app/globals.css`.
+## Tech Stack
 
-## Deploy
+### Frontend
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS v4
+
+### Animation & UX
+- Framer Motion
+- GSAP
+
+### 3D & Graphics
+- Three.js
+
+### Deployment
+- Vercel
+
+---
+
+## Featured Projects
+
+### GitStat
+Open-source GitHub intelligence platform that analyzes developer activity, contribution quality, and repository health to provide actionable engineering insights.
+
+### CrisisSync
+Real-time emergency coordination platform designed to improve communication and resource allocation during crisis situations.
+
+### OnboardAI
+AI-powered onboarding assistant leveraging retrieval-augmented generation (RAG) to help developers quickly understand unfamiliar codebases.
+
+### AI Finder
+Intelligent search platform using modern AI techniques to improve information discovery and contextual retrieval.
+
+### Inventory Management System
+Full-stack inventory tracking and management platform with modern dashboard experiences.
+
+---
+
+## Achievements
+
+- Runner-Up at National Hackathons
+- Top 6 Finalist at Syrus 2026 among 500+ teams
+- Multiple hackathon participations and technical competitions
+- Lead contributor and team lead at AlgoMinds
+
+---
+
+## Skills
+
+### Frontend
+- React
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Vite
+- Flutter
+
+### Backend
+- Node.js
+- Express.js
+- PostgreSQL
+- Supabase
+- Firebase
+- JWT Authentication
+
+### AI & Machine Learning
+- Gemini API
+- RAG Systems
+- Vector Embeddings
+- Prompt Engineering
+- MediaPipe
+- Persona Detection
+
+### Tools & Platforms
+- Git & GitHub
+- Vercel
+- Render
+- Docker
+- REST APIs
+
+---
+
+## Local Development
+
+Clone the repository:
 
 ```bash
-npm run build
-```
+git clone <repository-url>
+cd portfolio
