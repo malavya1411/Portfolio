@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <a href="https://malavya.dev">Live Website</a> •
+  <a href="https://malavya.dev](https://portfolio-malavya-mankar.vercel.app/">Live Website</a> •
   <a href="mailto:malavyamankar@gmail.com">Contact</a>
 </p>
 
