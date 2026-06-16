@@ -224,6 +224,76 @@ export const skillGroups: SkillGroup[] = [
 
 export const projects: Project[] = [
   {
+    title: "HireMind",
+    slug: "hiremind",
+    summary:
+      "AI-powered hiring intelligence platform that combines explainable AI, skill-gap analysis, GitHub profiling, LeetCode evaluation, and blind screening.",
+    role: "Lead Developer",
+    context: "Summer Hackathon 2026 — AI-Powered Resume Screening & Candidate Ranking System (Problem Statement 3)",
+    techStack: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Express",
+      "Firebase Auth",
+      "Firestore",
+      "Firebase Storage",
+      "Featherless AI",
+      "React Query",
+      "Zustand",
+    ],
+    outcome:
+      "Developed a complete AI recruitment platform featuring resume parsing, job description intelligence, explainable candidate ranking, GitHub/LeetCode analysis, blind screening, and hiring analytics dashboards.",
+    tags: ["AI", "Full-Stack", "HRTech"],
+    github: "https://github.com/malavya1411/HireMind",
+    demo: null,
+    demoAvailableOnRequest: true,
+    badge: "Hackathon 2026",
+    featured: true,
+    year: "2026",
+    certificate: "/images/hiremind_certificate.jpg",
+    coverImage: "/images/hiremind.png",
+    status: "HACKATHON",
+    categoryTag: "AI PLATFORM · REACT",
+    dateString: "JUNE 2026 · SUMMER HACKATHON 2026",
+    features: [
+      "Explainable AI candidate ranking and recommendations",
+      "Multi-source profile evaluation (Resume + GitHub + LeetCode)",
+      "Blind screening mode to eliminate unconscious bias",
+      "Interactive skill-gap visualization & recruiter feedback loops",
+    ],
+    caseStudy: {
+      overview:
+        "HireMind is an AI-powered hiring intelligence platform designed to move recruiters beyond traditional, manual resume screening. Developed for the Summer Hackathon 2026, it addresses the challenges of manual sorting and lack of transparency in traditional Applicant Tracking Systems (ATS) by introducing explainable AI, skill-gap heatmaps, and multi-source profiling.",
+      problemStatement:
+        "Recruiters spend hours manually scanning resumes, while standard ATS solutions offer opaque ranking scores without context. This lack of transparency and visual analysis leads to bias, missed candidates, and inefficient screening workflows.",
+      architecture:
+        "React + TypeScript frontend built with Vite, connected to an Express.js backend through REST APIs. Firebase Authentication handles role-based access control (Recruiter, Hiring Manager, Admin), Firestore stores candidate and application data, and Firebase Storage hosts uploaded resumes. AI evaluations are powered by Featherless AI, and React Query + Zustand manage application and server states.",
+      technicalDecisions: [
+        "Firebase Authentication instead of custom auth — accelerated development while providing secure role-based access control.",
+        "Firestore over relational databases — enabled rapid iteration on candidate and recruiter data models during hackathon development.",
+        "Featherless AI for candidate evaluation — provided explainable AI-generated ranking and recommendation workflows.",
+        "Blind Screening Mode — intentionally hides personally identifiable information (PII) to reduce unconscious bias during candidate evaluation.",
+        "Multi-source Candidate Analysis — combines resume content, GitHub activity, and LeetCode performance for more holistic hiring decisions.",
+        "React Query + Zustand — separated server-state management from application state, improving frontend scalability and responsiveness.",
+      ],
+      challenges: [
+        "Resume Parsing Accuracy — extracting structured information from varied PDF and DOCX formats required robust parsing and validation logic.",
+        "Explainable AI Recommendations — generating recruiter-friendly explanations while maintaining ranking consistency across candidates.",
+        "Candidate Ranking Fairness — balancing resume data with external developer signals such as GitHub and LeetCode profiles without introducing bias.",
+        "Blind Screening Implementation — ensuring sensitive candidate information remained hidden while preserving enough context for evaluation.",
+        "Multi-source Data Aggregation — normalizing data from resumes, GitHub, and coding platforms into a unified scoring model.",
+      ],
+      learnings: [
+        "Explainability is often more valuable to recruiters than raw AI scores because it builds trust in automated decisions.",
+        "Blind screening mechanisms can significantly improve fairness without reducing evaluation quality.",
+        "Combining multiple candidate signals (resume, GitHub, coding profiles) produces more reliable assessments than resume-only screening.",
+        "Firebase enables rapid deployment of authentication, storage, and database functionality, making it highly effective for hackathon-scale products.",
+        "Separating AI analysis, ranking logic, and recruiter feedback loops creates a foundation for continuously improving hiring recommendations over time.",
+      ],
+    },
+  },
+  {
     title: "OnboardAI",
     slug: "onboard-ai",
     summary:
@@ -409,6 +479,15 @@ export const achievements: Achievement[] = [
     highlight: true,
     rank: "#2",
     certificate: "/images/unimerge_certificate.jpg",
+  },
+  {
+    title: "Hackathon Participant",
+    event: "Summer Hackathon 2026",
+    description:
+      "Successfully built HireMind — an AI-powered hiring intelligence platform combining explainable AI, skill-gap analysis, and blind screening.",
+    year: "2026",
+    highlight: false,
+    certificate: "/images/hiremind_certificate.jpg",
   },
   {
     title: "Google Solution Challenge",
