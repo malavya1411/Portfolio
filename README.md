@@ -23,7 +23,6 @@ Currently pursuing a B.E. in Artificial Intelligence & Data Science at VESIT, Mu
 ## Features
 
 - Modern and responsive UI
-- Dark / Light theme support
 - Smooth animations with Framer Motion
 - Project showcase with detailed case studies
 - Achievement and certification sections
