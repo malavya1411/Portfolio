@@ -108,7 +108,7 @@ export const siteMetadata: SiteMetadata = {
   name: "Malavya Mankar",
   role: "AI & Full-Stack Developer",
   description:
-    "AI & Full-Stack Developer building intelligent, production-ready systems. First-year B.E. student in AI & Data Science at VESIT, Mumbai.",
+    "AI & Full-Stack Developer building intelligent, production-ready systems. First-year B.Tech student in AI & Data Science at VESIT, Mumbai.",
   url: "https://malavya.dev",
 };
 
@@ -138,12 +138,12 @@ export const heroData: HeroData = {
 
 export const aboutData: AboutData = {
   bio: [
-    "I'm a first-year B.E. student in Artificial Intelligence & Data Science at VESIT, Mumbai. I'm a Full Stack Developer focused on building intelligent software — combining strong web development fundamentals with applied AI and modern JavaScript ecosystems.",
+    "I'm a first-year B.Tech student in Artificial Intelligence & Data Science at VESIT, Mumbai. I'm a Full Stack Developer focused on building intelligent software — combining strong web development fundamentals with applied AI and modern JavaScript ecosystems.",
     "I specialize in React.js, Node.js, Express.js, and PostgreSQL — building end-to-end systems that are fast, maintainable, and production-ready. From autonomous developer-onboarding agents with multi-tier RAG to real-time emergency coordination platforms, I ship software that solves real problems.",
     "As a hackathon participant and software engineer, I lead AlgoMinds — a team that has placed in the top 6 at Syrus 2026 (500+ teams) and won runner-up at a national hackathon. I care deeply about clean architecture, developer experience, and writing code that other engineers can read and maintain.",
   ],
   stats: [
-    { label: "CGPA", value: "9.73", description: "First year, B.E. AI & DS" },
+    { label: "CGPA", value: "9.73", description: "First year, B.Tech AI & DS" },
     { label: "5+", value: "5+", description: "Hackathons competed" },
     { label: "6+", value: "6+", description: "Production projects shipped" },
   ],
@@ -507,7 +507,7 @@ export const achievements: Achievement[] = [
   },
   {
     title: "CGPA 9.73",
-    event: "VESIT — B.E. AI & Data Science",
+    event: "VESIT — B.Tech AI & Data Science",
     description:
       "Top academic record maintained while actively competing in hackathons and shipping production software.",
     year: "2024–25",

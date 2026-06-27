@@ -16,7 +16,7 @@
 
 This portfolio showcases my work as an AI & Full-Stack Developer, highlighting projects, hackathon achievements, technical skills, and engineering experience.
 
-Currently pursuing a B.E. in Artificial Intelligence & Data Science at VESIT, Mumbai, I focus on building scalable web applications, AI-powered systems, developer tools, and real-world products that solve meaningful problems.
+Currently pursuing a B.Tech in Artificial Intelligence & Data Science at VESIT, Mumbai, I focus on building scalable web applications, AI-powered systems, developer tools, and real-world products that solve meaningful problems.
 
 ---
 
