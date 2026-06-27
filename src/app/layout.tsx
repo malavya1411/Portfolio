@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s | Malavya Mankar",
   },
   description:
-    "Malavya Mankar is a Full Stack Developer, React Developer, Node.js Developer, and AI Engineer building intelligent, production-ready web applications. B.E. AI & Data Science student at VESIT, Mumbai. Hackathon participant and software engineer with expertise in PostgreSQL, Express.js, and modern web development.",
+    "Malavya Mankar is a Full Stack Developer, React Developer, Node.js Developer, and AI Engineer building intelligent, production-ready web applications. B.Tech AI & Data Science student at VESIT, Mumbai. Hackathon participant and software engineer with expertise in PostgreSQL, Express.js, and modern web development.",
   keywords: [
     "Malavya Mankar",
     "Malavya",
