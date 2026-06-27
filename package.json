@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@next/swc-darwin-arm64": "^16.2.9",
     "@types/three": "^0.184.1",
     "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.40.0",
@@ -20,6 +19,9 @@
     "react-dom": "19.2.4",
     "react-icons": "^5.6.0",
     "three": "^0.184.0"
+  },
+  "optionalDependencies": {
+    "@next/swc-darwin-arm64": "16.2.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
