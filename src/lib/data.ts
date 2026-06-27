@@ -481,6 +481,15 @@ export const achievements: Achievement[] = [
     certificate: "/images/unimerge_certificate.jpg",
   },
   {
+    title: "100K Milestone Honor",
+    event: "CampusCrew",
+    description:
+      "Recognized for being an integral part of the CampusCrew journey and contributing to a community that has grown to 100,000+ students worldwide.",
+    year: "2026",
+    highlight: false,
+    certificate: "/images/campuscrew_100k_milestone.jpg",
+  },
+  {
     title: "Hackathon Participant",
     event: "Summer Hackathon 2026",
     description:
