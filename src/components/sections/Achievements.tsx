@@ -73,7 +73,7 @@ export function Achievements() {
                     <p className="mt-2 text-sm leading-relaxed text-text-secondary">{a.description}</p>
                     <div className="mt-3 flex items-center justify-between flex-wrap gap-2">
                       <p className="text-xs text-text-tertiary">{a.year}</p>
-                      {a.certificate && (
+                      {a.certificate ? (
                         <a
                           href={a.certificate}
                           target="_blank"
@@ -82,6 +82,8 @@ export function Achievements() {
                         >
                           View Certificate ↗
                         </a>
+                      ) : (
+                        <span className="invisible text-xs font-bold">View Certificate ↗</span>
                       )}
                     </div>
                   </div>

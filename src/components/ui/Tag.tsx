@@ -13,7 +13,7 @@ export function Tag({ label, active = false, onClick, size = "sm" }: TagProps) {
       <button
         onClick={onClick}
         className={`
-          ${sizeClass} rounded-full font-medium transition-all duration-200 cursor-pointer
+          ${sizeClass} inline-flex items-center rounded-full font-medium transition-all duration-200 cursor-pointer
           ${
             active
               ? "bg-accent text-white"
@@ -28,7 +28,7 @@ export function Tag({ label, active = false, onClick, size = "sm" }: TagProps) {
 
   return (
     <span
-      className={`${sizeClass} rounded-full font-medium bg-accent-muted text-accent border border-accent/20`}
+      className={`${sizeClass} inline-flex items-center rounded-full font-medium bg-accent-muted text-accent border border-accent/20`}
     >
       {label}
     </span>

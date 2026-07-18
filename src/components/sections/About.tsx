@@ -67,12 +67,6 @@ function StatCard({ value, label, description, index }: StatCardProps) {
     ? count.toFixed(2)
     : `${Math.floor(count)}${suffix}`;
 
-  const displayLabel =
-    label === value && description.toLowerCase().includes("hackathon")
-      ? "Hackathons"
-      : label === value && description.toLowerCase().includes("project")
-      ? "Projects"
-      : label;
 
   return (
     <motion.div
@@ -90,7 +84,7 @@ function StatCard({ value, label, description, index }: StatCardProps) {
           <div className="about-stat-value text-4xl font-extrabold leading-none text-accent transition-colors duration-300 group-hover:text-accent-hover">
             {isNaN(numeric) ? value : displayValue}
           </div>
-          <div className="mt-3 text-sm font-bold text-text-primary">{displayLabel}</div>
+          <div className="mt-3 text-sm font-bold text-text-primary">{label}</div>
         </div>
         <div className="about-stat-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-accent/20 bg-accent-muted text-accent">
           <StatIcon index={index} />

@@ -425,6 +425,13 @@ html:not(.dark) .about-stat-icon {
 
   .about-stats {
     display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* 3 equal columns when there's enough room (768-1023) */
+  .about-stats {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
@@ -432,6 +439,35 @@ html:not(.dark) .about-stat-icon {
 @media (max-width: 767px) {
   .about-stats {
     grid-template-columns: 1fr !important;
+  }
+}
+
+/* ─── 480px safeguard for smallest phones ─── */
+@media (max-width: 480px) {
+  .about-stat {
+    padding: 1rem !important;
+  }
+
+  .project-card-body {
+    min-height: unset !important;
+  }
+
+  .project-card-media {
+    height: 180px !important;
+  }
+
+  .hero-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .hero-action {
+    justify-content: center !important;
+  }
+
+  .hero-achievements {
+    flex-direction: column !important;
+    align-items: flex-start !important;
   }
 }
 

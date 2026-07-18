@@ -108,7 +108,7 @@ export const siteMetadata: SiteMetadata = {
   name: "Malavya Mankar",
   role: "AI & Full-Stack Developer",
   description:
-    "AI & Full-Stack Developer building intelligent, production-ready systems. First-year B.Tech student in AI & Data Science at VESIT, Mumbai.",
+    "AI & Full-Stack Developer building intelligent, production-ready systems. Second-year B.Tech student in AI & Data Science at VESIT, Mumbai.",
   url: "https://malavya.dev",
 };
 
@@ -129,25 +129,31 @@ export const heroData: HeroData = {
   headline: "Building AI-powered products that solve real-world problems.",
   subheadline: "Malavya Mankar",
   description:
-    "First-year AI & Data Science student at VESIT with a 9.73 CGPA, focused on full-stack systems, developer tooling, and applied AI.",
+    "Second-year AI & Data Science student at VESIT with a 9.73 CGPA, focused on full-stack systems, developer tooling, and applied AI.",
   ctaPrimary: { label: "View Projects", href: "#projects" },
   ctaSecondary: { label: "Get in Touch", href: "#contact" },
 };
 
 /* ─── About ─── */
 
-export const aboutData: AboutData = {
-  bio: [
-    "I'm a first-year B.Tech student in Artificial Intelligence & Data Science at VESIT, Mumbai. I'm a Full Stack Developer focused on building intelligent software — combining strong web development fundamentals with applied AI and modern JavaScript ecosystems.",
-    "I specialize in React.js, Node.js, Express.js, and PostgreSQL building end to end systems that are fast, maintainable, and production ready. From autonomous developer-onboarding agents with multi-tier RAG to real-time emergency coordination platforms, I ship software that solves real problems.",
-    "As a hackathon participant and software engineer, I lead AlgoMinds — a team that has placed in the top 6 at Syrus 2026 (500+ teams) and won runner-up at a national hackathon. I care deeply about clean architecture, developer experience, and writing code that other engineers can read and maintain.",
-  ],
+const _aboutBio = [
+  "I'm a second-year B.Tech student in Artificial Intelligence & Data Science at VESIT, Mumbai. I'm a Full Stack Developer focused on building intelligent software — combining strong web development fundamentals with applied AI and modern JavaScript ecosystems.",
+  "I specialize in React.js, Node.js, Express.js, and PostgreSQL building end to end systems that are fast, maintainable, and production ready. From autonomous developer-onboarding agents with multi-tier RAG to real-time emergency coordination platforms, I ship software that solves real problems.",
+  "As a hackathon participant and software engineer, I lead AlgoMinds — a team that has placed in the top 6 at Syrus 2026 (500+ teams) and won runner-up at a national hackathon. I care deeply about clean architecture, developer experience, and writing code that other engineers can read and maintain.",
+];
+
+// Placeholder — stats are assembled into aboutData after projects/achievements arrays are defined below.
+// See the bottom of this file for the final aboutData export.
+let aboutData: AboutData = {
+  bio: _aboutBio,
   stats: [
-    { label: "CGPA", value: "9.73", description: "First year, B.Tech AI & DS" },
-    { label: "5+", value: "5+", description: "Hackathons competed" },
-    { label: "6+", value: "6+", description: "Production projects shipped" },
+    { label: "CGPA", value: "9.73", description: "Second year, B.Tech AI & DS" },
+    { label: "Hackathons", value: "5+", description: "Hackathons competed" },
+    { label: "Projects", value: "6+", description: "Production projects shipped" },
   ],
 };
+
+export { aboutData };
 
 /* ─── Skills ─── */
 
@@ -569,3 +575,29 @@ export const allTags: string[] = [
   "All",
   ...Array.from(new Set(projects.flatMap((p) => p.tags))),
 ];
+
+/* ─── Computed Stats (single source of truth) ─── */
+// Re-assign aboutData.stats so counts are always derived from the actual data arrays.
+// projectCount = total projects; hackathonCount = projects entered in a hackathon context.
+const _projectCount = projects.length;
+const _hackathonCount = projects.filter(
+  (p) => p.status === "HACKATHON" || p.status === "RUNNER-UP" || p.status === "GOOGLE CHALLENGE"
+).length;
+
+aboutData = {
+  bio: _aboutBio,
+  stats: [
+    { label: "CGPA", value: "9.73", description: "Second year, B.Tech AI & DS" },
+    {
+      label: "Hackathons",
+      value: `${_hackathonCount}+`,
+      description: "Hackathons competed",
+    },
+    {
+      label: "Projects",
+      value: `${_projectCount}+`,
+      description: "Production projects shipped",
+    },
+  ],
+};
+
