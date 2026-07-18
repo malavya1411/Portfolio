@@ -1,158 +1,37 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Menu, FileText, Home, User, Code2, Briefcase, Award, Mail } from "lucide-react";
-import { navItems, siteMetadata } from "@/lib/data";
-import { ThemeToggle } from "@/components/layout/ThemeToggle";
-import { MobileMenu } from "@/components/ui/MobileMenu";
-import { Container } from "@/components/ui/Container";
-import { LimelightNav } from "@/components/ui/limelight-nav";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X, Moon, Sun } from "lucide-react";
+
+const links = [
+  ["About", "#about"], ["Skills", "#skills"], ["Work", "#projects"], ["Wins", "#achievements"], ["Contact", "#contact"],
+];
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 12);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleNavItemClick = (id: string) => {
-    setActiveSection(id);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const [open, setOpen] = useState(false);
+  const [dark, setDark] = useState(false);
+  const toggleTheme = () => {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle("dark", next);
   };
+  const jump = () => setOpen(false);
 
-  useEffect(() => {
-    const sectionIds = navItems.map((item) => item.href.replace("#", ""));
-    const observers: IntersectionObserver[] = [];
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const observer = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { rootMargin: "-15% 0px -40% 0px" }
-      );
-      observer.observe(el);
-      observers.push(observer);
-    });
-
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
-
-  const customItems = [
-    {
-      id: "home",
-      icon: <Home className="w-5 h-5" />,
-      label: "Home",
-      onClick: () => handleNavItemClick("home"),
-    },
-    {
-      id: "about",
-      icon: <User className="w-5 h-5" />,
-      label: "About",
-      onClick: () => handleNavItemClick("about"),
-    },
-    {
-      id: "skills",
-      icon: <Code2 className="w-5 h-5" />,
-      label: "Skills",
-      onClick: () => handleNavItemClick("skills"),
-    },
-    {
-      id: "projects",
-      icon: <Briefcase className="w-5 h-5" />,
-      label: "Projects",
-      onClick: () => handleNavItemClick("projects"),
-    },
-    {
-      id: "achievements",
-      icon: <Award className="w-5 h-5" />,
-      label: "Achievements",
-      onClick: () => handleNavItemClick("achievements"),
-    },
-    {
-      id: "contact",
-      icon: <Mail className="w-5 h-5" />,
-      label: "Contact",
-      onClick: () => handleNavItemClick("contact"),
-    },
-  ];
-
-  const activeIndex = customItems.findIndex((item) => item.id === activeSection);
-  const currentActiveIndex = activeIndex >= 0 ? activeIndex : 0;
-
-  return (
-    <>
-      <motion.header
-        className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
-          isScrolled ? "glass-nav border-b border-border-t" : "bg-transparent"
-        }`}
-        initial={{ y: -72 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-      >
-        <Container>
-          <nav
-            className="flex h-[72px] items-center justify-between"
-            role="navigation"
-            aria-label="Main navigation"
-          >
-            {/* Wordmark */}
-            <a
-              href="#home"
-              className="text-lg font-bold tracking-tight text-text-primary transition-colors duration-200 hover:text-accent"
-              aria-label="Home"
-            >
-              Malavya Mankar
-            </a>
-
-            {/* Desktop links */}
-            <div className="hidden items-center lg:flex">
-              <LimelightNav
-                items={customItems}
-                activeIndex={currentActiveIndex}
-                className="bg-elevated/40 backdrop-blur-md rounded-full border border-border-t px-1 h-12"
-                iconContainerClassName="px-4 py-0 flex items-center justify-center h-full"
-                iconClassName="w-5 h-5 text-text-primary"
-              />
-            </div>
-
-            {/* Right actions */}
-            <div className="flex items-center gap-2">
-              <ThemeToggle />
-
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden items-center gap-1.5 rounded-full border border-border-t bg-surface/30 backdrop-blur-sm px-4.5 py-2 text-sm font-medium text-text-secondary transition-all duration-200 hover:text-text-primary hover:border-border-strong sm:inline-flex hover:scale-[0.98] active:scale-95"
-              >
-                <FileText size={14} />
-                Resume
-              </a>
-
-              <button
-                onClick={() => setMobileOpen(true)}
-                className="flex h-9 w-9 items-center justify-center rounded-xl text-text-secondary transition-colors duration-200 hover:text-text-primary hover:bg-elevated lg:hidden cursor-pointer"
-                aria-label="Open navigation"
-              >
-                <Menu size={20} />
-              </button>
-            </div>
-          </nav>
-        </Container>
-      </motion.header>
-
-      <MobileMenu
-        isOpen={mobileOpen}
-        onClose={() => setMobileOpen(false)}
-        activeSection={activeSection}
-      />
-    </>
-  );
+  return <header className="pointer-events-none fixed inset-x-0 top-4 z-50 px-4 sm:top-5">
+    <nav className="pointer-events-auto mx-auto flex h-14 max-w-5xl items-center rounded-full border border-white/80 bg-[#fdfaf5]/85 px-2 shadow-[0_12px_40px_rgba(42,60,98,0.13)] backdrop-blur-xl sm:px-3">
+      <button onClick={() => setOpen(!open)} className="nav-name flex items-center gap-2 rounded-full px-3 py-2 font-bold text-[#16233f]" aria-expanded={open} aria-label="Toggle navigation">
+        {open ? <X size={19} /> : <Menu size={19} />} <span>Malavya Mankar</span>
+      </button>
+      <div className="mx-auto hidden items-center gap-1 md:flex">
+        {links.map(([label, href]) => <a key={href} href={href} className="nav-link">{label}</a>)}
+      </div>
+      <button onClick={toggleTheme} className="grid h-10 w-10 place-items-center rounded-full text-[#16233f] transition hover:bg-[#e8efff]" aria-label="Toggle theme">{dark ? <Sun size={18} /> : <Moon size={18} />}</button>
+    </nav>
+    <AnimatePresence>
+      {open && <motion.div initial={{ opacity: 0, y: -10, scale: .97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -10, scale: .97 }} className="pointer-events-auto mx-auto mt-2 max-w-5xl overflow-hidden rounded-[1.5rem] border border-white/80 bg-[#fdfaf5]/95 p-3 shadow-[0_18px_50px_rgba(42,60,98,0.16)] backdrop-blur-xl">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">{links.map(([label, href], index) => <motion.a initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * .035 }} onClick={jump} key={href} href={href} className="nav-menu-link">{label}<span>↗</span></motion.a>)}</div>
+      </motion.div>}
+    </AnimatePresence>
+  </header>;
 }

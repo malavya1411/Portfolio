@@ -1,61 +1,37 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { Container } from "@/components/ui/Container";
-import { ProjectCard } from "@/components/ui/ProjectCard";
 import { projects } from "@/lib/data";
 
 export function Projects() {
-  const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
-
-  return (
-    <section id="projects" className="projects-showcase section-padding">
-      <Container>
-        {/* Header row */}
-        <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
-          >
-            <span className="mb-4 inline-block text-sm font-medium tracking-widest uppercase text-accent">
-              Projects
-            </span>
-            <h2 className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-              Selected work
-            </h2>
-            <p className="mt-3 max-w-xl text-base text-text-secondary">
-              Production-grade projects, built under pressure.
-            </p>
-          </motion.div>
-        </div>
-
-        {/* Project grid */}
-        <div className="projects-feature-grid grid gap-6 lg:grid-cols-3">
-          {featuredProjects.map((project, i) => (
-            <ProjectCard key={project.slug} project={project} index={i} />
-          ))}
-        </div>
-
-        <motion.div
-          className="mt-10 flex justify-center"
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-48px" }}
-          transition={{ duration: 0.45, delay: 0.2, ease: "easeOut" }}
-        >
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 rounded-full border border-accent bg-accent px-7 py-3.5 text-sm font-bold text-[#111015] shadow-[0_12px_30px_rgba(217,140,95,0.20)] transition-all duration-200 hover:bg-accent-hover hover:scale-[0.98] active:scale-95"
-          >
-            View all projects
-            <ArrowUpRight size={15} />
-          </Link>
-        </motion.div>
-      </Container>
-    </section>
-  );
+  const track = useRef<HTMLDivElement>(null);
+  const featured = projects.filter((project) => project.featured).slice(0, 5);
+  useEffect(() => {
+    const section = track.current?.parentElement;
+    const row = track.current;
+    if (!section || !row) return;
+    const update = () => {
+      const top = section.getBoundingClientRect().top;
+      const span = section.offsetHeight - window.innerHeight;
+      const progress = Math.max(0, Math.min(1, -top / Math.max(1, span)));
+      const distance = Math.max(0, row.scrollWidth - window.innerWidth + 72);
+      row.style.transform = `translate3d(${-distance * progress}px, 0, 0)`;
+    };
+    update(); window.addEventListener("scroll", update, { passive: true }); window.addEventListener("resize", update);
+    return () => { window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+  }, []);
+  return <section id="projects" className="work-scroll-section">
+    <div className="work-sticky">
+      <div className="work-heading"><p>01 — Selected work</p><h2>Things I&apos;ve made<br /><em>useful.</em></h2><span>Keep scrolling <b>→</b></span></div>
+      <div ref={track} className="work-track">
+        {featured.map((project, i) => <Link href={`/projects/${project.slug}`} key={project.slug} className={`work-card work-card-${i % 3}`}>
+          <div className="work-image"><img src={project.coverImage || "/images/git_stat.png"} alt="" /><span>{project.year}</span></div>
+          <div className="work-copy"><p>{project.categoryTag || project.tags[0]}</p><h3>{project.title}</h3><span>{project.summary}</span><ArrowUpRight size={18} /></div>
+        </Link>)}
+        <Link href="/projects" className="work-end-card">View every project <ArrowUpRight size={22} /></Link>
+      </div>
+    </div>
+  </section>;
 }
