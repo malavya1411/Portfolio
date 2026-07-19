@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, Moon, Sun, X } from "lucide-react";
+import { Moon, Sun, X } from "lucide-react";
 
 const links = [
   ["Skills.", "#skills"],
@@ -29,7 +29,20 @@ export function Navbar() {
           aria-label="Toggle navigation"
         >
           <span className="expandable-nav-icon" aria-hidden="true">
-            <Menu className="expandable-nav-menu-icon" size={24} strokeWidth={2.4} />
+            <svg
+              className="expandable-nav-menu-icon"
+              width={24}
+              height={24}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2.4}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="4" y1="8" x2="20" y2="8" />
+              <line x1="4" y1="16" x2="20" y2="16" />
+            </svg>
             <X className="expandable-nav-close-icon" size={24} strokeWidth={2.4} />
           </span>
           <span>Malavya Mankar.</span>
