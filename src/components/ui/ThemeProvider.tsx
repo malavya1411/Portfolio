@@ -35,6 +35,11 @@ export const themeScript = `
   (function() {
     try {
       var stored = localStorage.getItem('theme');
+      /* Portfolio defaults to light — clear any stale dark preference */
+      if (stored === 'dark') {
+        localStorage.removeItem('theme');
+        stored = null;
+      }
       var theme = stored || 'light';
       document.documentElement.classList.toggle('dark', theme === 'dark');
       document.documentElement.style.colorScheme = theme;

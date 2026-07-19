@@ -4,7 +4,12 @@ import { useState, useEffect } from "react";
 import { ArrowRight, Link2 } from "lucide-react";
 import { BuildMascot3D } from "@/components/ui/BuildMascot3D";
 
-const kickerWords = ["AI & Full-Stack", "Modern Web", "Mobile App"];
+const kickerWords = [
+  "AI & Full-Stack Engineer",
+  "Web Developer",
+  "Data Scientist",
+  "Mobile App Developer",
+];
 
 export function Hero() {
   const [displayText, setDisplayText] = useState("");
@@ -14,33 +19,26 @@ export function Hero() {
 
   useEffect(() => {
     const currentFullWord = kickerWords[wordIndex];
-
     const handleType = () => {
       if (!isDeleting) {
-        // Typing
         const nextText = currentFullWord.substring(0, displayText.length + 1);
         setDisplayText(nextText);
-        setTypingSpeed(100);
-
+        setTypingSpeed(80);
         if (nextText === currentFullWord) {
-          // Pause when word is fully typed
-          setTypingSpeed(2000);
+          setTypingSpeed(2200);
           setIsDeleting(true);
         }
       } else {
-        // Deleting
         const nextText = currentFullWord.substring(0, displayText.length - 1);
         setDisplayText(nextText);
-        setTypingSpeed(40);
-
+        setTypingSpeed(35);
         if (nextText === "") {
           setIsDeleting(false);
           setWordIndex((prev) => (prev + 1) % kickerWords.length);
-          setTypingSpeed(300); // Brief pause before starting next word
+          setTypingSpeed(320);
         }
       }
     };
-
     const timer = setTimeout(handleType, typingSpeed);
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, wordIndex, typingSpeed]);
@@ -50,19 +48,37 @@ export function Hero() {
       <div className="reference-cloud reference-cloud-one" />
       <div className="reference-cloud reference-cloud-two" />
       <div className="reference-grain" />
+
       <div className="reference-hero-inner">
+
+        {/* Zone 1: Mascot at top */}
         <div className="reference-mascot-wrap">
           <BuildMascot3D />
         </div>
-        <p className="reference-kicker reference-kicker-typewriter">
-          {displayText}
-        </p>
-        <h1 className="reference-title">Developer<span>.</span></h1>
-        <p className="reference-description">Malavya is an AI &amp; Data Science student and full-stack developer who builds practical, people-first products — from intelligent developer tools to real-time systems.</p>
-        <div className="reference-actions">
-          <a href="#contact" className="reference-button reference-button-dark">Connect <Link2 size={19} /></a>
-          <a href="#projects" className="reference-button reference-button-light">See work <span className="reference-arrow"><ArrowRight size={20} /></span></a>
+
+        {/* Zone 2: Main center block containing tagline, title, description, and buttons */}
+        <div className="reference-hero-center">
+          <p className="reference-kicker reference-kicker-typewriter">
+            {displayText}
+          </p>
+          <h1 className="reference-title">Developer<span>.</span></h1>
+          <p className="reference-description">
+            Malavya is an AI &amp; Data Science student and full-stack developer
+            who builds practical, people-first products — from intelligent
+            developer tools to real-time systems.
+          </p>
+
+          {/* CTA buttons placed inside center block to enforce strict spacing */}
+          <div className="reference-actions">
+            <a href="#contact" className="reference-button reference-button-dark">
+              Connect <Link2 size={18} />
+            </a>
+            <a href="#projects" className="reference-button reference-button-light">
+              See work <span className="reference-arrow"><ArrowRight size={18} /></span>
+            </a>
+          </div>
         </div>
+
       </div>
     </section>
   );
