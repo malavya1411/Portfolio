@@ -37,12 +37,16 @@ export function BuildMascot3D() {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
-    camera.position.set(0, 0.1, 9);
+    // A slightly low, fixed point of view gives the small mascot a little presence.
+    camera.position.set(0, -0.05, 9);
+    camera.lookAt(0, -0.45, 0);
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     mount.appendChild(renderer.domElement);
 
     const robot = new THREE.Group();
@@ -63,6 +67,8 @@ export function BuildMascot3D() {
     const add = (geometry: THREE.BufferGeometry, material: THREE.Material, position: [number, number, number], parent: THREE.Group = robot) => {
       const mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(...position);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
       parent.add(mesh);
       return mesh;
     };
@@ -117,12 +123,34 @@ export function BuildMascot3D() {
 
     const key = new THREE.DirectionalLight(0xffffff, 3.1);
     key.position.set(3.5, 4.5, 6);
+    key.castShadow = true;
+    key.shadow.mapSize.set(1024, 1024);
+    key.shadow.camera.left = -5;
+    key.shadow.camera.right = 5;
+    key.shadow.camera.top = 5;
+    key.shadow.camera.bottom = -5;
     const fill = new THREE.DirectionalLight(0xffba99, 1.6);
     fill.position.set(-4, 0.5, 4);
     scene.add(key, fill, new THREE.HemisphereLight(0xd9ebff, 0xffdfcd, 2.3));
+    const ground = new THREE.Mesh(
+      new THREE.PlaneGeometry(20, 20),
+      new THREE.ShadowMaterial({ color: 0x385776, opacity: 0.18 }),
+    );
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = -2.49;
+    ground.receiveShadow = true;
+    scene.add(ground);
 
     const target = new THREE.Vector2();
     const current = new THREE.Vector2();
+    const pointerVelocity = new THREE.Vector2();
+    const previousPointer = new THREE.Vector2();
+    let hasPointer = false;
+    let lastPointerTime = performance.now();
+    let wasIdle = false;
+    let perk = 0;
+    let blinkUntil = 0;
+    let nextBlinkAt = 0;
     const resize = () => {
       const { width, height } = mount.getBoundingClientRect();
       renderer.setSize(width, height, false);
@@ -131,10 +159,22 @@ export function BuildMascot3D() {
     };
     const move = (event: PointerEvent) => {
       const bounds = mount.getBoundingClientRect();
-      target.set(
+      if (!bounds.width || !bounds.height) return;
+      const now = performance.now();
+      const nextTarget = new THREE.Vector2(
         THREE.MathUtils.clamp((event.clientX - bounds.left) / bounds.width * 2 - 1, -1, 1),
         THREE.MathUtils.clamp((event.clientY - bounds.top) / bounds.height * 2 - 1, -1, 1),
       );
+      if (hasPointer) {
+        const elapsed = Math.max((now - lastPointerTime) / 1000, 0.016);
+        pointerVelocity.copy(nextTarget).sub(previousPointer).multiplyScalar(1 / elapsed).clampLength(0, 4);
+      }
+      if (wasIdle) perk = 1;
+      target.copy(nextTarget);
+      previousPointer.copy(nextTarget);
+      hasPointer = true;
+      lastPointerTime = now;
+      wasIdle = false;
     };
     const leave = () => target.set(0, 0);
     let frame = 0;
@@ -142,21 +182,41 @@ export function BuildMascot3D() {
       frame = requestAnimationFrame(animate);
       const time = performance.now() * 0.001;
       if (!reducedMotion) {
+        const now = performance.now();
+        const idle = now - lastPointerTime > 2000;
+        if (idle && !wasIdle) {
+          wasIdle = true;
+          nextBlinkAt = time + 0.8;
+        }
+        if (wasIdle && time >= nextBlinkAt) {
+          blinkUntil = time + 0.12;
+          nextBlinkAt = time + 2.2 + Math.random() * 2.5;
+        }
+        perk = Math.max(0, perk - 0.045);
+        pointerVelocity.multiplyScalar(0.9);
         current.lerp(target, 0.065);
         robot.rotation.y = THREE.MathUtils.lerp(robot.rotation.y, current.x * 0.12, 0.09);
         robot.rotation.x = THREE.MathUtils.lerp(robot.rotation.x, -current.y * 0.06, 0.09);
-        robot.position.y = Math.sin(time * 1.4) * 0.075;
+        const breathing = wasIdle ? Math.sin(time * 2.1) : Math.sin(time * 1.4) * 0.35;
+        const perkBounce = perk * Math.sin((1 - perk) * Math.PI) * 0.23;
+        robot.position.y = breathing * 0.075 + perkBounce;
+        torso.scale.set(1 - breathing * 0.018 + perk * 0.06, 1 + breathing * 0.03 - perk * 0.075, 1 - breathing * 0.018 + perk * 0.06);
         head.rotation.y = THREE.MathUtils.lerp(head.rotation.y, current.x * 0.35, 0.11);
         head.rotation.x = THREE.MathUtils.lerp(head.rotation.x, -current.y * 0.22, 0.11);
         torso.rotation.y = THREE.MathUtils.lerp(torso.rotation.y, current.x * 0.17, 0.09);
         torso.rotation.x = THREE.MathUtils.lerp(torso.rotation.x, -current.y * 0.1, 0.09);
-        leftArm.rotation.z = THREE.MathUtils.lerp(leftArm.rotation.z, 0.13 - current.x * 0.16 + Math.sin(time * 1.8) * 0.04, 0.08);
-        rightArm.rotation.z = THREE.MathUtils.lerp(rightArm.rotation.z, -0.13 - current.x * 0.16 - Math.sin(time * 1.8) * 0.04, 0.08);
-        antenna.rotation.z = THREE.MathUtils.lerp(antenna.rotation.z, -current.x * 0.25 + Math.sin(time * 2.3) * 0.08, 0.055);
+        leftArm.rotation.z = THREE.MathUtils.lerp(leftArm.rotation.z, 0.13 - current.x * 0.16 + Math.sin(time * 1.8) * 0.04 - perk * 0.33, 0.08);
+        rightArm.rotation.z = THREE.MathUtils.lerp(rightArm.rotation.z, -0.13 - current.x * 0.16 - Math.sin(time * 1.8) * 0.04 + perk * 0.33, 0.08);
+        const antennaWiggle = pointerVelocity.x * 0.2 + Math.sin(time * (wasIdle ? 1.4 : 7.5)) * (wasIdle ? 0.1 : pointerVelocity.length() * 0.07);
+        antenna.rotation.z = THREE.MathUtils.lerp(antenna.rotation.z, -current.x * 0.25 + antennaWiggle, 0.055);
+        antenna.rotation.x = THREE.MathUtils.lerp(antenna.rotation.x, pointerVelocity.y * 0.055, 0.07);
         leftPupil.position.x = -0.21 + current.x * 0.075;
         leftPupil.position.y = -current.y * 0.06;
         rightPupil.position.x = 0.21 + current.x * 0.075;
         rightPupil.position.y = -current.y * 0.06;
+        const eyelid = time < blinkUntil ? 0.08 : 1;
+        leftPupil.scale.y = 1.4 * eyelid;
+        rightPupil.scale.y = 1.4 * eyelid;
         key.position.x = 3.5 + current.x * 2.3;
         key.position.y = 4.5 - current.y * 1.4;
         tipLight.intensity = 1.5 + Math.sin(time * 3) * 0.5;
