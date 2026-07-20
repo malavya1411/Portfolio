@@ -325,6 +325,18 @@ function ProjectThumbnail({ slug }: { slug: string }) {
     );
   }
 
+  if (slug === "inbox-os") {
+    return (
+      <div className="w-full h-full relative overflow-hidden select-none">
+        <img 
+          src="/images/inbox_os.png" 
+          alt="InboxOS Dashboard" 
+          className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
+    );
+  }
+
   // Fallback
   return (
     <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 text-center">

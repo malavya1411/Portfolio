@@ -641,6 +641,71 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    title: "InboxOS",
+    slug: "inbox-os",
+    summary:
+      "Open-source AI email operating system with a 5-layer ingestion-to-delivery pipeline that reads, classifies, and acts on emails automatically — routing alerts to WhatsApp, Slack, and Telegram.",
+    role: "Co-founder & Lead Architect",
+    context: "Personal Project",
+    techStack: [
+      "Next.js",
+      "React",
+      "Express",
+      "Prisma",
+      "PostgreSQL",
+      "Redis",
+      "OpenAI",
+      "Gemini",
+      "Ollama",
+      "WebSocket",
+      "Twilio",
+      "Telegram API",
+    ],
+    outcome:
+      "Led the core build as #1 contributor (78 commits, 143K+ lines added). Shipped v1.0.0 with Gmail Pub/Sub, Outlook Graph, IMAP ingestion, provider-agnostic LLM classification, and multi-channel delivery. 12 stars, 16 forks, 408 total commits.",
+    tags: ["AI", "Open Source", "Full-Stack"],
+    github: "https://github.com/CodeLabsAI29/InboxOS",
+    demo: "https://inbox-os-frontend-lqrb.vercel.app/",
+    demoAvailableOnRequest: false,
+    badge: "Open Source · Hacktoberfest",
+    featured: false,
+    year: "2026",
+    coverImage: "/images/inbox_os.png",
+    status: "COMPLETED",
+    categoryTag: "AI PIPELINE · OPEN SOURCE",
+    dateString: "JULY 2026 · PERSONAL OPEN SOURCE",
+    features: [
+      "5-layer ingestion-to-delivery pipeline: Gmail Pub/Sub, Outlook Graph, IMAP → Parser → LLM → Rules DSL → Multi-channel delivery",
+      "Provider-agnostic LLMClient with OpenAI, Gemini, and local Ollama (Llama 3/Mistral) — privacy-first, no vendor lock-in",
+      "DSL-based rules engine evaluating conditions like sender_is, domain_is, priority_above with time-of-day windows",
+      "Async batch classification for newsletters (gpt-4o-mini routing before expensive extraction) — cost/latency tradeoff",
+    ],
+    caseStudy: {
+      overview:
+        "InboxOS is an open-source AI email operating system built under CodeLabsAI29. Instead of another inbox client, it is a decision and execution layer: a 5-stage pipeline that reads, classifies, and acts on email — creating tasks, scheduling calendar events, and routing critical alerts to WhatsApp, Slack, or Telegram without the user touching their inbox. Shipped v1.0.0 on Jul 14, 2026, and actively maintained with 12 stars, 16 forks, and 408 total commits.",
+      problemStatement:
+        "The average knowledge worker receives 120+ emails/day, and most existing AI tools respond by summarizing noise rather than eliminating it. InboxOS is built on the principle that email should be handled automatically — classified, routed, and acted upon — not just filtered and displayed differently.",
+      architecture:
+        "A 5-layer pipeline separates concerns cleanly: Ingestion (Gmail Pub/Sub, Outlook Graph delta sync, IMAP polling with OAuth 2.0) → Parser (normalizes HTML/text to Markdown, strips signatures) → Intelligence (provider-agnostic LLMClient calling structured JSON extraction) → Rules (DSL evaluates conditions per email) → Delivery (Twilio WhatsApp, Slack webhooks, Telegram, WebSocket dashboard). This separation means new delivery channels or rules don't require touching the AI layer at all.",
+      technicalDecisions: [
+        "Provider-Agnostic LLMClient — Abstracts OpenAI, Gemini, and local Ollama behind one interface. Local model support is a first-class option for privacy: private email never leaves the user's machine.",
+        "Classification ≠ Routing — Keeping the LLM layer (Layer 3) separate from the DSL rules engine (Layer 4) makes the system extensible. Adding Telegram delivery or a new rule type requires zero changes to the AI extraction logic.",
+        "Async Batch Classification — Low-priority mail (newsletters, digests) is batched and routed through gpt-4o-mini before invoking the expensive extraction pass, cutting latency and API cost significantly.",
+        "Open Source + Self-hostable from Day One — 100+ 'good first issue' tags and Hacktoberfest participation as a deliberate community-growth strategy, not incidental.",
+      ],
+      challenges: [
+        "Multi-provider Email Ingestion — Gmail Pub/Sub push, Outlook Graph delta sync, and IMAP polling each have fundamentally different event models. Unified behind an abstract Ingestion interface to avoid divergence in downstream layers.",
+        "Structured LLM Output Reliability — Enforcing consistent JSON-mode output across OpenAI, Gemini, and local models for deadline/amount/action-item extraction required per-provider schema adaptation logic.",
+        "Cost-Latency Tradeoff at Scale — Running full extraction on every email was prohibitively expensive. Resolved by introducing a cheap routing classifier first, then calling the heavy extraction model only for high-priority emails.",
+      ],
+      learnings: [
+        "Separating classification from routing is the architectural choice that makes AI systems maintainable long-term — it's the difference between 'used AI' and 'designed a system where AI is one component.'",
+        "Local model support (Ollama) is not just a technical choice — it's a product positioning decision about privacy and trust that should be made early.",
+        "Open-source traction requires deliberate onboarding infrastructure: good README, tagged issues, and Hacktoberfest participation generate real contributions.",
+      ],
+    },
+  },
 ];
 
 /* ─── Achievements ─── */
