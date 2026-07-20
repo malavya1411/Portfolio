@@ -1010,7 +1010,7 @@ export const achievements: Achievement[] = [
     event: "VESIT — B.Tech AI & Data Science",
     description:
       "Top academic record maintained while actively competing in hackathons and shipping production software.",
-    year: "2024–25",
+    year: "2025–26",
     highlight: false,
   },
   {
