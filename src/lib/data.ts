@@ -497,6 +497,65 @@ export const projects: Project[] = [
     categoryTag: "AUTOMATION · SAAS",
     dateString: "MAY 2026 · FREELANCE PROJECT",
   },
+  {
+    title: "CanopyML",
+    slug: "canopyml",
+    summary: "AI-powered satellite image land cover classification & automated deforestation detection platform.",
+    role: "Solo Developer",
+    context: "Personal Project",
+    techStack: [
+      "PyTorch",
+      "FastAPI",
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "Docker",
+      "Nginx",
+    ],
+    outcome: "Built an end-to-end deep learning platform using ResNet50 for 10-class land cover classification (EuroSAT) and temporal forest loss comparisons, featuring singleton FastAPI inference and automated PDF reports.",
+    tags: ["AI/ML", "Satellite", "Python"],
+    github: "https://github.com/malavya1411/CanopyML",
+    demo: null,
+    badge: null,
+    featured: true,
+    year: "2026",
+    coverImage: "/images/canopyml.png",
+    status: "COMPLETED",
+    categoryTag: "AI PLATFORM · PYTHON",
+    dateString: "JULY 2026 · PERSONAL PROJECT",
+    features: [
+      "ResNet50 model with two-stage transfer learning on EuroSAT dataset",
+      "Temporal satellite comparison for forest loss tracking & area estimates",
+      "Asynchronous FastAPI backend with singleton model loader",
+      "Automated PDF reporting for forestry officials",
+    ],
+    caseStudy: {
+      overview:
+        "CanopyML is an end-to-end machine learning platform that uses deep learning (ResNet50 with transfer learning) to classify satellite imagery into 10 land cover classes and automatically detect forest loss between two time periods. It is designed to automate deforestation tracking at scale, providing interactive analysis and downloadable PDF reports.",
+      problemStatement:
+        "Manual monitoring of deforestation from satellite imagery is slow, human-intensive, and does not scale. Stakeholders need a way to rapidly classify land cover types and compare historical satellite scans to flag canopy loss without manual inspection of thousands of square kilometers.",
+      architecture:
+        "FastAPI asynchronous API backend with singleton model loading to ensure low-latency concurrent inference. The frontend is a React SPA built with Vite, TypeScript, and Tailwind CSS, featuring smooth transitions via Framer Motion. The PyTorch deep learning pipeline processes EuroSAT image datasets.",
+      technicalDecisions: [
+        "Two-Stage Transfer Learning — Head fine-tuning first, followed by full unfreezing, allowing the ResNet50 model to adapt to satellite domain shift without breaking pre-trained features.",
+        "FastAPI with Singleton Pattern — Loaded the PyTorch model once in memory on startup, avoiding repetitive model-reloading latency on inference endpoints.",
+        "PyTorch + EuroSAT (27k images) — Selected EuroSAT as it maps across 10 vital land cover classes, providing high-quality training signals for remote sensing.",
+        "Asynchronous API endpoints — Designed non-blocking API routing for concurrent user uploads of high-resolution satellite imagery.",
+        "Dockerized Split-Deployment — Backend containerized with Docker and Nginx and deployed on Render; frontend deployed on Vercel.",
+      ],
+      challenges: [
+        "ImageNet to EuroSAT Domain Shift — The visual patterns in satellite imagery are vastly different from standard natural photographs, requiring custom two-stage unfreezing to prevent gradient explosion.",
+        "Inference Latency & CPU Overhead — Running heavy deep learning inference on CPU-limited server hosting environments required optimize pre-processing and image-tiling.",
+        "Forest Loss Precision — Separating actual canopy loss from seasonal foliage changes or cloud artifacts without ground-truth labels.",
+      ],
+      learnings: [
+        "ImageNet-trained layers require careful freezing when fine-tuning on domain-shifted datasets like satellite photography.",
+        "Singleton patterns for deep learning backends are vital to prevent CPU/memory exhaustion on serverless deployment platforms.",
+        "Domain-specific remote sensing models require clean, pre-processed input grids to match training data spectral bands.",
+      ],
+    },
+  },
 ];
 
 /* ─── Achievements ─── */

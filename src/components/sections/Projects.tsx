@@ -303,6 +303,69 @@ function ProjectThumbnail({ slug }: { slug: string }) {
     );
   }
 
+  if (slug === "canopyml") {
+    return (
+      <div className="w-full h-full bg-white text-slate-800 p-3.5 flex justify-between select-none overflow-hidden relative">
+        {/* Winding road forest graphic on right side */}
+        <div className="absolute right-0 top-0 bottom-0 w-[45%] bg-gradient-to-l from-emerald-800/10 to-transparent pointer-events-none z-0" />
+        <div className="absolute right-[-10px] top-[-10px] w-[50%] h-[120%] opacity-90 z-0 select-none pointer-events-none">
+          {/* Overlapping green circles to simulate tree canopy */}
+          <div className="absolute right-[10%] top-[15%] w-10 h-10 rounded-full bg-emerald-600/30 blur-[2px]" />
+          <div className="absolute right-[25%] top-[40%] w-12 h-12 rounded-full bg-emerald-700/25 blur-[3px]" />
+          <div className="absolute right-[5%] top-[55%] w-14 h-14 rounded-full bg-green-600/20 blur-[2px]" />
+          <div className="absolute right-[15%] bottom-[5%] w-11 h-11 rounded-full bg-emerald-500/30 blur-[1px]" />
+          
+          {/* Winding road path */}
+          <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path 
+              d="M50 0 C 65 30, 35 60, 60 100" 
+              stroke="#ece9e2" 
+              strokeWidth="4" 
+              strokeLinecap="round" 
+              strokeDasharray="1.5 2"
+            />
+            <path 
+              d="M50 0 C 65 30, 35 60, 60 100" 
+              stroke="#a3a3a3" 
+              strokeWidth="0.5" 
+              strokeLinecap="round"
+            />
+          </svg>
+        </div>
+
+        {/* Content on Left Side */}
+        <div className="flex-1 flex flex-col justify-between items-start z-10 max-w-[60%]">
+          {/* Green Badge */}
+          <div className="flex items-center gap-1 bg-green-50 border border-green-200/50 rounded-full px-1.5 py-0.5 text-[5.5px] font-bold text-green-600 uppercase tracking-wider">
+            <span className="w-1 h-1 rounded-full bg-green-500 animate-pulse" />
+            <span>Active AI Monitoring</span>
+          </div>
+
+          {/* Heading */}
+          <div className="my-1.5">
+            <div className="text-[11px] font-black text-slate-900 leading-tight font-sans tracking-tight">
+              Monitor Canopy Loss <br />
+              <span className="text-green-600">From Space</span>
+            </div>
+            <div className="text-[6.5px] text-slate-500 leading-normal mt-0.5 line-clamp-2">
+              End-to-end ML platform using ResNet50 + PyTorch for land cover monitoring.
+            </div>
+          </div>
+
+          {/* Mini Buttons */}
+          <div className="flex gap-1.5 mt-0.5">
+            <div className="bg-green-600 text-white font-bold text-[5.5px] px-2 py-1 rounded-[3px] shadow-sm flex items-center gap-0.5">
+              Classify Image
+            </div>
+            <div className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[5.5px] px-2 py-1 rounded-[3px] border border-slate-200/50">
+              Detect Loss
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Fallback
   return (
     <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 text-center">
@@ -321,11 +384,11 @@ export function Projects() {
   const [terminalInput, setTerminalInput] = useState("");
   const terminalInputRef = useRef<HTMLInputElement>(null);
 
-  // Filter projects based on tabs (supporting exactly the 5 projects under Personal)
+  // Filter projects based on tabs
   const getFilteredProjects = () => {
     if (activeTab === "Personal") {
       return projects.filter(
-        (p) => p.slug === "git-stat" || p.slug === "ai-finder" || p.slug === "jr-06" || p.slug === "ai-messaging" || p.slug === "boldbot"
+        (p) => p.slug === "git-stat" || p.slug === "ai-finder" || p.slug === "jr-06" || p.slug === "ai-messaging" || p.slug === "boldbot" || p.slug === "canopyml"
       );
     }
     if (activeTab === "Projects") {
@@ -339,6 +402,25 @@ export function Projects() {
       );
     }
     return [];
+  };
+
+  const getTabCount = (tab: TabType) => {
+    if (tab === "Personal") {
+      return projects.filter(
+        (p) => p.slug === "git-stat" || p.slug === "ai-finder" || p.slug === "jr-06" || p.slug === "ai-messaging" || p.slug === "boldbot" || p.slug === "canopyml"
+      ).length;
+    }
+    if (tab === "Projects") {
+      return projects.filter(
+        (p) => p.slug === "hiremind" || p.slug === "onboard-ai" || p.slug === "crisis-sync"
+      ).length;
+    }
+    if (tab === "Published") {
+      return projects.filter(
+        (p) => p.demo !== null && p.demo !== undefined
+      ).length;
+    }
+    return null;
   };
 
   const filteredProjects = getFilteredProjects();
@@ -393,7 +475,14 @@ export function Projects() {
                   activeTab === tab ? "active" : ""
                 }`}
               >
-                {tab}
+                <span className="flex items-center gap-1.5">
+                  {tab}
+                  {getTabCount(tab) !== null && (
+                    <span className="text-[0.75rem] px-1.5 py-0.5 rounded-full bg-black/5 font-semibold text-text-secondary transition-colors duration-200">
+                      {getTabCount(tab)}
+                    </span>
+                  )}
+                </span>
                 {tab === "Terminal" && (
                   <span className="project-tab-badge absolute top-0 right-0 bg-[#ef4444] text-white text-[0.6rem] px-2 py-0.5 rounded-[4px] font-bold transform translate-x-1/2 -translate-y-1/2 shadow-sm uppercase tracking-wider">
                     NEW
