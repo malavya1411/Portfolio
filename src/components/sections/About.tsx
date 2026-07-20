@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Code2 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { aboutData } from "@/lib/data";
+import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 
 const focusAreas = ["Applied AI", "Clean architecture", "Developer experience"];
 
@@ -62,7 +63,7 @@ export function About() {
                 whileHover={{ y: -5 }}
               >
                 <div className="text-4xl font-extrabold text-accent tracking-tight">
-                  {stat.value}
+                  <AnimatedCounter value={stat.value} />
                 </div>
                 <div className="text-xs font-bold uppercase tracking-wider text-text-primary mt-1">
                   {stat.label}
