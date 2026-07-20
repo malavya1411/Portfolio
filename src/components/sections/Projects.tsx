@@ -377,22 +377,22 @@ export function Projects() {
         
         {/* Section Header */}
         <div className="projects-header flex flex-col items-center text-center gap-2 mb-10">
-          <h2 className="text-[#1a1a1a] dark:text-white font-semibold text-[2.5rem] tracking-[-0.02em] leading-tight">
+          <h2 className="text-text-primary font-semibold text-[2.5rem] tracking-[-0.02em] leading-tight">
             Find My Work
           </h2>
         </div>
 
         {/* Pill-shaped filter tabs switcher */}
         <div className="project-tabs-container mb-[48px] flex justify-center">
-          <div className="project-tabs flex items-center bg-[#f0f0f0]/60 dark:bg-[#1e1e28]/60 backdrop-blur-xl p-[6px] rounded-full border border-black/5 dark:border-white/5">
+          <div className="project-tabs flex items-center bg-surface/80 dark:bg-surface/60 backdrop-blur-xl p-[6px] rounded-full border border-border">
             {(["Personal", "Projects", "Published", "Terminal"] as TabType[]).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`project-tab relative py-2.5 px-6 rounded-full font-medium text-[0.95rem] transition-all duration-300 select-none border-none cursor-pointer ${
                   activeTab === tab 
-                    ? "bg-white dark:bg-zinc-800 text-[#1a1a1a] dark:text-white shadow-[0_2px_8px_rgba(0,0,0,0.08)]" 
-                    : "text-[#888888] dark:text-zinc-400 bg-transparent hover:text-[#1a1a1a] dark:hover:text-white"
+                    ? "bg-bg text-text-primary shadow-[0_2px_8px_rgba(0,0,0,0.06)]" 
+                    : "text-text-secondary bg-transparent hover:text-text-primary"
                 }`}
               >
                 {tab}
