@@ -769,6 +769,65 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    title: "Career Compass",
+    slug: "career-compass",
+    summary:
+      "Career and college exploration platform for high school students featuring side-by-side comparison tools and a real-time Firestore-backed application tracker.",
+    role: "Solo Developer",
+    context: "Hackathon Project",
+    techStack: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "Firebase Auth",
+      "Firestore",
+    ],
+    outcome:
+      "Designed and built a unified career mapping and college comparison MVP in a 4-day sprint, implementing Firebase authentication, a comparison layout for up to 4 schools, and a real-time Firestore-backed Kanban application status tracker.",
+    tags: ["Education", "Full-Stack", "MVP"],
+    github: "https://github.com/malavya1411/CareerCompass",
+    demo: "https://career-compass-three-azure.vercel.app/",
+    demoAvailableOnRequest: false,
+    badge: null,
+    featured: false,
+    year: "2026",
+    coverImage: "/images/career_compass.png",
+    status: "HACKATHON",
+    categoryTag: "EDUCATION · FULL-STACK",
+    dateString: "JULY 2026 · HACKATHON PROJECT",
+    features: [
+      "Integrated student profile setup and authentication via Firebase Auth",
+      "Career explorer linking specific job requirements to relevant college majors",
+      "Comparison layout evaluating up to four colleges side by side",
+      "Real-time Firestore-backed Kanban application status board",
+      "Seed data automation script populating collections on first load",
+    ],
+    caseStudy: {
+      overview:
+        "CareerCompass is a career and college exploration platform built for high school students. Developed solo over a disciplined 4-day sprint, the MVP consolidates career mapping, college comparison, and application tracking into a single, cohesive interface. By linking career profiles directly to academic majors and university databases, the platform replaces fragmented spreadsheets and disparate search portals with a unified application lifecycle tracker.",
+      problemStatement:
+        "High school students navigating college prep typically scramble across disconnected tools, using one portal to read about jobs, another to research universities, and custom spreadsheets to track application deadlines. This disjointed process results in information silos, forgotten deadlines, and friction during the application tracking lifecycle.",
+      architecture:
+        "A full-stack React SPA utilizing Vite and TypeScript for type-safety, styled with Tailwind CSS for rapid responsive layout building. Firebase services manage the backend footprint: Firebase Auth handles credentials and profile data, while Firestore provides real-time state synchronization for the student's personal kanban board. Careers and colleges are modeled cleanly with automated self-seeding triggers to populate demo databases.",
+      technicalDecisions: [
+        "Firestore Real-Time Data Sync — Leveraged Firestore snapshot listeners on the application tracker board, allowing UI updates to trigger instantly upon card moves without polling or manual refreshes.",
+        "Unified Career-to-College Linkage — Designed a clean relational schema in Firestore linking career profiles to recommended college majors and matching universities, eliminating the traditional separation between career discovery and college search.",
+        "Self-Seeding Demo Utility — Implemented an automated database check that populates mock career and college documents upon first load if the Firestore collections are empty, ensuring immediate usability.",
+        "Timeboxed Development Plan — Scoped and executed the project layout strictly over a 4-day sprint (Day 1: Auth & Profiles, Day 2: Explorers, Day 3: Kanban, Day 4: Polish), demonstrating disciplined MVP scoping and shipping.",
+      ],
+      challenges: [
+        "Cross-Collection Relationships — Modeling career paths and university links in Firestore, a document-based NoSQL database, without incurring high query complexity or redundant document lookups.",
+        "Kanban State Continuity — Managing board column transitions and ordering updates under high-latency network conditions, solved by optimistic state updates on the frontend before Firestore listener callback fires.",
+      ],
+      learnings: [
+        "Timeboxed timeframes (like a 4-day sprint) demand strict scope discipline, prioritizing core workflows (auth, search, tracking) over complex tertiary features.",
+        "Real-time database listeners drastically simplify state management on the client since state is kept in sync with the database automatically.",
+        "Consolidating separate user flows (career search, college search, application tracking) under a single pipeline provides a significantly better user experience than separate, single-purpose apps.",
+      ],
+    },
+  },
 ];
 
 /* ─── Achievements ─── */
