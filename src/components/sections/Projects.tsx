@@ -390,9 +390,7 @@ export function Projects() {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`project-tab relative py-2.5 px-6 rounded-full font-medium text-[0.95rem] transition-all duration-300 select-none border-none cursor-pointer ${
-                  activeTab === tab 
-                    ? "bg-bg text-text-primary shadow-[0_2px_8px_rgba(0,0,0,0.06)]" 
-                    : "text-text-secondary bg-transparent hover:text-text-primary"
+                  activeTab === tab ? "active" : ""
                 }`}
               >
                 {tab}

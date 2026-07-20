@@ -171,7 +171,7 @@ body {
   border-radius: 9999px;
   font-size: 0.95rem;
   font-weight: 500;
-  color: #888888;
+  color: var(--text-secondary);
   border: none;
   background: transparent;
   cursor: pointer;
@@ -180,22 +180,13 @@ body {
 }
 
 .project-tab:hover {
-  color: #1a1a1a;
-}
-
-.dark .project-tab:hover {
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .project-tab.active {
-  background: #ffffff;
-  color: #1a1a1a;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.dark .project-tab.active {
-  background: rgba(255, 255, 255, 0.95);
-  color: #111015;
+  background: var(--bg);
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .project-tab-badge {
