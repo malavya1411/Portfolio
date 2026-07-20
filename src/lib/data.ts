@@ -966,7 +966,7 @@ export const achievements: Achievement[] = [
     event: "Unimerge Hackathon",
     description:
       "Built GitStat, a GitHub contributor health dashboard with AI-powered insights, OAuth integration, and production-grade deployment.",
-    year: "2025",
+    year: "2026",
     highlight: true,
     rank: "#2",
     certificate: "/images/unimerge_certificate.jpg",
@@ -1001,8 +1001,8 @@ export const achievements: Achievement[] = [
     title: "Invictus Hackathon",
     event: "ISTE-VESIT",
     description:
-      "Competed with JR-06, a full-stack PCB inventory system with real-time analytics and role-based access control.",
-    year: "2025",
+      "A full-stack PCB inventory system with real-time analytics and role-based access control.",
+    year: "2026",
     highlight: false,
   },
   {
