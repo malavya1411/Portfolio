@@ -451,8 +451,8 @@ export function Projects() {
                   <ProjectThumbnail slug={project.slug} />
                 </div>
                 {/* Card Content Footer */}
-                <div className="project-card-footer flex justify-between items-center p-[20px] pt-4">
-                  <div className="flex flex-col gap-1 pr-4 min-w-0">
+                <div className="project-card-footer flex flex-col items-center text-center p-[20px] pt-4 relative">
+                  <div className="flex flex-col gap-1 items-center text-center w-full px-6 min-w-0">
                     <span className="project-card-title text-[1.1rem] font-semibold text-text-primary leading-tight group-hover:text-accent transition-colors duration-200 truncate font-sans">
                       {project.title}
                     </span>
@@ -462,7 +462,7 @@ export function Projects() {
                   </div>
                   {project.github && (
                     <div 
-                      className="project-card-github-icon text-text-secondary hover:text-accent transition-colors duration-200 flex items-center justify-center p-1.5 rounded-full hover:bg-black/5 shrink-0" 
+                      className="project-card-github-icon absolute right-3 top-[50%] translate-y-[-50%] text-text-secondary hover:text-accent transition-colors duration-200 flex items-center justify-center p-1.5 rounded-full hover:bg-black/5 shrink-0" 
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();

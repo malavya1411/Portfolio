@@ -276,11 +276,11 @@ body {
 }
 
 .project-card-title {
-  font-family: Georgia, serif;
-  font-size: 1.15rem;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: -0.01em;
+  letter-spacing: 0.05em;
   transition: color 0.2s ease;
 }
 
