@@ -828,6 +828,67 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    title: "Xenocognition Simulator",
+    slug: "xenocognition-simulator",
+    summary:
+      "A speculative cognitive empathy machine that runs human concepts through five distinct, non-human cognitive architectures to simulate decentralized, network, and collective intelligence.",
+    role: "Solo Developer",
+    context: "Hackathon Project",
+    techStack: [
+      "TanStack Start",
+      "React SSR",
+      "Framer Motion",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Nitro",
+    ],
+    outcome:
+      "Developed a speculative cognitive emulation platform using TanStack Start and Nitro server handlers, implementing five structurally distinct non-human processing models (decentralized, network, collective, entropic, parallel) that dynamically shape visual representations and signal-to-noise metrics.",
+    tags: ["Speculative Design", "AI", "R&D"],
+    github: "https://github.com/malavya1411/Xenocognition-Simulator",
+    demo: null,
+    demoAvailableOnRequest: false,
+    badge: "Conceptual R&D",
+    featured: false,
+    year: "2026",
+    coverImage: "/images/xenocognition_simulator.png",
+    status: "HACKATHON",
+    categoryTag: "SPECULATIVE · HACKATHON",
+    dateString: "JULY 2026 · HACKATHON PROJECT",
+    features: [
+      "Five custom cognitive emulation models (Octopus Mind, Mycelial Network, Hive Mind, Boltzmann Brain, Post-Human Mesh)",
+      "Decentralized octopus mind consensus aggregator evaluating disjointed node biases",
+      "Mycelial graph node-edge signal propagation visualizer with chemical-electrical delay modeling",
+      "Hive Mind voting system with collective syntax checking flagging individualist pronouns",
+      "Thermodynamic entropy calculator measuring coherence and signal-to-noise ratio in a Boltzmann Mind",
+      "Post-Human mesh parallel synthesis resolving cognitive tension scores between distinct stances",
+      "TanStack Start React SSR application architecture with Nitro server handlers and swallowed error normalization",
+    ],
+    caseStudy: {
+      overview:
+        "The Xenocognition Simulator is a speculative AI simulation platform and conceptual art piece dressed as software. Operating under the design thesis that 'intelligence is architectural, not universal,' the simulator runs human concepts through five distinct, non-human cognitive architectures. Rather than reskinning a single LLM prompt, it structurally alters the processing pipelines, console feeds, and output formats (such as voting lists, chemical graphs, and thermodynamic entropy metrics) to mirror decentralized, network, and collective intelligences. It is built as a cognitive empathy machine to visualize minds unlike our own.",
+      problemStatement:
+        "Most AI persona tools simply wrap standard LLM endpoints in superficial prompt instructions ('speak like a pirate' or 'answer as a robot'), leaving the underlying cognitive layout identical. This generic approach downplays the deep structural variations in how different minds—whether decentralized octopuses, chemical mycelium, or entropic Boltzmann states—gather information, represent identity, and achieve consensus. There is a lack of tools designed to demonstrate cognitive architecture as a variable interaction model.",
+      architecture:
+        "Built on a modern server-side rendering architecture using TanStack Start (React SSR) and Nitro server handlers to implement lightweight, high-performance edge execution. The system features hand-crafted Framer Motion transitions and custom visualizers tailored for each cognitive state. The backend implements Nitro server handlers, including a swallowed error normalizer to handle network irregularities, while the AI generation specs follow a custom prompt-architecture mapping detailed in the codebase docs.",
+      technicalDecisions: [
+        "Speculative Processing Pipelines — Designed five completely separate backend handlers representing distinct mental frameworks (e.g., Hive Mind aggregates 200 votes and filters individualistic pronouns as syntax errors; Octopus Mind runs 8 parallel biased nodes; Boltzmann Brain calculates entropy formulas).",
+        "TanStack Start SSR Architecture — Stepped outside of typical SPA patterns to implement server-side rendering using TanStack Start, enabling fast initial loads, robust meta tags, and high-performance server functions.",
+        "Structural Output Formats — Tailored the UI components to match the cognitive model, using d3-like node graphs for mycelial signal propagation, numerical tally sheets for collective voting, and chaotic terminal overlays for entropic states.",
+        "Swallowed Error Normalization — Implemented a Nitro server-side error normalizer that intercepts and formats AI parsing issues gracefully, turning raw backend stack traces into coherent, simulation-safe cognitive anomalies.",
+      ],
+      challenges: [
+        "Prompt-to-Structure Synchronicity — Developing LLM prompts that generate complex, structured JSON payloads conforming to biological/physical constraints (such as voting records or node-edge schemas) without experiencing validation failures during rendering.",
+        "Decentralized Consensus Aggregation — Orchestrating and parsing parallel independent LLM calls for the octopus nodes, and aggregating their conflicting outputs into a unified yet shifting consensus without causing unacceptable network latency.",
+      ],
+      learnings: [
+        "AI persona generation is vastly more convincing when the structural processing pipelines and layout interfaces adapt to the concept, rather than just changes in textual tone.",
+        "Designing conceptual, speculative R&D software allows for deep exploration of novel full-stack tech stacks (like TanStack Start and Nitro server handlers) with higher risk tolerance than traditional business utility applications.",
+        "Representing complex philosophical constraints (like the removal of self-identity) through mechanics (pronoun syntax validation checks) makes abstract ideas tangible and engaging to interact with.",
+      ],
+    },
+  },
 ];
 
 /* ─── Achievements ─── */
