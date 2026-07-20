@@ -76,7 +76,7 @@ export function Projects() {
         
         {/* Section Header */}
         <div className="projects-header">
-          <span className="section-label projects-label">01 — SELECTED WORK</span>
+          <span className="section-label projects-label">01 — PLACES TO FIND MY WORK</span>
         </div>
 
         {/* Pill-shaped filter tabs */}

@@ -124,9 +124,9 @@ body {
 
 .projects-label {
   font-family: var(--font-mono), monospace;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
   margin-bottom: 0;
@@ -1095,10 +1095,10 @@ textarea:focus-visible,
 
 /* ─── Section label style ─── */
 .section-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
   display: inline-block;
