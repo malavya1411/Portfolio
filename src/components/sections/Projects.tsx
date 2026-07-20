@@ -441,41 +441,40 @@ export function Projects() {
           /* Responsive Grid Layout */
           <div className="project-grid pb-10">
             {filteredProjects.map((project) => (
-              <div 
+              <Link 
                 key={project.slug} 
-                className="project-card-v2 group flex flex-col bg-white dark:bg-[#1e1b24] border border-black/[0.06] dark:border-white/[0.06] rounded-[16px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:translate-y-[-4px] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
+                href={`/projects/${project.slug}`}
+                className="project-card-v2 group flex flex-col bg-white dark:bg-surface border border-black/[0.06] dark:border-white/[0.06] rounded-[16px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:translate-y-[-4px] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] no-underline text-inherit cursor-pointer"
               >
-                <Link href={`/projects/${project.slug}`} className="flex-1 flex flex-col no-underline text-inherit cursor-pointer">
-                  {/* Card image/thumbnail area */}
-                  <div className="project-card-image-wrap aspect-[16/10] overflow-hidden w-full relative">
-                    <ProjectThumbnail slug={project.slug} />
+                {/* Card image/thumbnail area */}
+                <div className="project-card-image-wrap aspect-[1.85/1] overflow-hidden w-full relative">
+                  <ProjectThumbnail slug={project.slug} />
+                </div>
+                {/* Card Content Footer */}
+                <div className="project-card-footer flex justify-between items-center p-[20px] pt-4">
+                  <div className="flex flex-col gap-1 pr-4 min-w-0">
+                    <span className="project-card-title text-[1.1rem] font-semibold text-text-primary leading-tight group-hover:text-accent transition-colors duration-200 truncate font-sans">
+                      {project.title}
+                    </span>
+                    <span className="text-xs text-text-secondary line-clamp-1 font-sans">
+                      {project.summary}
+                    </span>
                   </div>
-                  {/* Card Content Footer */}
-                  <div className="project-card-footer flex justify-between items-center p-[20px] pt-4">
-                    <div className="flex flex-col gap-1 pr-4 min-w-0">
-                      <span className="project-card-title text-[1.1rem] font-semibold text-[#1a1a1a] dark:text-white leading-tight group-hover:text-[#c4a882] transition-colors duration-200 truncate">
-                        {project.title}
-                      </span>
-                      <span className="text-xs text-[#888888] dark:text-zinc-400 line-clamp-1">
-                        {project.summary}
-                      </span>
+                  {project.github && (
+                    <div 
+                      className="project-card-github-icon text-text-secondary hover:text-accent transition-colors duration-200 flex items-center justify-center p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/5 shrink-0" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.open(project.github, "_blank");
+                      }}
+                      aria-label="View on GitHub"
+                    >
+                      <GithubIcon size={20} />
                     </div>
-                    {project.github && (
-                      <div 
-                        className="project-card-github-icon text-[#888888] dark:text-zinc-400 hover:text-[#c4a882] dark:hover:text-[#c4a882] transition-colors duration-200 flex items-center justify-center p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/5 shrink-0" 
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          window.open(project.github, "_blank");
-                        }}
-                        aria-label="View on GitHub"
-                      >
-                        <GithubIcon size={20} />
-                      </div>
-                    )}
-                  </div>
-                </Link>
-              </div>
+                  )}
+                </div>
+              </Link>
             ))}
           </div>
         )}
