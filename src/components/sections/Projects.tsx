@@ -475,7 +475,7 @@ export function Projects() {
                   <ProjectThumbnail slug={project.slug} />
                 </div>
                 {/* Card Content Footer */}
-                <div className="project-card-footer flex flex-col items-center text-center p-[20px] pt-4 relative">
+                <div className="project-card-footer flex flex-col items-center text-center py-6 px-[20px] relative">
                   <div className="flex flex-col gap-1 items-center text-center w-full px-6 min-w-0">
                     <span className="project-card-title text-[1.1rem] font-semibold text-text-primary leading-tight group-hover:text-accent transition-colors duration-200 truncate font-sans">
                       {project.title}

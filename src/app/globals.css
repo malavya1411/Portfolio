@@ -272,11 +272,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 4px;
 }
 
 .project-card-title {
-  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif !important;
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-primary);
@@ -1324,11 +1323,6 @@ textarea:focus-visible,
 
 .project-card-body {
   min-height: 430px;
-}
-
-.project-card-title {
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
-  text-transform: uppercase;
 }
 
 @media (min-width: 1024px) {
