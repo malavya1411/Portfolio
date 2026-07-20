@@ -524,7 +524,7 @@ export const projects: Project[] = [
     summary:
       "Real-time space situational awareness dashboard that tracks 40,000+ orbiting objects, calculates collision risks, and simulates launch clearances on a 3D WebGL globe.",
     role: "Solo Developer",
-    context: "Personal Project",
+    context: "Hackathon Project",
     techStack: [
       "React 19",
       "Vite 6",
@@ -546,9 +546,9 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     coverImage: "/images/orbital_watch.png",
-    status: "COMPLETED",
+    status: "HACKATHON",
     categoryTag: "3D WEBGL · FASTAPI",
-    dateString: "JUNE 2026 · PERSONAL PROJECT",
+    dateString: "JUNE 2026 · HACKATHON PROJECT",
     features: [
       "Real-time propagation of 40,000+ orbiters via O(N²·T) optimized geocentric shell conjunction search funnel",
       "Interactive 3D WebGL Earth visualization utilizing React Three Fiber and InstancedMesh",
