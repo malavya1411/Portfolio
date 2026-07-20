@@ -301,6 +301,18 @@ function ProjectThumbnail({ slug }: { slug: string }) {
     );
   }
 
+  if (slug === "orbital-watch") {
+    return (
+      <div className="w-full h-full relative overflow-hidden select-none">
+        <img 
+          src="/images/orbital_watch.png" 
+          alt="OrbitalWatch Dashboard" 
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
+    );
+  }
+
   // Fallback
   return (
     <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 text-center">
@@ -372,7 +384,7 @@ export function Projects() {
     } else if (cmd === "skills") {
       response = "Languages : TypeScript, JavaScript, Python, C++\nFrontend  : Next.js 15, React, Tailwind CSS\nBackend   : Node.js, Express, PostgreSQL, Supabase";
     } else if (cmd === "projects") {
-      response = "Core Projects:\n- HireMind   : Recruiter AI candidate profiling platform\n- OnboardAI  : Autonomous dev RAG onboarding agent\n- CrisisSync : Real-time maps disaster response system";
+      response = "Core Projects:\n- OrbitalWatch : Real-time 3D space tracking & collision dashboard\n- HireMind     : Recruiter AI candidate profiling platform\n- OnboardAI    : Autonomous dev RAG onboarding agent\n- CrisisSync   : Real-time maps disaster response system";
     } else if (cmd === "contact") {
       response = "Email    : malavyamankar@gmail.com\nGitHub   : github.com/malavya1411\nLinkedIn : linkedin.com/in/malavya-mankar-002037382";
     } else if (cmd === "clear") {

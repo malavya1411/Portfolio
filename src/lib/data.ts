@@ -518,6 +518,68 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    title: "OrbitalWatch",
+    slug: "orbital-watch",
+    summary:
+      "Real-time space situational awareness dashboard that tracks 40,000+ orbiting objects, calculates collision risks, and simulates launch clearances on a 3D WebGL globe.",
+    role: "Solo Developer",
+    context: "Personal Project",
+    techStack: [
+      "React 19",
+      "Vite 6",
+      "React Three Fiber",
+      "Three.js",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "Socket.IO",
+      "Python",
+    ],
+    outcome:
+      "Built an open-source real-time Space Situational Awareness (SSA) platform using an APScheduler-driven Celestrak ingestion engine and SGP4 propagation algorithms, streaming telemetry at 60 FPS via Socket.IO.",
+    tags: ["AI/ML", "Space", "Full-Stack"],
+    github: "https://github.com/parthnarkar/OrbitalWatch",
+    demo: "https://orbital-watch-bay.vercel.app/",
+    demoAvailableOnRequest: false,
+    badge: "Celestrak GP Ingestion",
+    featured: true,
+    year: "2026",
+    coverImage: "/images/orbital_watch.png",
+    status: "COMPLETED",
+    categoryTag: "3D WEBGL · FASTAPI",
+    dateString: "JUNE 2026 · PERSONAL PROJECT",
+    features: [
+      "Real-time propagation of 40,000+ orbiters via O(N²·T) optimized geocentric shell conjunction search funnel",
+      "Interactive 3D WebGL Earth visualization utilizing React Three Fiber and InstancedMesh",
+      "Launch clearance forecasts and orbital collision simulations computed off-thread via Web Workers",
+      "FastAPI socket stream & Redis pub/sub carrying real-time conjunction warnings",
+    ],
+    caseStudy: {
+      overview:
+        "OrbitalWatch is a real-time Space Situational Awareness (SSA) dashboard that tracks 40,000+ orbiting objects, calculates collision risks, and evaluates launch trajectory clearances. Ingesting live TLE data from Celestrak and propagating positions with SGP4, it is designed as a free, open-source alternative to commercial space situational software that costs $10K–$100K+/year.",
+      problemStatement:
+        "Commercial SSA tools are priced out of reach for university labs, CubeSat operators, and independent debris researchers. Building a scalable tracking solution requires resolving heavy telemetry streaming and complex conjunction collision checks in real time without lagging the browser.",
+      architecture:
+        "The platform uses three decoupled tiers: a python ingestion/propagation engine, a FastAPI + Socket.IO server, and a React Three Fiber frontend. The physics engine propagates satellite coordinates using SGP4 and publishes collision risks to Redis pub/sub. A FastAPI server handles socket connections to broadcast updates, and the React client runs CPU-intensive launch clearance simulation off-thread using Web Workers.",
+      technicalDecisions: [
+        "APScheduler Ingestion — schedules asynchronous Celestrak GP API fetches, storing records in PostgreSQL via SQLAlchemy for tracking updates.",
+        "React Three Fiber & InstancedMesh — renders thousands of satellites on a WebGL globe within a single draw call, maintaining a steady 60 FPS.",
+        "Redis Pub/Sub & WebSockets — streams 5-second updates to clients concurrently without blocking database processes.",
+        "Web Workers for Clearance Forecasts — delegates heavy 30-day forecast propagation to a background thread to prevent UI freezing.",
+      ],
+      challenges: [
+        "Conjunction Search Complexity — Naively checking O(N²·T) pairs for collisions was extremely CPU-intensive. Resolved by implementing a three-stage filter: a geocentric shell filter eliminating 90% of non-colliding pairs, a coarse 10-minute scan, and a fine 1-minute refinement.",
+        "Physics Library Integration — Aligning raw coordinate systems from SGP4 propagation algorithms (TEME coordinates) with Three.js 3D space.",
+        "Rendering Performance — Maintaining viewport fluid interaction under high coordinate data volumes using instanced rendering.",
+      ],
+      learnings: [
+        "Progressive filtering funnels are essential when dealing with O(N²) computational complexities in standard hardware.",
+        "Web Workers are critical for heavy computational logic in modern React applications to keep the main thread responsive.",
+        "Decoupling physics calculations from state presentation layers ensures backend scalability and cleaner frontend rendering loop code.",
+      ],
+    },
+  },
 ];
 
 /* ─── Achievements ─── */
