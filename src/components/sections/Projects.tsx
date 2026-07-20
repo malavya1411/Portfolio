@@ -355,6 +355,8 @@ export function Projects() {
   const [terminalInput, setTerminalInput] = useState("");
   const terminalInputRef = useRef<HTMLInputElement>(null);
 
+  // Order for featured top 5 — inbox-os first
+  const FEATURED_ORDER = ["inbox-os", "git-stat", "orbital-watch", "gig-shield", "onboard-ai"];
   // Order for hackathon featured top 5
   const HACKATHON_ORDER = ["git-stat", "orbital-watch", "gig-shield", "onboard-ai", "crisis-sync"];
 
@@ -363,11 +365,24 @@ export function Projects() {
     let filtered: Project[] = [];
     if (activeTab === "Featured Projects") {
       filtered = projects.filter((p) => p.featured);
-      // sort: live demo first
-      return filtered.sort((a, b) => (b.demo ? 1 : 0) - (a.demo ? 1 : 0));
+      return filtered.sort((a, b) => {
+        const ai = FEATURED_ORDER.indexOf(a.slug);
+        const bi = FEATURED_ORDER.indexOf(b.slug);
+        if (ai !== -1 && bi !== -1) return ai - bi;
+        if (ai !== -1) return -1;
+        if (bi !== -1) return 1;
+        return (b.demo ? 1 : 0) - (a.demo ? 1 : 0);
+      });
     } else if (activeTab === "Personal") {
-      filtered = projects.filter((p) => p.context === "Personal Project");
-      return filtered.sort((a, b) => (b.demo ? 1 : 0) - (a.demo ? 1 : 0));
+      filtered = projects.filter(
+        (p) => p.context === "Personal Project" || p.context === "Open Source Project"
+      );
+      // Pin inbox-os first, then demo-available
+      return filtered.sort((a, b) => {
+        if (a.slug === "inbox-os") return -1;
+        if (b.slug === "inbox-os") return 1;
+        return (b.demo ? 1 : 0) - (a.demo ? 1 : 0);
+      });
     } else if (activeTab === "Hackathons") {
       filtered = projects.filter(
         (p) =>
@@ -394,7 +409,9 @@ export function Projects() {
       return projects.filter((p) => p.featured).length;
     }
     if (tab === "Personal") {
-      return projects.filter((p) => p.context === "Personal Project").length;
+      return projects.filter(
+        (p) => p.context === "Personal Project" || p.context === "Open Source Project"
+      ).length;
     }
     if (tab === "Hackathons") {
       return projects.filter(
