@@ -253,7 +253,7 @@ export const projects: Project[] = [
     demo: "https://hire-mind-client.vercel.app/",
     demoAvailableOnRequest: false,
     badge: "Hackathon 2026",
-    featured: true,
+    featured: false,
     year: "2026",
     certificate: "/images/hiremind_certificate.jpg",
     coverImage: "/images/hiremind.png",
