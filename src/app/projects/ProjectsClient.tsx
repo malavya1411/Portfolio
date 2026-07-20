@@ -71,7 +71,7 @@ export function ProjectsClient({ projects, allTags }: ProjectsClientProps) {
         {filtered.length > 0 ? (
           <motion.div
             key={activeTag}
-            className="grid gap-6 lg:grid-cols-3"
+            className="grid gap-4 lg:grid-cols-3"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
