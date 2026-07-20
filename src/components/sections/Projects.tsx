@@ -188,11 +188,7 @@ export function Projects() {
                     </span>
                   )}
                 </span>
-                {tab === "Terminal" && (
-                  <span className="project-tab-badge absolute top-0 right-0 bg-[#ef4444] text-white text-[0.6rem] px-2 py-0.5 rounded-[4px] font-bold transform translate-x-1/2 -translate-y-1/2 shadow-sm uppercase tracking-wider">
-                    NEW
-                  </span>
-                )}
+
               </button>
             ))}
           </div>
