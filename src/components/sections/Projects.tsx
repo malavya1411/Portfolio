@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { projects } from "@/lib/data";
+import { projects, Project } from "@/lib/data";
 
 type TabType = "Featured Projects" | "Personal" | "Hackathons" | "Terminal";
 
@@ -321,14 +321,13 @@ export function Projects() {
 
   // Filter projects based on tabs
   const getFilteredProjects = () => {
+    let filtered: Project[] = [];
     if (activeTab === "Featured Projects") {
-      return projects.filter((p) => p.featured);
-    }
-    if (activeTab === "Personal") {
-      return projects.filter((p) => p.context === "Personal Project");
-    }
-    if (activeTab === "Hackathons") {
-      return projects.filter(
+      filtered = projects.filter((p) => p.featured);
+    } else if (activeTab === "Personal") {
+      filtered = projects.filter((p) => p.context === "Personal Project");
+    } else if (activeTab === "Hackathons") {
+      filtered = projects.filter(
         (p) =>
           p.status === "HACKATHON" ||
           p.status === "RUNNER-UP" ||
@@ -336,7 +335,7 @@ export function Projects() {
           p.slug === "jr-06"
       );
     }
-    return [];
+    return filtered.sort((a, b) => (b.demo ? 1 : 0) - (a.demo ? 1 : 0));
   };
 
   const getTabCount = (tab: TabType) => {
@@ -477,10 +476,23 @@ export function Projects() {
                 {/* Card Content Footer */}
                 <div className="project-card-footer flex flex-col items-center text-center py-6 px-[20px] relative">
                   <div className="flex flex-col gap-1 items-center text-center w-full px-6 min-w-0">
-                    <span className="project-card-title text-[1.1rem] font-semibold text-text-primary leading-tight group-hover:text-accent transition-colors duration-200 truncate font-sans">
+                    <span className="project-card-title text-[1.25rem] font-semibold text-text-primary leading-tight group-hover:text-accent transition-colors duration-200 truncate font-sans">
                       {project.title}
                     </span>
                   </div>
+                  {project.demo && (
+                    <div 
+                      className="project-card-demo-icon absolute left-3 top-[50%] translate-y-[-50%] text-text-secondary hover:text-accent transition-colors duration-200 flex items-center justify-center p-1.5 rounded-full hover:bg-black/5 shrink-0" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.open(project.demo!, "_blank");
+                      }}
+                      aria-label="View Live Demo"
+                    >
+                      <ArrowUpRight size={20} />
+                    </div>
+                  )}
                   {project.github && (
                     <div 
                       className="project-card-github-icon absolute right-3 top-[50%] translate-y-[-50%] text-text-secondary hover:text-accent transition-colors duration-200 flex items-center justify-center p-1.5 rounded-full hover:bg-black/5 shrink-0" 
