@@ -647,7 +647,7 @@ export const projects: Project[] = [
     summary:
       "Open-source AI email operating system with a 5-layer ingestion-to-delivery pipeline that reads, classifies, and acts on emails automatically — routing alerts to WhatsApp, Slack, and Telegram.",
     role: "Co-founder & Lead Architect",
-    context: "Personal Project",
+    context: "Open Source Project",
     techStack: [
       "Next.js",
       "React",
