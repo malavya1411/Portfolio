@@ -889,6 +889,63 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    title: "Code Scope",
+    slug: "code-scope",
+    summary:
+      "Offline static analysis tool for VS Code providing deep architectural and complexity insights using pure local AST parsing and directed graphs.",
+    role: "Solo Developer",
+    context: "Personal Project",
+    techStack: [
+      "TypeScript",
+      "VS Code Extension API",
+      "TypeScript Compiler API",
+    ],
+    outcome:
+      "Developed a local-first VS Code extension leveraging the TypeScript Compiler API to analyze source code ASTs, compute Cyclomatic and Cognitive complexity scores, and visualize file dependencies without cloud APIs or network requests.",
+    tags: ["TypeScript", "Developer Tools", "VS Code"],
+    github: "https://github.com/malavya1411/CodeScope",
+    demo: null,
+    demoAvailableOnRequest: false,
+    badge: "VS Code Extension",
+    featured: false,
+    year: "2026",
+    coverImage: "/images/code_scope.png",
+    status: "COMPLETED",
+    categoryTag: "DEVELOPER TOOLS · EXTENSION",
+    dateString: "JULY 2026 · PERSONAL PROJECT",
+    features: [
+      "Local AST parsing and graph analysis utilizing the TypeScript Compiler API",
+      "Interactive dependency visualization displaying internal imports and circular references",
+      "Complexity ranking tracking both Cyclomatic (control flow paths) and Cognitive (readability/logical nesting) scores",
+      "Per-function Control Flow Graph rendering loops, branch logic, and return patterns",
+      "Call hierarchy visualizer tracing bidirectional function execution trees",
+      "Privacy-by-design architecture with zero cloud or API-related network requests",
+    ],
+    caseStudy: {
+      overview:
+        "CodeScope is an offline static analysis VS Code extension that enables developers to understand codebase architecture and metrics. In contrast to generative AI-based explainers, CodeScope takes a deterministic, privacy-first approach. By parsing code locally using the TypeScript Compiler API, it maps file dependencies, flags circular references, and ranks function complexity without sending any data over the internet. CodeScope is distributed as packaged .vsix releases.",
+      problemStatement:
+        "AI-based code understanding tools are prone to hallucinations, require internet connectivity, and raise privacy issues when scanning proprietary code. Furthermore, developers checking for architectural problems like circular imports or high function complexity need deterministic, repeatable metrics, not changing text summaries.",
+      architecture:
+        "A local-first VS Code extension running entirely client-side on the developer's machine. It uses the TypeScript Compiler API to extract Abstract Syntax Trees (ASTs) from active file buffers and project directories. It builds internal directed graph structures to track call hierarchies and file imports. Interactive visualizations are rendered locally inside a VS Code Webview panel.",
+      technicalDecisions: [
+        "AST-Based Static Analysis — Chose deterministic parser logic using the TypeScript Compiler API over LLM text generators, guaranteeing 100% reproducible results and absolute privacy.",
+        "Dual Complexity Metric System — Calculated both Cyclomatic complexity (quantifying branches/decisions) and Cognitive complexity (measuring logical nesting difficulty) to generate a realistic risk index.",
+        "Offline-First Execution — Designed the package to run completely locally, eliminating cloud dependencies, API endpoints, and credential storage.",
+        "Manual .vsix Distribution — Packaged and distributed the extension as standalone .vsix releases (v1.0.0 through v1.0.3), enabling local testing and secure enterprise distribution.",
+      ],
+      challenges: [
+        "Performance of Project-Wide AST Parsing — Scanning multi-file directory structures inside VS Code without blocking the main editor thread, solved by offloading the TypeScript Compiler API scans to a background worker.",
+        "Circular Reference Resolution — Detecting deep circular dependency loops across dynamic imports and resolving them into clean visual layouts inside the Webview panel.",
+      ],
+      learnings: [
+        "Pairing deterministic static analysis with generative AI tools creates a stronger developer toolset, using ASTs for exact structure and LLMs for contextual explanations.",
+        "Offline-first architectures build user trust by making privacy a structural guarantee of the code rather than a policy promise.",
+        "Tightly-scoped developer extensions with clear, focused utility are often more reliable and easier to iterate on than sprawling, multi-purpose platforms.",
+      ],
+    },
+  },
 ];
 
 /* ─── Achievements ─── */
