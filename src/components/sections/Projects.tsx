@@ -343,13 +343,19 @@ export function Projects() {
   const [terminalInput, setTerminalInput] = useState("");
   const terminalInputRef = useRef<HTMLInputElement>(null);
 
+  // Order for hackathon featured top 5
+  const HACKATHON_ORDER = ["git-stat", "orbital-watch", "gig-shield", "onboard-ai", "crisis-sync"];
+
   // Filter projects based on tabs
   const getFilteredProjects = () => {
     let filtered: Project[] = [];
     if (activeTab === "Featured Projects") {
       filtered = projects.filter((p) => p.featured);
+      // sort: live demo first
+      return filtered.sort((a, b) => (b.demo ? 1 : 0) - (a.demo ? 1 : 0));
     } else if (activeTab === "Personal") {
       filtered = projects.filter((p) => p.context === "Personal Project");
+      return filtered.sort((a, b) => (b.demo ? 1 : 0) - (a.demo ? 1 : 0));
     } else if (activeTab === "Hackathons") {
       filtered = projects.filter(
         (p) =>
@@ -358,8 +364,17 @@ export function Projects() {
           p.status === "GOOGLE CHALLENGE" ||
           p.slug === "jr-06"
       );
+      // Sort by preferred order first, then rest by demo availability
+      return filtered.sort((a, b) => {
+        const ai = HACKATHON_ORDER.indexOf(a.slug);
+        const bi = HACKATHON_ORDER.indexOf(b.slug);
+        if (ai !== -1 && bi !== -1) return ai - bi;
+        if (ai !== -1) return -1;
+        if (bi !== -1) return 1;
+        return (b.demo ? 1 : 0) - (a.demo ? 1 : 0);
+      });
     }
-    return filtered.sort((a, b) => (b.demo ? 1 : 0) - (a.demo ? 1 : 0));
+    return filtered;
   };
 
   const getTabCount = (tab: TabType) => {
@@ -382,6 +397,9 @@ export function Projects() {
   };
 
   const filteredProjects = getFilteredProjects();
+  const MAX_DISPLAY = 5;
+  const displayedProjects = activeTab === "Terminal" ? filteredProjects : filteredProjects.slice(0, MAX_DISPLAY);
+  const hasMore = filteredProjects.length > MAX_DISPLAY;
 
   const handleTerminalCommand = (e: React.FormEvent) => {
     e.preventDefault();
@@ -486,53 +504,64 @@ export function Projects() {
           </div>
         ) : (
           /* Responsive Grid Layout */
-          <div className="project-grid pb-10">
-            {filteredProjects.map((project) => (
-              <Link 
-                key={project.slug} 
-                href={`/projects/${project.slug}`}
-                className="project-card-v2 group flex flex-col bg-white border border-black/[0.06] rounded-[16px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:translate-y-[-4px] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] no-underline text-inherit cursor-pointer"
-              >
-                {/* Card image/thumbnail area */}
-                <div className="project-card-image-wrap aspect-[1.85/1] overflow-hidden w-full relative">
-                  <ProjectThumbnail slug={project.slug} />
-                </div>
-                {/* Card Content Footer */}
-                <div className="project-card-footer flex flex-col items-center text-center py-6 px-[20px] relative">
-                  <div className="flex flex-col gap-1 items-center text-center w-full px-6 min-w-0">
-                    <span className="project-card-title text-[1.25rem] font-semibold text-text-primary leading-tight group-hover:text-accent transition-colors duration-200 truncate font-sans">
-                      {project.title}
-                    </span>
+          <div className="flex flex-col items-center gap-10">
+            <div className="project-grid pb-0 w-full">
+              {displayedProjects.map((project) => (
+                <Link 
+                  key={project.slug} 
+                  href={`/projects/${project.slug}`}
+                  className="project-card-v2 group flex flex-col bg-white border border-black/[0.06] rounded-[16px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:translate-y-[-4px] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] no-underline text-inherit cursor-pointer"
+                >
+                  {/* Card image/thumbnail area */}
+                  <div className="project-card-image-wrap aspect-[1.85/1] overflow-hidden w-full relative">
+                    <ProjectThumbnail slug={project.slug} />
                   </div>
-                  {project.demo && (
-                    <div 
-                      className="project-card-demo-icon absolute left-3 top-[50%] translate-y-[-50%] text-text-secondary hover:text-accent transition-colors duration-200 flex items-center justify-center p-1.5 rounded-full hover:bg-black/5 shrink-0" 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        window.open(project.demo!, "_blank");
-                      }}
-                      aria-label="View Live Demo"
-                    >
-                      <ArrowUpRight size={20} />
+                  {/* Card Content Footer */}
+                  <div className="project-card-footer flex flex-col items-center text-center py-6 px-[20px] relative">
+                    <div className="flex flex-col gap-1 items-center text-center w-full px-6 min-w-0">
+                      <span className="project-card-title text-[1.25rem] font-semibold text-text-primary leading-tight group-hover:text-accent transition-colors duration-200 truncate font-sans">
+                        {project.title}
+                      </span>
                     </div>
-                  )}
-                  {project.github && (
-                    <div 
-                      className="project-card-github-icon absolute right-3 top-[50%] translate-y-[-50%] text-text-secondary hover:text-accent transition-colors duration-200 flex items-center justify-center p-1.5 rounded-full hover:bg-black/5 shrink-0" 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        window.open(project.github, "_blank");
-                      }}
-                      aria-label="View on GitHub"
-                    >
-                      <GithubIcon size={20} />
-                    </div>
-                  )}
-                </div>
+                    {project.demo && (
+                      <div 
+                        className="project-card-demo-icon absolute left-3 top-[50%] translate-y-[-50%] text-text-secondary hover:text-accent transition-colors duration-200 flex items-center justify-center p-1.5 rounded-full hover:bg-black/5 shrink-0" 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          window.open(project.demo!, "_blank");
+                        }}
+                        aria-label="View Live Demo"
+                      >
+                        <ArrowUpRight size={20} />
+                      </div>
+                    )}
+                    {project.github && (
+                      <div 
+                        className="project-card-github-icon absolute right-3 top-[50%] translate-y-[-50%] text-text-secondary hover:text-accent transition-colors duration-200 flex items-center justify-center p-1.5 rounded-full hover:bg-black/5 shrink-0" 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          window.open(project.github, "_blank");
+                        }}
+                        aria-label="View on GitHub"
+                      >
+                        <GithubIcon size={20} />
+                      </div>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+            {hasMore && (
+              <Link
+                href="/projects"
+                className="group inline-flex items-center gap-2.5 rounded-full border border-black/10 bg-white px-6 py-3 text-sm font-semibold text-text-secondary shadow-sm transition-all duration-200 hover:border-accent/40 hover:bg-accent/5 hover:text-accent hover:shadow-md"
+              >
+                View all {filteredProjects.length} projects
+                <ArrowUpRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
-            ))}
+            )}
           </div>
         )}
 

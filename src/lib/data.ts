@@ -480,7 +480,7 @@ export const projects: Project[] = [
     github: "https://github.com/malavya1411/CanopyML",
     demo: null,
     badge: null,
-    featured: true,
+    featured: false,
     year: "2026",
     coverImage: "/images/canopyml.png",
     status: "COMPLETED",
