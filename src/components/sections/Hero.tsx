@@ -5,10 +5,10 @@ import { ArrowRight, Link2 } from "lucide-react";
 import { BuildMascot3D } from "@/components/ui/BuildMascot3D";
 
 const kickerWords = [
-  "AI & Full-Stack Engineer",
-  "Web Developer",
-  "Data Scientist",
-  "Mobile App Developer",
+  "AI & Full-Stack",
+  "Web",
+  "Software",
+  "Mobile App",
 ];
 
 export function Hero() {
