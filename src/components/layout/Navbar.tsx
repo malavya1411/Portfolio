@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Mail, X } from "lucide-react";
 
 const links = [
@@ -12,6 +12,20 @@ const links = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("");
+
+  useEffect(() => {
+    // Track hash changes to highlight explicitly clicked links
+    const handleHashChange = () => {
+      setActiveLink(window.location.hash || "");
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    handleHashChange(); // Run check on mount
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
 
   return (
     <>
@@ -44,7 +58,19 @@ export function Navbar() {
           </button>
           <div className="expandable-nav-links">
             {links.map(([label, href]) => (
-              <a key={href} href={href} onClick={() => setOpen(false)} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined}>{label}</a>
+              <a
+                key={href}
+                href={href}
+                onClick={() => {
+                  setOpen(false);
+                  setActiveLink(href);
+                }}
+                className={activeLink === href ? "active" : ""}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noreferrer" : undefined}
+              >
+                {label}
+              </a>
             ))}
           </div>
         </nav>

@@ -137,9 +137,7 @@ export const heroData: HeroData = {
 /* ─── About ─── */
 
 const _aboutBio = [
-  "I'm a second-year B.Tech student in Artificial Intelligence & Data Science at VESIT, Mumbai. I'm a Full Stack Developer focused on building intelligent software — combining strong web development fundamentals with applied AI and modern JavaScript ecosystems.",
-  "I specialize in React.js, Node.js, Express.js, and PostgreSQL building end to end systems that are fast, maintainable, and production ready. From autonomous developer-onboarding agents with multi-tier RAG to real-time emergency coordination platforms, I ship software that solves real problems.",
-  "As a hackathon participant and software engineer, I lead AlgoMinds — a team that has placed in the top 6 at Syrus 2026 (500+ teams) and won runner-up at a national hackathon. I care deeply about clean architecture, developer experience, and writing code that other engineers can read and maintain.",
+  "I'm a Full Stack Developer and AI Engineer specializing in React.js, Node.js, and applied AI (RAG, Gemini API). With a strong academic foundation (9.73 CGPA) and hackathon leadership experience, I build fast, production-ready systems that solve real-world problems through clean architecture and modern engineering."
 ];
 
 // Placeholder — stats are assembled into aboutData after projects/achievements arrays are defined below.

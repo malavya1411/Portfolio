@@ -1,65 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Code2, GraduationCap, Layers3, Trophy, ArrowRight } from "lucide-react";
+import { Code2 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { aboutData } from "@/lib/data";
 
-function useCountUp(target: number, duration = 1200) {
-  const [count, setCount] = useState(0);
-  const [active, setActive] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setActive(true); },
-      { threshold: 0.5 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!active) return;
-    const start = performance.now();
-    const frame = (now: number) => {
-      const t = Math.min((now - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - t, 3);
-      setCount(ease * target);
-      if (t < 1) requestAnimationFrame(frame);
-      else setCount(target);
-    };
-    requestAnimationFrame(frame);
-  }, [active, target, duration]);
-
-  return { count, ref };
-}
-
 const focusAreas = ["Applied AI", "Clean architecture", "Developer experience"];
-
-const storyCards = [
-  {
-    step: "01",
-    icon: <GraduationCap size={22} strokeWidth={1.8} />,
-    title: "Started with curiosity",
-    body: "Second-year B.Tech student in AI & Data Science at VESIT, Mumbai. Currently holding a 9.73 CGPA — driven by a deep interest in how software and intelligence intersect.",
-  },
-  {
-    step: "02",
-    icon: <Trophy size={22} strokeWidth={1.8} />,
-    title: "Tested at hackathons",
-    body: "Competed in 5+ hackathons — placed top 6 at Syrus 2026 (500+ teams) and won runner-up at a national hackathon. Leading AlgoMinds, a team that builds fast under pressure.",
-  },
-  {
-    step: "03",
-    icon: <Layers3 size={22} strokeWidth={1.8} />,
-    title: "Shipped real products",
-    body: "Turned those ideas into 6+ production projects — from autonomous developer-onboarding agents with multi-tier RAG to real-time emergency coordination platforms.",
-  },
-];
 
 export function About() {
   return (
@@ -77,19 +23,19 @@ export function About() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.55, ease: "easeOut" }}
           >
-            <div className="about-hero-text">
+            <div className="about-hero-text flex flex-col items-center text-center">
               <span className="section-label about-label">About</span>
               <h2 className="about-title text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
                 Building things that matter.
               </h2>
-              <div className="about-bio mt-6 space-y-4">
+              <div className="about-bio mt-6 space-y-4 max-w-2xl">
                 {aboutData.bio.map((para, i) => (
                   <p key={i} className="text-base leading-relaxed text-text-secondary">
                     {para}
                   </p>
                 ))}
               </div>
-              <div className="mt-6 flex flex-wrap gap-3">
+              <div className="mt-6 flex flex-wrap gap-3 justify-center">
                 {focusAreas.map((area) => (
                   <span
                     key={area}
@@ -103,31 +49,27 @@ export function About() {
             </div>
           </motion.div>
 
-          {/* ── Three story cards ── */}
+          {/* ── Stats cards row ── */}
           <div className="about-story-row">
-            {storyCards.map((card, i) => (
+            {aboutData.stats.map((stat, i) => (
               <motion.div
-                key={card.step}
-                className="about-story-card group"
+                key={stat.label}
+                className="about-story-card group flex flex-col items-center text-center"
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: i * 0.12, ease: "easeOut" }}
                 whileHover={{ y: -5 }}
               >
-                {/* connector arrow between cards */}
-                {i < storyCards.length - 1 && (
-                  <div className="about-story-connector" aria-hidden="true">
-                    <ArrowRight size={16} />
-                  </div>
-                )}
-
-                <div className="about-story-icon text-accent">
-                  {card.icon}
+                <div className="text-4xl font-extrabold text-accent tracking-tight">
+                  {stat.value}
                 </div>
-                <div className="about-story-step">{card.step}</div>
-                <h3 className="about-story-title">{card.title}</h3>
-                <p className="about-story-body">{card.body}</p>
+                <div className="text-xs font-bold uppercase tracking-wider text-text-primary mt-1">
+                  {stat.label}
+                </div>
+                <div className="text-xs leading-relaxed text-text-secondary">
+                  {stat.description}
+                </div>
               </motion.div>
             ))}
           </div>

@@ -29,32 +29,32 @@ export function useTheme(): ThemeContextValue {
 
 /**
  * Inline script injected into <head> to prevent flash of wrong theme.
- * Forces the document class to dark immediately.
+ * Forces the document class to light immediately.
  */
 export const themeScript = `
   (function() {
     try {
-      document.documentElement.classList.add('dark');
-      document.documentElement.style.colorScheme = 'dark';
-      localStorage.setItem('theme', 'dark');
+      document.documentElement.classList.remove('dark');
+      document.documentElement.style.colorScheme = 'light';
+      localStorage.setItem('theme', 'light');
     } catch(e) {}
   })();
 `;
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    document.documentElement.classList.add("dark");
-    document.documentElement.style.colorScheme = "dark";
-    localStorage.setItem("theme", "dark");
-    setTheme("dark");
+    document.documentElement.classList.remove("dark");
+    document.documentElement.style.colorScheme = "light";
+    localStorage.setItem("theme", "light");
+    setTheme("light");
     setMounted(true);
   }, []);
 
   const toggleTheme = useCallback(() => {
-    // Locked to dark theme - no-op
+    // Locked to light theme - no-op
   }, []);
 
   return (
