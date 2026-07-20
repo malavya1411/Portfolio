@@ -69,7 +69,7 @@ export function Projects() {
   }, []);
 
   // Order for featured top 5 — inbox-os first
-  const FEATURED_ORDER = ["inbox-os", "git-stat", "orbital-watch", "code-explainer", "onboard-ai"];
+  const FEATURED_ORDER = ["inbox-os", "git-stat", "code-explainer", "orbital-watch", "onboard-ai"];
   // Order for hackathon featured top 5
   const HACKATHON_ORDER = ["git-stat", "orbital-watch", "gig-shield", "onboard-ai", "crisis-sync"];
   // Order for personal projects
