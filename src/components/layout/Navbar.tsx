@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Mail, X } from "lucide-react";
+import { Mail, X, TerminalSquare } from "lucide-react";
 
 const links = [
   ["Skills.", "#skills"],
@@ -76,10 +76,13 @@ export function Navbar() {
         </nav>
       </header>
 
-      {/* Floating top right action buttons (Mail/Envelope) */}
+      {/* Floating top right action buttons (Mail/Envelope + Terminal) */}
       <div className="top-right-nav-actions">
         <a href="mailto:malavyamankar@gmail.com" className="nav-action-btn" aria-label="Email contact">
           <Mail size={18} />
+        </a>
+        <a href="#projects" className="nav-action-btn" aria-label="Open terminal">
+          <TerminalSquare size={18} />
         </a>
       </div>
     </>
