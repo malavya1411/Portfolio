@@ -261,7 +261,7 @@ body {
 .project-card-image-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 1.85 / 1;
   border-radius: 16px 16px 0 0;
   overflow: hidden;
 }
