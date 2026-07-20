@@ -1018,7 +1018,7 @@ export const achievements: Achievement[] = [
     event: "Hack-AI-Thon 4.0",
     description:
       "Successfully completed the 24-hour online Hack-AI-Thon 4.0 organized by AI-CoLegion, the department committee of Artificial Intelligence and Data Science at VESIT.",
-    year: "2025",
+    year: "2026",
     highlight: false,
     certificate: "/images/hackaithon_certificate.png",
   },
