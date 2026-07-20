@@ -23,7 +23,7 @@ export function About() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.55, ease: "easeOut" }}
           >
-            <div className="about-hero-text flex flex-col items-center text-center">
+            <div className="about-hero-text flex flex-col items-center text-center mx-auto">
               <span className="section-label about-label">About</span>
               <h2 className="about-title text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
                 Building things that matter.
