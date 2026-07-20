@@ -156,72 +156,7 @@ function ProjectThumbnail({ slug }: { slug: string }) {
     );
   }
 
-  if (slug === "ai-messaging") {
-    return (
-      <div className="w-full h-full bg-gradient-to-br from-[#dbeafe] to-[#eff6ff] text-slate-800 p-3 flex flex-col justify-between select-none overflow-hidden relative">
-        {/* Phone mockups overlay */}
-        <div className="absolute inset-0 flex justify-end items-end p-2 opacity-95">
-          {/* Phone mockup */}
-          <div className="w-[72px] h-[105px] bg-slate-900 rounded-t-lg border-x-[1.5px] border-t-[1.5px] border-slate-800 p-0.5 shadow-2xl flex flex-col gap-0.5 translate-y-3">
-            <div className="w-4 h-0.5 bg-slate-800 mx-auto rounded-full" />
-            <div className="flex-1 bg-white rounded-t-md p-0.5 flex flex-col gap-0.5 overflow-hidden">
-              <div className="bg-blue-100 text-[5px] text-blue-800 p-0.5 rounded-sm max-w-[85%] self-end">
-                Yes, that sounds perfect!
-              </div>
-              <div className="bg-slate-100 text-[5px] text-slate-700 p-0.5 rounded-sm max-w-[85%]">
-                Crafting message...
-              </div>
-              <div className="bg-blue-500 text-[5px] text-white p-0.5 rounded-sm max-w-[80%] self-end font-semibold">
-                Perfect messaging.
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Text Details */}
-        <div className="z-10 max-w-[65%] flex flex-col gap-0.5">
-          <span className="text-[8px] uppercase tracking-wider text-blue-600 font-bold">MESSAGING COPILOT</span>
-          <div className="text-[10.5px] font-bold text-slate-900 leading-tight">
-            "Transform your thoughts into effective messages"
-          </div>
-        </div>
-        <div className="z-10 text-[7.5px] text-blue-500 font-mono">
-          GEMINI API POWERED
-        </div>
-      </div>
-    );
-  }
 
-  if (slug === "boldbot") {
-    return (
-      <div className="w-full h-full bg-white text-slate-800 p-3 flex flex-col justify-between select-none overflow-hidden relative">
-        {/* Geometric Shapes Background */}
-        <svg className="absolute inset-0 w-full h-full opacity-60" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <polygon points="100,0 80,45 100,65" fill="rgba(59, 130, 246, 0.12)" />
-          <polygon points="0,100 35,65 55,100" fill="rgba(16, 185, 129, 0.1)" />
-          <polygon points="75,100 100,75 100,100" fill="rgba(245, 158, 11, 0.1)" />
-          <polygon points="15,0 45,35 25,65" fill="rgba(139, 92, 246, 0.1)" />
-        </svg>
-        {/* Header */}
-        <div className="z-10 flex items-center justify-between text-[8px] uppercase tracking-wider text-indigo-600 font-bold">
-          <span>BOLDBOT SLACK</span>
-          <span className="text-slate-400">v1.2.0</span>
-        </div>
-        {/* Text */}
-        <div className="z-10 flex flex-col gap-0.5 max-w-[90%]">
-          <div className="text-[11px] font-black text-slate-900 leading-tight tracking-tight uppercase">
-            BOLDBOT AUTOMATION
-          </div>
-          <div className="text-[8.5px] font-medium text-slate-500 leading-snug">
-            "Automate your business, the bold way."
-          </div>
-        </div>
-        {/* Footer */}
-        <div className="z-10 text-[7.5px] text-indigo-500 font-mono tracking-wider">
-          SLACK BLOCK KIT & STRIPE
-        </div>
-      </div>
-    );
-  }
 
   // General elegant layout for other projects (like HireMind, OnboardAI, CrisisSync)
   if (slug === "hiremind") {
@@ -388,7 +323,7 @@ export function Projects() {
   const getFilteredProjects = () => {
     if (activeTab === "Personal") {
       return projects.filter(
-        (p) => p.slug === "git-stat" || p.slug === "ai-finder" || p.slug === "jr-06" || p.slug === "ai-messaging" || p.slug === "boldbot" || p.slug === "canopyml"
+        (p) => p.slug === "git-stat" || p.slug === "ai-finder" || p.slug === "jr-06" || p.slug === "canopyml"
       );
     }
     if (activeTab === "Projects") {
@@ -407,7 +342,7 @@ export function Projects() {
   const getTabCount = (tab: TabType) => {
     if (tab === "Personal") {
       return projects.filter(
-        (p) => p.slug === "git-stat" || p.slug === "ai-finder" || p.slug === "jr-06" || p.slug === "ai-messaging" || p.slug === "boldbot" || p.slug === "canopyml"
+        (p) => p.slug === "git-stat" || p.slug === "ai-finder" || p.slug === "jr-06" || p.slug === "canopyml"
       ).length;
     }
     if (tab === "Projects") {
