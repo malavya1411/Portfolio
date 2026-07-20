@@ -580,6 +580,67 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    title: "GigShield",
+    slug: "gig-shield",
+    summary:
+      "Labour rights & anomaly detection platform for gig workers that tracks work events, detects wage violations, and anchors audit trails on Ethereum Sepolia.",
+    role: "Lead Developer",
+    context: "Smart India Hackathon (SIH)",
+    techStack: [
+      "Express",
+      "MongoDB",
+      "React 19",
+      "Vite",
+      "FastAPI",
+      "Ethereum Sepolia",
+      "Socket.IO",
+      "Isolation Forest",
+      "Python",
+      "Node.js",
+    ],
+    outcome:
+      "Developed a multi-role compliance platform for workers, platform operators, and regulators with wage theft anomaly detection and graceful blockchain audit trail fallback anchoring.",
+    tags: ["Web3", "AI", "Full-Stack"],
+    github: "https://github.com/parthnarkar/GigShield",
+    demo: null,
+    demoAvailableOnRequest: false,
+    badge: "Smart India Hackathon",
+    featured: true,
+    year: "2025",
+    coverImage: "/images/gig_shield.png",
+    status: "HACKATHON",
+    categoryTag: "COMPLIANCE · WEB3",
+    dateString: "DECEMBER 2025 · SMART INDIA HACKATHON",
+    features: [
+      "Multi-role dashboards for workers, platform operators, and regulators with JWT role-based access",
+      "Tamper-proof audit trails using decentralized hash anchoring on Ethereum Sepolia",
+      "Wage and work-pattern anomaly detection powered by Isolation Forest in FastAPI",
+      "Real-time labor violation alerts and live feed dashboards powered by Socket.IO",
+    ],
+    caseStudy: {
+      overview:
+        "GigShield is a labour rights protection and anomaly detection platform for gig workers, operators, and regulators. Built for the Smart India Hackathon (SIH), it tracks gig work events, automatically computes government welfare eligibility, detects wage/labor violations, and registers secure audit logs on-chain for tamper-proof evidence.",
+      problemStatement:
+        "Gig workers lack portable digital identity, verifiable work logs, and wage protections. Consequently, proving violations like wage theft or claiming regulatory welfare benefits is difficult due to asymmetric information controlled by large platforms.",
+      architecture:
+        "Three decoupled tiers: an Express.js & MongoDB backend representing core workflows, a multi-role React 19 single-page application on Vite, and an isolated FastAPI service containing the anomaly detection engine. Real-time violation updates are streamed via Socket.IO directly to regulator viewports.",
+      technicalDecisions: [
+        "Decoupled Anomaly Detection — Isolated the machine learning service as a FastAPI worker to avoid making it a single point of failure during standard user operations.",
+        "Off-Chain Database & On-Chain Audit Funnel — Treated MongoDB as the primary data store and Ethereum Sepolia as an immutable hash anchor for tamper-proof verification rather than storing raw application logs directly on-chain.",
+        "Security Middleware Stack — Applied Helmet headers, express-validator schemas, mongo-sanitize queries, and rate-limiting limits to enforce robust application boundaries.",
+      ],
+      challenges: [
+        "Tamper-Proof Audit Traceability — Designing an immutable logging system that doesn't suffer from high transaction costs or network latency. Resolved by implementing a secure hashing pipeline that batches and anchors MongoDB state roots onto Sepolia.",
+        "Multi-Role Interface Optimization — Constructing worker, platform, and regulator dashboards in a single SPA. Resolved by introducing lazy loading and chunk-splitting to keep frontend bundles small.",
+      ],
+      learnings: [
+        "Decoupled AI layers allow graceful degradation: if the FastAPI engine goes down, the core application continues working seamlessly using database fallbacks.",
+        "Blockchain anchoring is highly effective for immutable validation, but only when used as a tamper-evidence layer rather than a primary database.",
+        "Security best practices (rate-limiting, input sanitization) must be treated as first-class constraints during early hackathon designs rather than added as post-scripts.",
+      ],
+    },
+  },
 ];
 
 /* ─── Achievements ─── */
