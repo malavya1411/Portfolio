@@ -480,9 +480,6 @@ export function Projects() {
                     <span className="project-card-title text-[1.1rem] font-semibold text-text-primary leading-tight group-hover:text-accent transition-colors duration-200 truncate font-sans">
                       {project.title}
                     </span>
-                    <span className="text-xs text-text-secondary line-clamp-1 font-sans">
-                      {project.summary}
-                    </span>
                   </div>
                   {project.github && (
                     <div 
