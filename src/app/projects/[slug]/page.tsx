@@ -87,21 +87,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const hasCaseStudy = cs && Object.values(cs).some((v) => v !== undefined && (Array.isArray(v) ? v.length > 0 : true));
 
   return (
-    <div className="min-h-screen bg-bg text-text-primary antialiased pt-14 pb-16 lg:pt-16 lg:pb-24">
+    <div className="min-h-screen bg-bg text-text-primary antialiased pt-4 pb-16 lg:pt-6 lg:pb-24">
       <Container className="max-w-4xl">
-        {/* Back Link */}
-        <div className="mb-6">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-text-secondary hover:text-accent transition-colors group cursor-pointer"
-          >
-            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            Back to Overview
-          </Link>
-        </div>
-
         {/* Content Card */}
         <article className="card p-8 lg:p-12 relative bg-surface">
+          {/* Back Link — attached to top-left of card */}
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-text-tertiary hover:text-accent transition-colors group mb-6 -mt-2 cursor-pointer"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
+            Back to Overview
+          </Link>
           {/* Accent light indicator */}
           <div className="pointer-events-none absolute top-0 left-0 w-full h-[3px] bg-accent rounded-t-2xl" />
 
