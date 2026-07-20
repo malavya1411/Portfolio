@@ -72,6 +72,8 @@ export function Projects() {
   const FEATURED_ORDER = ["inbox-os", "git-stat", "orbital-watch", "code-explainer", "onboard-ai"];
   // Order for hackathon featured top 5
   const HACKATHON_ORDER = ["git-stat", "orbital-watch", "gig-shield", "onboard-ai", "crisis-sync"];
+  // Order for personal projects
+  const PERSONAL_ORDER = ["inbox-os", "code-explainer", "canopyml", "ai-finder", "code-scope"];
 
   // Filter projects based on tabs
   const getFilteredProjects = () => {
@@ -90,10 +92,13 @@ export function Projects() {
       filtered = projects.filter(
         (p) => p.context === "Personal Project" || p.context === "Open Source Project"
       );
-      // Pin inbox-os first, then demo-available
+      // Sort by PERSONAL_ORDER
       return filtered.sort((a, b) => {
-        if (a.slug === "inbox-os") return -1;
-        if (b.slug === "inbox-os") return 1;
+        const ai = PERSONAL_ORDER.indexOf(a.slug);
+        const bi = PERSONAL_ORDER.indexOf(b.slug);
+        if (ai !== -1 && bi !== -1) return ai - bi;
+        if (ai !== -1) return -1;
+        if (bi !== -1) return 1;
         return (b.demo ? 1 : 0) - (a.demo ? 1 : 0);
       });
     } else if (activeTab === "Hackathons") {
