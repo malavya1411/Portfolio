@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { projects, Project } from "@/lib/data";
@@ -54,6 +54,19 @@ export function Projects() {
   ]);
   const [terminalInput, setTerminalInput] = useState("");
   const terminalInputRef = useRef<HTMLInputElement>(null);
+
+  // Auto-switch to Terminal tab when navigated via #terminal hash
+  useEffect(() => {
+    const handleHash = () => {
+      if (window.location.hash === "#terminal") {
+        setActiveTab("Terminal");
+        document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+    handleHash(); // run on mount in case page loaded with #terminal
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
 
   // Order for featured top 5 — inbox-os first
   const FEATURED_ORDER = ["inbox-os", "git-stat", "orbital-watch", "gig-shield", "onboard-ai"];
