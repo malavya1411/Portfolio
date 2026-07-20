@@ -101,13 +101,26 @@ body {
 
 /* ─── Projects Redesign Grid Layout ─── */
 .projects-section {
+  position: relative;
   padding: 5rem 0;
-  background-color: #FAFAF5; /* Warm neutral background */
+  background-color: var(--bg);
   transition: background-color 0.25s ease;
 }
 
-.dark .projects-section {
-  background-color: #111015; /* Dark neutral background */
+.projects-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(180deg, var(--surface) 0%, rgba(245, 242, 232, 0) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dark .projects-section::before {
+  background: linear-gradient(180deg, var(--surface) 0%, rgba(17, 16, 21, 0) 100%);
 }
 
 .projects-container {
@@ -141,39 +154,43 @@ body {
 
 .project-tabs {
   display: inline-flex;
-  background: rgba(20, 20, 20, 0.04);
-  padding: 4px;
-  border-radius: 999px;
-  border: 1px solid rgba(20, 20, 20, 0.05);
-  backdrop-filter: blur(8px);
+  background: rgba(240, 240, 240, 0.6);
+  padding: 6px;
+  border-radius: 9999px;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .dark .project-tabs {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.06);
+  background: rgba(30, 30, 40, 0.6);
+  border-color: rgba(255, 255, 255, 0.05);
 }
 
 .project-tab {
-  padding: 8px 20px;
-  border-radius: 999px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--text-secondary);
+  padding: 10px 24px;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #888888;
   border: none;
   background: transparent;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s ease;
   position: relative;
 }
 
 .project-tab:hover {
-  color: var(--text-primary);
+  color: #1a1a1a;
+}
+
+.dark .project-tab:hover {
+  color: #ffffff;
 }
 
 .project-tab.active {
   background: #ffffff;
-  color: #121212;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  color: #1a1a1a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .dark .project-tab.active {
@@ -183,57 +200,60 @@ body {
 
 .project-tab-badge {
   position: absolute;
-  top: -4px;
-  right: -2px;
-  background: #e74c3c;
-  color: #ffffff;
-  font-size: 8px;
-  font-weight: 800;
-  padding: 1px 4px;
-  border-radius: 999px;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  background: #ef4444;
+  color: white;
+  font-size: 0.6rem;
+  padding: 2px 8px;
+  border-radius: 4px;
   letter-spacing: 0.05em;
   line-height: 1;
+  font-weight: 700;
 }
 
-/* Desktop Grid Layout: 3 columns first row, 2 columns second row (3+2 centered) */
+/* Responsive Grid Layout: 3 columns on desktop, 2 columns on tablet, 1 column with scroll snap on mobile */
 .project-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 28px;
-}
-
-.project-card-v2 {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  text-decoration: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  padding-bottom: 40px; /* Cutoff hint padding */
 }
 
-.project-grid > :nth-child(-n+3) {
-  grid-column: span 2;
+.project-grid > * {
+  width: calc((100% - 48px) / 3);
+  box-sizing: border-box;
 }
 
-.project-grid > :nth-child(n+4) {
-  grid-column: span 3;
-}
-
-@media (max-width: 960px) {
-  .project-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
+@media (max-width: 1024px) {
   .project-grid > * {
-    grid-column: span 1 !important;
+    width: calc((100% - 24px) / 2);
   }
 }
 
 @media (max-width: 640px) {
   .project-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     gap: 20px;
+    padding: 0 24px 40px;
+    margin: 0 -1.5rem;
+    scrollbar-width: none; /* Hide scrollbar */
   }
+  
+  .project-grid::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+  }
+
   .project-grid > * {
-    grid-column: span 1 !important;
+    scroll-snap-align: start;
+    min-width: 85vw;
+    width: 85vw;
+    flex-shrink: 0;
   }
 }
 
@@ -242,9 +262,8 @@ body {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
-  border-radius: 20px;
+  border-radius: 16px 16px 0 0;
   overflow: hidden;
-  background-color: var(--surface);
 }
 
 .project-card-image {
