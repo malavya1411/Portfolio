@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Moon, Sun, X } from "lucide-react";
-import { useTheme } from "@/components/ui/ThemeProvider";
+import { Mail, X } from "lucide-react";
 
 const links = [
   ["Skills.", "#skills"],
@@ -13,7 +12,6 @@ const links = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
 
   return (
     <>
@@ -52,14 +50,11 @@ export function Navbar() {
         </nav>
       </header>
 
-      {/* Floating top right action buttons (Mail/Envelope & ThemeToggle) */}
+      {/* Floating top right action buttons (Mail/Envelope) */}
       <div className="top-right-nav-actions">
         <a href="mailto:malavyamankar@gmail.com" className="nav-action-btn" aria-label="Email contact">
           <Mail size={18} />
         </a>
-        <button onClick={toggleTheme} className="nav-action-btn" aria-label="Toggle theme">
-          {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-        </button>
       </div>
     </>
   );

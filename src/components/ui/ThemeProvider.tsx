@@ -29,44 +29,32 @@ export function useTheme(): ThemeContextValue {
 
 /**
  * Inline script injected into <head> to prevent flash of wrong theme.
- * Reads localStorage or system preference and sets the class immediately.
+ * Forces the document class to dark immediately.
  */
 export const themeScript = `
   (function() {
     try {
-      var stored = localStorage.getItem('theme');
-      /* Portfolio defaults to light — clear any stale dark preference */
-      if (stored === 'dark') {
-        localStorage.removeItem('theme');
-        stored = null;
-      }
-      var theme = stored || 'light';
-      document.documentElement.classList.toggle('dark', theme === 'dark');
-      document.documentElement.style.colorScheme = theme;
+      document.documentElement.classList.add('dark');
+      document.documentElement.style.colorScheme = 'dark';
+      localStorage.setItem('theme', 'dark');
     } catch(e) {}
   })();
 `;
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("theme") as Theme | null;
-    const initial = (stored as Theme) || "light";
-    setTheme(initial);
+    document.documentElement.classList.add("dark");
+    document.documentElement.style.colorScheme = "dark";
+    localStorage.setItem("theme", "dark");
+    setTheme("dark");
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (!mounted) return;
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    document.documentElement.style.colorScheme = theme;
-    localStorage.setItem("theme", theme);
-  }, [theme, mounted]);
-
   const toggleTheme = useCallback(() => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+    // Locked to dark theme - no-op
   }, []);
 
   return (
