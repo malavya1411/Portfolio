@@ -305,8 +305,8 @@ function ProjectThumbnail({ slug }: { slug: string }) {
 
   // Fallback
   return (
-    <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-zinc-800 dark:to-zinc-900 flex items-center justify-center p-4 text-center">
-      <span className="text-xs font-bold text-slate-400 dark:text-zinc-500">Thumbnail Preview</span>
+    <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 text-center">
+      <span className="text-xs font-bold text-slate-400">Thumbnail Preview</span>
     </div>
   );
 }
@@ -384,7 +384,7 @@ export function Projects() {
 
         {/* Pill-shaped filter tabs switcher */}
         <div className="project-tabs-container mb-[48px] flex justify-center">
-          <div className="project-tabs flex items-center bg-surface/80 dark:bg-surface/60 backdrop-blur-xl p-[6px] rounded-full border border-border">
+          <div className="project-tabs flex items-center bg-surface/80 backdrop-blur-xl p-[6px] rounded-full border border-border">
             {(["Personal", "Projects", "Published", "Terminal"] as TabType[]).map((tab) => (
               <button
                 key={tab}
@@ -444,7 +444,7 @@ export function Projects() {
               <Link 
                 key={project.slug} 
                 href={`/projects/${project.slug}`}
-                className="project-card-v2 group flex flex-col bg-white dark:bg-surface border border-black/[0.06] dark:border-white/[0.06] rounded-[16px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:translate-y-[-4px] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] no-underline text-inherit cursor-pointer"
+                className="project-card-v2 group flex flex-col bg-white border border-black/[0.06] rounded-[16px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:translate-y-[-4px] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] no-underline text-inherit cursor-pointer"
               >
                 {/* Card image/thumbnail area */}
                 <div className="project-card-image-wrap aspect-[1.85/1] overflow-hidden w-full relative">
@@ -462,7 +462,7 @@ export function Projects() {
                   </div>
                   {project.github && (
                     <div 
-                      className="project-card-github-icon text-text-secondary hover:text-accent transition-colors duration-200 flex items-center justify-center p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/5 shrink-0" 
+                      className="project-card-github-icon text-text-secondary hover:text-accent transition-colors duration-200 flex items-center justify-center p-1.5 rounded-full hover:bg-black/5 shrink-0" 
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
