@@ -668,7 +668,7 @@ export const projects: Project[] = [
     github: "https://github.com/CodeLabsAI29/Inbox_OS",
     demo: "https://inbox-os-frontend-lqrb.vercel.app/",
     demoAvailableOnRequest: false,
-    badge: "Open Source · Hacktoberfest",
+    badge: "Open Source",
     featured: false,
     year: "2026",
     coverImage: "/images/inbox_os.png",
