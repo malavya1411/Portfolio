@@ -665,7 +665,7 @@ export const projects: Project[] = [
     outcome:
       "Led the core build as #1 contributor (78 commits, 143K+ lines added). Shipped v1.0.0 with Gmail Pub/Sub, Outlook Graph, IMAP ingestion, provider-agnostic LLM classification, and multi-channel delivery. 12 stars, 16 forks, 408 total commits.",
     tags: ["AI", "Open Source", "Full-Stack"],
-    github: "https://github.com/CodeLabsAI29/InboxOS",
+    github: "https://github.com/CodeLabsAI29/Inbox_OS",
     demo: "https://inbox-os-frontend-lqrb.vercel.app/",
     demoAvailableOnRequest: false,
     badge: "Open Source · Hacktoberfest",
