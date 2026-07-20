@@ -93,7 +93,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <article className="card p-8 lg:p-12 relative bg-surface">
           {/* Back Link — attached to top-left of card */}
           <Link
-            href="/"
+            href="/#projects"
             className="inline-flex items-center gap-1.5 text-xs font-medium text-text-tertiary hover:text-accent transition-colors group mb-6 -mt-2 cursor-pointer"
           >
             <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
