@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/lib/data";
 
-type TabType = "Personal" | "Projects" | "Published" | "Terminal";
+type TabType = "Featured Projects" | "Personal" | "Hackathons" | "Terminal";
 
 function GithubIcon({ size = 20 }: { size?: number }) {
   return (
@@ -310,7 +310,7 @@ function ProjectThumbnail({ slug }: { slug: string }) {
 }
 
 export function Projects() {
-  const [activeTab, setActiveTab] = useState<TabType>("Personal");
+  const [activeTab, setActiveTab] = useState<TabType>("Featured Projects");
   const [terminalHistory, setTerminalHistory] = useState<string[]>([
     "Welcome to Malavya's Interactive Terminal.",
     "Type 'help' to see all available commands.",
@@ -321,38 +321,38 @@ export function Projects() {
 
   // Filter projects based on tabs
   const getFilteredProjects = () => {
+    if (activeTab === "Featured Projects") {
+      return projects.filter((p) => p.featured);
+    }
     if (activeTab === "Personal") {
-      return projects.filter(
-        (p) => p.slug === "git-stat" || p.slug === "ai-finder" || p.slug === "jr-06" || p.slug === "canopyml"
-      );
+      return projects.filter((p) => p.context === "Personal Project");
     }
-    if (activeTab === "Projects") {
+    if (activeTab === "Hackathons") {
       return projects.filter(
-        (p) => p.slug === "hiremind" || p.slug === "onboard-ai" || p.slug === "crisis-sync"
-      );
-    }
-    if (activeTab === "Published") {
-      return projects.filter(
-        (p) => p.demo !== null && p.demo !== undefined
+        (p) =>
+          p.status === "HACKATHON" ||
+          p.status === "RUNNER-UP" ||
+          p.status === "GOOGLE CHALLENGE" ||
+          p.slug === "jr-06"
       );
     }
     return [];
   };
 
   const getTabCount = (tab: TabType) => {
+    if (tab === "Featured Projects") {
+      return projects.filter((p) => p.featured).length;
+    }
     if (tab === "Personal") {
-      return projects.filter(
-        (p) => p.slug === "git-stat" || p.slug === "ai-finder" || p.slug === "jr-06" || p.slug === "canopyml"
-      ).length;
+      return projects.filter((p) => p.context === "Personal Project").length;
     }
-    if (tab === "Projects") {
+    if (tab === "Hackathons") {
       return projects.filter(
-        (p) => p.slug === "hiremind" || p.slug === "onboard-ai" || p.slug === "crisis-sync"
-      ).length;
-    }
-    if (tab === "Published") {
-      return projects.filter(
-        (p) => p.demo !== null && p.demo !== undefined
+        (p) =>
+          p.status === "HACKATHON" ||
+          p.status === "RUNNER-UP" ||
+          p.status === "GOOGLE CHALLENGE" ||
+          p.slug === "jr-06"
       ).length;
     }
     return null;
@@ -402,7 +402,7 @@ export function Projects() {
         {/* Pill-shaped filter tabs switcher */}
         <div className="project-tabs-container mb-[48px] flex justify-center">
           <div className="project-tabs flex items-center bg-surface/80 backdrop-blur-xl p-[6px] rounded-full border border-border">
-            {(["Personal", "Projects", "Published", "Terminal"] as TabType[]).map((tab) => (
+            {(["Featured Projects", "Personal", "Hackathons", "Terminal"] as TabType[]).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
