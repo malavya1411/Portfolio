@@ -63,11 +63,6 @@ Real-time emergency coordination platform designed to improve communication and 
 ### OnboardAI
 AI-powered onboarding assistant leveraging retrieval-augmented generation (RAG) to help developers quickly understand unfamiliar codebases.
 
-### AI Finder
-Intelligent search platform using modern AI techniques to improve information discovery and contextual retrieval.
-
-### Inventory Management System
-Full-stack inventory tracking and management platform with modern dashboard experiences.
 
 ---
 
