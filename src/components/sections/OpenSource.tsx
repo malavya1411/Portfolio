@@ -167,7 +167,7 @@ export function OpenSource() {
                 </span>
                 <div className="flex flex-wrap items-center gap-2 mt-1">
                   <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-text-primary">
-                    Building in public<span>.</span>
+                    GitHub Profile &amp; Impact<span>.</span>
                   </h2>
                   <a
                     href="https://github.com/malavya1411"
