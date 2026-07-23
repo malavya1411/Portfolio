@@ -55,29 +55,32 @@ export function Achievements() {
     setActiveIndex(index);
   };
 
-  // Autoplay 3000ms timer
+  // Autoplay 3000ms timer — completely pauses while previewCert modal is open
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || previewCert !== null) return;
     const interval = setInterval(() => {
       nextSlide();
     }, 3000);
     return () => clearInterval(interval);
-  }, [isPaused, nextSlide]);
+  }, [isPaused, previewCert, nextSlide]);
 
-  // Keyboard navigation (ArrowLeft / ArrowRight)
+  // Keyboard navigation (ArrowLeft / ArrowRight / Escape)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") {
+      if (e.key === "Escape" && previewCert !== null) {
+        setPreviewCert(null);
+        handleUserInteraction();
+      } else if (e.key === "ArrowLeft" && previewCert === null) {
         handleUserInteraction();
         prevSlide();
-      } else if (e.key === "ArrowRight") {
+      } else if (e.key === "ArrowRight" && previewCert === null) {
         handleUserInteraction();
         nextSlide();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleUserInteraction, nextSlide, prevSlide]);
+  }, [previewCert, handleUserInteraction, nextSlide, prevSlide]);
 
   // Scroll active timeline node into view smoothly on mobile
   useEffect(() => {
@@ -91,6 +94,15 @@ export function Achievements() {
       }
     }
   }, [activeIndex]);
+
+  const openCertModal = (certUrl: string) => {
+    setPreviewCert(certUrl);
+  };
+
+  const closeCertModal = () => {
+    setPreviewCert(null);
+    handleUserInteraction();
+  };
 
   return (
     <section id="achievements" className="section-padding overflow-hidden relative">
@@ -127,7 +139,7 @@ export function Achievements() {
                 {/* Unfilled Gray Background Line */}
                 <div className="absolute inset-0 bg-border-strong/60" />
 
-                {/* Active Orange Progress Line — Shares the exact same container & vertical Y position */}
+                {/* Active Orange Progress Line */}
                 <motion.div
                   className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-accent to-accent-hover"
                   initial={false}
@@ -159,7 +171,7 @@ export function Achievements() {
                       {item.year}
                     </span>
 
-                    {/* Circular Node Row — Center is at 24px + 2px + 14px = 40px */}
+                    {/* Circular Node Row */}
                     <div className="h-7 flex items-center justify-center relative w-full my-0.5">
                       {/* Active Ring Indicator */}
                       {isActive && (
@@ -198,7 +210,7 @@ export function Achievements() {
           </div>
         </div>
 
-        {/* ─── 2. COVER FLOW CERTIFICATE CAROUSEL (100% CRISP OPAQUE CARDS) ───────────────────── */}
+        {/* ─── 2. COVER FLOW CERTIFICATE CAROUSEL (SOLID CRISP CARDS) ───────────────────── */}
         <div className="relative min-h-[460px] sm:min-h-[500px] flex items-center justify-center px-4">
           {/* Navigation Buttons Overlay */}
           <button
@@ -241,7 +253,7 @@ export function Achievements() {
               // Cover Flow horizontal offsets
               let xOffset = 0;
               if (isPrev) xOffset = -340;
-              if (isNext) xOffset = 340;
+              if (isNext) xOffset = 330;
 
               return (
                 <motion.div
@@ -316,7 +328,7 @@ export function Achievements() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          if (item.certificate) setPreviewCert(item.certificate);
+                          if (item.certificate) openCertModal(item.certificate);
                         }}
                         className="absolute inset-0 bg-black/50 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-white text-xs font-bold cursor-pointer"
                       >
@@ -358,7 +370,7 @@ export function Achievements() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          if (item.certificate) setPreviewCert(item.certificate);
+                          if (item.certificate) openCertModal(item.certificate);
                         }}
                         className="inline-flex items-center gap-1.5 font-bold text-accent hover:text-accent-hover transition-colors cursor-pointer group/link"
                       >
@@ -393,7 +405,7 @@ export function Achievements() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setPreviewCert(null)}
+            onClick={closeCertModal}
           >
             <motion.div
               className="relative max-w-4xl w-full max-h-[90vh] bg-surface rounded-2xl p-3 overflow-hidden border border-border shadow-2xl"
@@ -403,7 +415,7 @@ export function Achievements() {
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                onClick={() => setPreviewCert(null)}
+                onClick={closeCertModal}
                 className="absolute top-4 right-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white hover:bg-accent transition-colors cursor-pointer"
                 aria-label="Close certificate preview"
               >
