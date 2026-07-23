@@ -145,19 +145,19 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* ── RIGHT COLUMN: User Photo (Waist-Cropped, Centered) ──────────── */}
+          {/* ── RIGHT COLUMN: User Photo (Waist-Cropped, Prominent Scale) ─────── */}
           <motion.div
             className="lg:col-span-5 flex justify-center lg:justify-end items-center"
             initial={{ opacity: 0, scale: 0.92, x: 30 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="relative w-full max-w-[320px] sm:max-w-[360px] lg:max-w-[390px] mx-auto lg:mx-0">
+            <div className="relative w-full max-w-[360px] sm:max-w-[420px] lg:max-w-[460px] mx-auto lg:mx-0">
               {/* Soft Ambient Radial Backlight Glow */}
-              <div className="absolute -inset-3 bg-gradient-to-tr from-accent/25 via-amber-500/15 to-accent/10 rounded-[2.2rem] blur-2xl opacity-70 pointer-events-none" />
+              <div className="absolute -inset-3 bg-gradient-to-tr from-accent/25 via-amber-500/15 to-accent/10 rounded-[2.5rem] blur-2xl opacity-70 pointer-events-none" />
 
-              {/* Rounded Waist-Length Photo Frame (Shifted up & cropped at waist) */}
-              <div className="relative rounded-[2.2rem] overflow-hidden border border-border-strong bg-surface shadow-2xl transition-all duration-500 hover:scale-[1.015] hover:shadow-accent/20 aspect-[3.6/4.5] max-h-[380px] sm:max-h-[410px] lg:max-h-[430px]">
+              {/* Rounded Waist-Length Photo Frame (Bolder Scale, Cropped at Waist) */}
+              <div className="relative rounded-[2.5rem] overflow-hidden border border-border-strong bg-surface shadow-2xl transition-all duration-500 hover:scale-[1.015] hover:shadow-accent/20 aspect-[3.6/4.5] max-h-[440px] sm:max-h-[480px] lg:max-h-[510px]">
                 <img
                   src="/malavya.jpg"
                   alt="Malavya Mankar"
