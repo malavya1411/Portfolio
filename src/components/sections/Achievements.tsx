@@ -64,13 +64,13 @@ export function Achievements() {
     setActiveIndex(index);
   };
 
-  // Autoplay 3000ms timer — constant dependency array size [total]
+  // Autoplay 2000ms timer — constant dependency array size [total]
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isPausedRef.current && previewCertRef.current === null) {
         setActiveIndex((prev) => (prev + 1) % total);
       }
-    }, 3000);
+    }, 2000);
     return () => clearInterval(interval);
   }, [total]);
 
