@@ -1,42 +1,73 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, Link2, FileText, ChevronDown } from "lucide-react";
 import { BuildMascot3D } from "@/components/ui/BuildMascot3D";
 import { HeroBackground } from "@/components/ui/HeroBackground";
 import { HeroFloatingCards } from "@/components/ui/HeroFloatingCards";
 
+// No "Developer" variants — it already sits statically below as the h1
 const PROFESSIONS = [
-  "AI Engineer",
-  "Full Stack Developer",
-  "Mobile Developer",
-  "Web Developer",
-  "Backend Developer",
-  "Open Source Contributor",
+  "AI & Full-Stack",
+  "Web",
+  "Software",
+  "Mobile App",
+  "Open Source",
 ];
 
-const SLIDE_DURATION = 2200; // ms per word
+// Typewriter timing
+const TYPE_SPEED   = 80;  // ms per character typed
+const DELETE_SPEED = 38;  // ms per character deleted
+const PAUSE_AFTER  = 2000; // ms pause before deleting
+const PAUSE_BEFORE = 320;  // ms pause before typing next word
 
 export function Hero() {
-  const [profIdx, setProfIdx] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [wordIndex, setWordIndex]     = useState(0);
+  const [isDeleting, setIsDeleting]   = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(TYPE_SPEED);
+
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Slide-fade profession rotation
+  // Typewriter loop
   useEffect(() => {
-    const id = setInterval(() => {
-      setProfIdx((prev) => (prev + 1) % PROFESSIONS.length);
-    }, SLIDE_DURATION);
-    return () => clearInterval(id);
-  }, []);
+    const currentWord = PROFESSIONS[wordIndex];
+
+    const tick = () => {
+      if (!isDeleting) {
+        const next = currentWord.substring(0, displayText.length + 1);
+        setDisplayText(next);
+        setTypingSpeed(TYPE_SPEED);
+        if (next === currentWord) {
+          // Finished typing — pause then start deleting
+          setTypingSpeed(PAUSE_AFTER);
+          setIsDeleting(true);
+        }
+      } else {
+        const next = currentWord.substring(0, displayText.length - 1);
+        setDisplayText(next);
+        setTypingSpeed(DELETE_SPEED);
+        if (next === "") {
+          // Finished deleting — advance word
+          setIsDeleting(false);
+          setWordIndex((prev) => (prev + 1) % PROFESSIONS.length);
+          setTypingSpeed(PAUSE_BEFORE);
+        }
+      }
+    };
+
+    const timer = setTimeout(tick, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, wordIndex, typingSpeed]);
 
   // Cursor glow — update CSS custom properties on mouse move
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const section = sectionRef.current;
     if (!section) return;
     const rect = section.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    const x = ((e.clientX - rect.left) / rect.width)  * 100;
+    const y = ((e.clientY - rect.top)  / rect.height) * 100;
     section.style.setProperty("--glow-x", `${x}%`);
     section.style.setProperty("--glow-y", `${y}%`);
   }, []);
@@ -76,21 +107,14 @@ export function Hero() {
         {/* Zone 2: Main center content */}
         <div className="reference-hero-center">
 
-          {/* Slide-fade profession text */}
-          <div className="reference-kicker-wrap" aria-live="polite" aria-atomic="true">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={profIdx}
-                className="reference-kicker"
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -14 }}
-                transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-              >
-                {PROFESSIONS[profIdx]}
-              </motion.p>
-            </AnimatePresence>
-          </div>
+          {/* Typewriter profession text */}
+          <p
+            className="reference-kicker reference-kicker-typewriter"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {displayText}
+          </p>
 
           <h1 className="reference-title">Developer<span>.</span></h1>
           <p className="reference-description">

@@ -50,18 +50,23 @@ export function HeroFloatingCards() {
             transition: HOVER_SPRING,
           }}
         >
-          <a href="#achievements" className="hero-float-card-inner" aria-label="View achievements">
-            <div className="hero-float-card-icon hero-float-card-icon--amber">
-              <Trophy size={16} strokeWidth={2.5} />
+          <a href="#achievements" className="hero-float-card-content" aria-label="View achievements">
+            <div className="hero-float-card-header">
+              <div className="hero-float-card-header-left">
+                <div className="hero-float-card-icon hero-float-card-icon--amber">
+                  <Trophy size={16} strokeWidth={2.5} />
+                </div>
+                <span className="hero-float-card-eyebrow">Recognition</span>
+              </div>
+              <span className="hero-float-card-badge">
+                View <ArrowUpRight size={12} strokeWidth={2.5} />
+              </span>
             </div>
+
             <div className="hero-float-card-body">
-              <span className="hero-float-card-eyebrow">🏆 Recognition</span>
               <p className="hero-float-card-title">Runner-Up</p>
               <p className="hero-float-card-sub">UniMerge 1.0</p>
             </div>
-            <span className="hero-float-card-cta">
-              View <ArrowUpRight size={12} strokeWidth={2.5} />
-            </span>
           </a>
         </motion.div>
 
@@ -75,12 +80,26 @@ export function HeroFloatingCards() {
             transition: HOVER_SPRING,
           }}
         >
-          <div className="hero-float-card-inner">
-            <div className="hero-float-card-icon hero-float-card-icon--blue">
-              <Cpu size={16} strokeWidth={2.5} />
+          <div className="hero-float-card-content">
+            <div className="hero-float-card-header">
+              <div className="hero-float-card-header-left">
+                <div className="hero-float-card-icon hero-float-card-icon--blue">
+                  <Cpu size={16} strokeWidth={2.5} />
+                </div>
+                <span className="hero-float-card-eyebrow">Currently Building</span>
+              </div>
+              <a
+                href={current.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-float-card-badge"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Live <ExternalLink size={11} strokeWidth={2.5} />
+              </a>
             </div>
+
             <div className="hero-float-card-body">
-              <span className="hero-float-card-eyebrow">🚀 Currently Building</span>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={projectIdx}
@@ -94,24 +113,16 @@ export function HeroFloatingCards() {
                 </motion.div>
               </AnimatePresence>
             </div>
-            <a
-              href={current.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-float-card-cta"
-              onClick={(e) => e.stopPropagation()}
-            >
-              Live <ExternalLink size={11} strokeWidth={2.5} />
-            </a>
-          </div>
-          {/* Rotation progress dots */}
-          <div className="hero-float-card-dots">
-            {BUILDING_PROJECTS.map((_, i) => (
-              <span
-                key={i}
-                className={`hero-float-card-dot${i === projectIdx ? " hero-float-card-dot--active" : ""}`}
-              />
-            ))}
+
+            {/* Rotation progress dots */}
+            <div className="hero-float-card-dots">
+              {BUILDING_PROJECTS.map((_, i) => (
+                <span
+                  key={i}
+                  className={`hero-float-card-dot${i === projectIdx ? " hero-float-card-dot--active" : ""}`}
+                />
+              ))}
+            </div>
           </div>
         </motion.div>
 
@@ -134,20 +145,25 @@ export function HeroFloatingCards() {
             href="https://github.com/malavya1411"
             target="_blank"
             rel="noopener noreferrer"
-            className="hero-float-card-inner"
+            className="hero-float-card-content"
             aria-label="GitHub profile"
           >
-            <div className="hero-float-card-icon hero-float-card-icon--dark">
-              <GitFork size={16} strokeWidth={2} />
+            <div className="hero-float-card-header">
+              <div className="hero-float-card-header-left">
+                <div className="hero-float-card-icon hero-float-card-icon--dark">
+                  <GitFork size={16} strokeWidth={2} />
+                </div>
+                <span className="hero-float-card-eyebrow">Open Source</span>
+              </div>
+              <span className="hero-float-card-badge">
+                Profile <ArrowUpRight size={12} strokeWidth={2.5} />
+              </span>
             </div>
+
             <div className="hero-float-card-body">
-              <span className="hero-float-card-eyebrow">💻 Open Source</span>
               <p className="hero-float-card-title">GitHub</p>
               <p className="hero-float-card-sub">malavya1411</p>
             </div>
-            <span className="hero-float-card-cta">
-              Profile <ArrowUpRight size={12} strokeWidth={2.5} />
-            </span>
           </a>
         </motion.div>
 
@@ -161,12 +177,17 @@ export function HeroFloatingCards() {
             transition: HOVER_SPRING,
           }}
         >
-          <div className="hero-float-card-inner">
-            <div className="hero-float-card-icon hero-float-card-icon--green">
-              <GraduationCap size={16} strokeWidth={2.5} />
+          <div className="hero-float-card-content">
+            <div className="hero-float-card-header">
+              <div className="hero-float-card-header-left">
+                <div className="hero-float-card-icon hero-float-card-icon--green">
+                  <GraduationCap size={16} strokeWidth={2.5} />
+                </div>
+                <span className="hero-float-card-eyebrow">AI & Data Science</span>
+              </div>
             </div>
+
             <div className="hero-float-card-body">
-              <span className="hero-float-card-eyebrow">🎓 AI & Data Science</span>
               <p className="hero-float-card-title">Second Year</p>
               <p className="hero-float-card-sub">VESIT, Mumbai</p>
             </div>
