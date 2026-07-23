@@ -394,21 +394,24 @@ export function GithubJourneyModal({ isOpen, onClose }: GithubJourneyModalProps)
                   <div className="p-5 rounded-2xl bg-surface border border-border-strong shadow-sm">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 text-xs font-bold border border-emerald-500/20">
-                          Merged PR
-                        </span>
-                        <h4 className="font-bold text-base text-text-primary mt-2">InboxOS — AI Email Classification Engine</h4>
-                        <p className="text-xs text-text-secondary mt-1 font-medium">
-                          Added automated thread summarization and vector DB search integration for high-volume inboxes.
+                        <div className="flex items-center gap-2">
+                          <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 text-xs font-bold border border-emerald-500/20">
+                            #1 Contributor
+                          </span>
+                          <span className="text-xs font-mono font-bold text-accent">80 Commits (143k+ ++ / 118k+ --)</span>
+                        </div>
+                        <h4 className="font-bold text-base text-text-primary mt-2">InboxOS — Open-Source AI Email Workspace</h4>
+                        <p className="text-xs text-text-secondary mt-1 font-medium leading-relaxed">
+                          Primary active contributor. Shipped AI-powered email classification workflows, automated thread summarization, and vector DB semantic search integration.
                         </p>
                       </div>
                       <a
-                        href="https://github.com/malavya1411"
+                        href="https://github.com/CodeLabsAI29/Inbox_OS"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-xs text-accent font-bold hover:underline flex items-center gap-1 shrink-0"
                       >
-                        PR #142 <ExternalLink size={12} />
+                        CodeLabsAI29/Inbox_OS <ExternalLink size={12} />
                       </a>
                     </div>
                   </div>

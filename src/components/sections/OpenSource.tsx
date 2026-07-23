@@ -12,15 +12,16 @@ import {
   Users,
   Cpu,
   ExternalLink,
+  Award,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { GithubJourneyModal } from "@/components/ui/GithubJourneyModal";
 
 const BULLETS = [
-  "Built AI-powered email classification workflows.",
-  "Implemented thread summarization & action-item extraction.",
-  "Worked on vector database search for AI retrieval.",
-  "Collaborated via GitHub PRs, reviews, and feature releases.",
+  "Founded & architected the open-source AI email workspace.",
+  "Designed AI classification & thread summarization pipelines.",
+  "Built vector database semantic search & retrieval engine.",
+  "Leading open-source core with 80 commits & 143k+ additions.",
 ];
 
 export function OpenSource() {
@@ -88,12 +89,12 @@ export function OpenSource() {
                   OPEN SOURCE
                 </span>
                 <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-text-primary mt-1">
-                  Contributing to <em className="italic font-serif text-accent font-normal">InboxOS</em>.
+                  Founding &amp; Building <em className="italic font-serif text-accent font-normal">InboxOS</em>.
                 </h2>
               </div>
 
               <p className="text-xs text-text-secondary leading-relaxed font-medium">
-                Open-source AI-powered workspace for team inboxes. Contributed AI classification workflows, thread summarization, vector DB search, and production PRs.
+                Founder &amp; Lead Architect of InboxOS — an open-source AI-powered workspace for team inboxes. Built core AI classification workflows, thread summarization, and vector DB search.
               </p>
 
               {/* 4 Compact Bullet Cards Grid */}
@@ -111,29 +112,29 @@ export function OpenSource() {
                 ))}
               </div>
 
-              {/* 3 Metric Cards at Bottom of Left Panel */}
+              {/* 3 Real Metric Cards for InboxOS */}
               <div className="grid grid-cols-3 gap-2 pt-1">
                 <div className="p-2.5 rounded-xl bg-bg/60 border border-border-t flex items-center gap-2">
-                  <GitPullRequest size={14} className="text-accent shrink-0" />
+                  <Award size={14} className="text-accent shrink-0" />
                   <div>
-                    <span className="text-sm font-extrabold text-text-primary block leading-none">10+</span>
-                    <span className="text-[9px] font-bold uppercase text-text-tertiary">Merged PRs</span>
+                    <span className="text-xs sm:text-sm font-extrabold text-text-primary block leading-none">Founder</span>
+                    <span className="text-[9px] font-bold uppercase text-text-tertiary">#1 Contributor</span>
                   </div>
                 </div>
 
                 <div className="p-2.5 rounded-xl bg-bg/60 border border-border-t flex items-center gap-2">
-                  <Users size={14} className="text-accent shrink-0" />
+                  <GitCommit size={14} className="text-accent shrink-0" />
                   <div>
-                    <span className="text-xs font-extrabold text-text-primary block leading-none">OSS</span>
-                    <span className="text-[9px] font-bold uppercase text-text-tertiary">Contributor</span>
+                    <span className="text-xs sm:text-sm font-extrabold text-text-primary block leading-none">80</span>
+                    <span className="text-[9px] font-bold uppercase text-text-tertiary">Commits</span>
                   </div>
                 </div>
 
                 <div className="p-2.5 rounded-xl bg-bg/60 border border-border-t flex items-center gap-2">
-                  <Cpu size={14} className="text-accent shrink-0" />
+                  <Code2 size={14} className="text-accent shrink-0" />
                   <div>
-                    <span className="text-xs font-extrabold text-text-primary block leading-none">AI Focus</span>
-                    <span className="text-[9px] font-bold uppercase text-text-tertiary">Primary</span>
+                    <span className="text-xs sm:text-sm font-extrabold text-text-primary block leading-none">143k+</span>
+                    <span className="text-[9px] font-bold uppercase text-text-tertiary">Lines Added</span>
                   </div>
                 </div>
               </div>
@@ -141,7 +142,7 @@ export function OpenSource() {
 
             <div className="pt-4 border-t border-border-t mt-4">
               <a
-                href="https://github.com/malavya1411"
+                href="https://github.com/CodeLabsAI29/Inbox_OS"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-text-primary text-bg font-bold text-xs hover:scale-105 transition-all shadow-sm"
