@@ -94,37 +94,37 @@ export function Hero() {
           
           {/* ── LEFT COLUMN: Mascot + Typewriter + Title + Bio + Buttons ─ */}
           <motion.div
-            className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-4 sm:space-y-5"
+            className="lg:col-span-7 flex flex-col items-center text-center space-y-4 sm:space-y-5"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Zone 1: Interactive 3D Mascot */}
-            <div className="reference-mascot-wrap w-[170px] h-[180px] sm:w-[200px] sm:h-[210px] lg:w-[230px] lg:h-[240px] mb-1 flex justify-center lg:justify-start">
+            <div className="reference-mascot-wrap w-[180px] h-[190px] sm:w-[210px] sm:h-[220px] lg:w-[240px] lg:h-[250px] mb-1 flex justify-center items-center mx-auto">
               <BuildMascot3D />
             </div>
 
             {/* Typewriter profession text */}
             <p
-              className="reference-kicker reference-kicker-typewriter text-accent font-serif italic text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight min-h-[1.2em] text-center lg:text-left"
+              className="reference-kicker reference-kicker-typewriter text-accent font-serif italic text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight min-h-[1.2em] text-center w-full"
               aria-live="polite"
               aria-atomic="true"
             >
               {displayText}
             </p>
 
-            <h1 className="reference-title text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-text-primary leading-none text-center lg:text-left">
+            <h1 className="reference-title text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-text-primary leading-none text-center w-full">
               Developer<span>.</span>
             </h1>
 
-            <p className="reference-description max-w-2xl text-sm sm:text-base lg:text-lg text-text-secondary leading-relaxed font-medium text-center lg:text-left">
+            <p className="reference-description max-w-2xl text-sm sm:text-base lg:text-lg text-text-secondary leading-relaxed font-medium text-center mx-auto">
               Malavya is an AI &amp; Data Science student and full-stack developer
               who builds practical, people-first products — from intelligent
               developer tools to real-time systems.
             </p>
 
             {/* CTA buttons */}
-            <div className="reference-actions flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-2">
+            <div className="reference-actions flex flex-wrap items-center justify-center gap-3.5 pt-2 w-full">
               <a href="#contact" className="reference-button reference-button-light hero-btn-connect">
                 Connect <Link2 size={18} />
               </a>
