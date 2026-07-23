@@ -77,7 +77,7 @@ export function Hero() {
     <section
       id="home"
       ref={sectionRef}
-      className="relative min-h-[92vh] flex flex-col justify-center items-center overflow-hidden py-14 sm:py-20 hero-with-cursor-glow"
+      className="relative min-h-screen w-full flex flex-col justify-between items-center overflow-hidden pt-28 sm:pt-32 lg:pt-36 pb-12 hero-with-cursor-glow"
       onMouseMove={handleMouseMove}
     >
       <HeroBackground />
@@ -88,36 +88,36 @@ export function Hero() {
       {/* Cursor glow radial light */}
       <div className="hero-cursor-glow" aria-hidden="true" />
 
-      {/* 2-Column Split Container: All Hero Content & Mascot on LEFT, Photo on RIGHT */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 my-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      {/* End-to-End Container (Uncompressed Full Width Grid) */}
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 my-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
           
-          {/* ── LEFT COLUMN: 3D Mascot + Typewriter + Title + Bio + Buttons ─ */}
+          {/* ── LEFT COLUMN: Mascot + Typewriter + Title + Bio + Buttons ─ */}
           <motion.div
-            className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-4 sm:space-y-5"
+            className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-4 sm:space-y-6"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Zone 1: Interactive 3D Mascot */}
-            <div className="reference-mascot-wrap mb-1 flex justify-center lg:justify-start">
+            <div className="reference-mascot-wrap w-[180px] h-[190px] sm:w-[220px] sm:h-[230px] lg:w-[250px] lg:h-[260px] mb-2 flex justify-center lg:justify-start">
               <BuildMascot3D />
             </div>
 
             {/* Typewriter profession text */}
             <p
-              className="reference-kicker reference-kicker-typewriter text-accent font-serif italic text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight min-h-[1.2em]"
+              className="reference-kicker reference-kicker-typewriter text-accent font-serif italic text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight min-h-[1.2em] text-center lg:text-left"
               aria-live="polite"
               aria-atomic="true"
             >
               {displayText}
             </p>
 
-            <h1 className="reference-title text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-text-primary leading-none">
+            <h1 className="reference-title text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-text-primary leading-none text-center lg:text-left">
               Developer<span>.</span>
             </h1>
 
-            <p className="reference-description max-w-xl text-sm sm:text-base lg:text-lg text-text-secondary leading-relaxed font-medium">
+            <p className="reference-description max-w-2xl text-sm sm:text-base lg:text-lg text-text-secondary leading-relaxed font-medium text-center lg:text-left">
               Malavya is an AI &amp; Data Science student and full-stack developer
               who builds practical, people-first products — from intelligent
               developer tools to real-time systems.
@@ -147,21 +147,21 @@ export function Hero() {
 
           {/* ── RIGHT COLUMN: User Photo ──────────────────────────────────── */}
           <motion.div
-            className="lg:col-span-5 flex justify-center items-center"
+            className="lg:col-span-5 flex justify-center lg:justify-end items-center"
             initial={{ opacity: 0, scale: 0.92, x: 30 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="relative w-full max-w-[320px] sm:max-w-[360px] lg:max-w-[400px]">
+            <div className="relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[440px]">
               {/* Soft Ambient Radial Backlight Glow */}
-              <div className="absolute -inset-2 bg-gradient-to-tr from-accent/25 via-amber-500/15 to-accent/10 rounded-[2.5rem] blur-2xl opacity-70 pointer-events-none" />
+              <div className="absolute -inset-3 bg-gradient-to-tr from-accent/25 via-amber-500/15 to-accent/10 rounded-[2.5rem] blur-2xl opacity-70 pointer-events-none" />
 
               {/* Rounded Waist-Length Photo Frame */}
-              <div className="relative rounded-[2.2rem] overflow-hidden border border-border-strong bg-surface shadow-2xl transition-all duration-500 hover:scale-[1.015] hover:shadow-accent/20">
+              <div className="relative rounded-[2.4rem] overflow-hidden border border-border-strong bg-surface shadow-2xl transition-all duration-500 hover:scale-[1.015] hover:shadow-accent/20">
                 <img
                   src="/malavya.jpg"
                   alt="Malavya Mankar"
-                  className="w-full h-auto object-cover object-top max-h-[460px] sm:max-h-[500px]"
+                  className="w-full h-auto object-cover object-top max-h-[500px] sm:max-h-[540px] lg:max-h-[580px]"
                 />
               </div>
             </div>
