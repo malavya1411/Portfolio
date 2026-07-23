@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Link2, FileText, ChevronDown } from "lucide-react";
+import { BuildMascot3D } from "@/components/ui/BuildMascot3D";
 import { HeroBackground } from "@/components/ui/HeroBackground";
 
 const PROFESSIONS = [
@@ -76,7 +77,7 @@ export function Hero() {
     <section
       id="home"
       ref={sectionRef}
-      className="relative min-h-[92vh] flex flex-col justify-center items-center overflow-hidden py-16 sm:py-24 hero-with-cursor-glow"
+      className="relative min-h-[92vh] flex flex-col justify-center items-center overflow-hidden py-14 sm:py-20 hero-with-cursor-glow"
       onMouseMove={handleMouseMove}
     >
       <HeroBackground />
@@ -87,17 +88,22 @@ export function Hero() {
       {/* Cursor glow radial light */}
       <div className="hero-cursor-glow" aria-hidden="true" />
 
-      {/* 2-Column Split Container: Text Content on LEFT, Photo on RIGHT */}
+      {/* 2-Column Split Container: All Hero Content & Mascot on LEFT, Photo on RIGHT */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 my-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* ── LEFT COLUMN: Text Content & CTA Buttons ───────────────────── */}
+          {/* ── LEFT COLUMN: 3D Mascot + Typewriter + Title + Bio + Buttons ─ */}
           <motion.div
-            className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-5 sm:space-y-6"
+            className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-4 sm:space-y-5"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
+            {/* Zone 1: Interactive 3D Mascot */}
+            <div className="reference-mascot-wrap mb-1 flex justify-center lg:justify-start">
+              <BuildMascot3D />
+            </div>
+
             {/* Typewriter profession text */}
             <p
               className="reference-kicker reference-kicker-typewriter text-accent font-serif italic text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight min-h-[1.2em]"
