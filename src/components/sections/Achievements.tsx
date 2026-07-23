@@ -114,26 +114,29 @@ export function Achievements() {
           </p>
         </motion.div>
 
-        {/* ─── 1. TIMELINE TRACK WITH ACCURATE CENTERED LINE ─────────────────── */}
-        <div className="relative mb-14 max-w-4xl mx-auto px-4 sm:px-8">
+        {/* ─── 1. TIMELINE TRACK WITH 100% PERFECT ALIGNMENT ─────────────────── */}
+        <div className="relative mb-14 max-w-4xl mx-auto px-2 sm:px-6">
           <div
             ref={timelineRef}
             aria-label="Achievement timeline"
             className="overflow-x-auto py-3 scrollbar-none no-scrollbar snap-x relative min-w-full"
           >
-            <div className="flex items-center justify-between min-w-full relative px-6 sm:px-10">
-              {/* Background Connecting Line */}
-              <div className="absolute left-10 right-10 top-[39px] h-[2px] bg-border-strong/60 pointer-events-none z-0 hidden sm:block" />
+            <div className="flex items-center justify-between min-w-full relative px-[40px] sm:px-[45px]">
+              {/* Single Shared Track Container: Holds BOTH Gray Line and Active Orange Line */}
+              <div className="absolute left-[40px] sm:left-[45px] right-[40px] sm:right-[45px] top-[39px] h-[2px] pointer-events-none z-0 hidden sm:block">
+                {/* Unfilled Gray Background Line */}
+                <div className="absolute inset-0 bg-border-strong/60" />
 
-              {/* Active Animated Progress Track Line */}
-              <motion.div
-                className="absolute left-10 top-[39px] h-[2px] bg-gradient-to-r from-accent to-accent-hover pointer-events-none z-0 hidden sm:block origin-left"
-                initial={false}
-                animate={{
-                  width: total > 1 ? `calc(${(activeIndex / (total - 1)) * 100}% - 80px)` : "0px",
-                }}
-                transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
-              />
+                {/* Active Orange Progress Line — Shares the exact same container & vertical Y position */}
+                <motion.div
+                  className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-accent to-accent-hover"
+                  initial={false}
+                  animate={{
+                    width: total > 1 ? `${(activeIndex / (total - 1)) * 100}%` : "0%",
+                  }}
+                  transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+                />
+              </div>
 
               {achievements.map((item, idx) => {
                 const isActive = idx === activeIndex;
@@ -141,7 +144,7 @@ export function Achievements() {
                   <button
                     key={item.title + idx}
                     onClick={() => goToSlide(idx)}
-                    className="flex flex-col items-center group relative cursor-pointer focus:outline-none snap-center shrink-0 z-10 min-w-[76px] sm:min-w-[90px]"
+                    className="flex flex-col items-center group relative cursor-pointer focus:outline-none snap-center shrink-0 z-10 w-[80px] sm:w-[90px]"
                     aria-label={`Go to ${item.title} (${item.year})`}
                     aria-current={isActive ? "true" : undefined}
                   >
@@ -156,7 +159,7 @@ export function Achievements() {
                       {item.year}
                     </span>
 
-                    {/* Circular Node Row */}
+                    {/* Circular Node Row — Center is at 24px + 2px + 14px = 40px */}
                     <div className="h-7 flex items-center justify-center relative w-full my-0.5">
                       {/* Active Ring Indicator */}
                       {isActive && (
