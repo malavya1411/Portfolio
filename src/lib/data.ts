@@ -478,7 +478,7 @@ export const projects: Project[] = [
     outcome: "Built an end-to-end deep learning platform using ResNet50 for 10-class land cover classification (EuroSAT) and temporal forest loss comparisons, featuring singleton FastAPI inference and automated PDF reports.",
     tags: ["AI/ML", "Satellite", "Python"],
     github: "https://github.com/malavya1411/CanopyML",
-    demo: null,
+    demo: "https://canopyml.vercel.app",
     badge: null,
     featured: false,
     year: "2026",
