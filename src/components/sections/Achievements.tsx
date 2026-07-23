@@ -33,6 +33,15 @@ export function Achievements() {
   const pauseTimerRef = useRef<NodeJS.Timeout | null>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
 
+  // Keep refs for event listeners and interval loops to prevent HMR hook array size mismatches
+  const isPausedRef = useRef(isPaused);
+  const previewCertRef = useRef(previewCert);
+
+  useEffect(() => {
+    isPausedRef.current = isPaused;
+    previewCertRef.current = previewCert;
+  }, [isPaused, previewCert]);
+
   // Single helper to trigger user interaction pause (5 seconds)
   const handleUserInteraction = useCallback(() => {
     setIsPaused(true);
@@ -55,32 +64,33 @@ export function Achievements() {
     setActiveIndex(index);
   };
 
-  // Autoplay 3000ms timer — completely pauses while previewCert modal is open
+  // Autoplay 3000ms timer — constant dependency array size [total]
   useEffect(() => {
-    if (isPaused || previewCert !== null) return;
     const interval = setInterval(() => {
-      nextSlide();
+      if (!isPausedRef.current && previewCertRef.current === null) {
+        setActiveIndex((prev) => (prev + 1) % total);
+      }
     }, 3000);
     return () => clearInterval(interval);
-  }, [isPaused, previewCert, nextSlide]);
+  }, [total]);
 
   // Keyboard navigation (ArrowLeft / ArrowRight / Escape)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && previewCert !== null) {
+      if (e.key === "Escape" && previewCertRef.current !== null) {
         setPreviewCert(null);
         handleUserInteraction();
-      } else if (e.key === "ArrowLeft" && previewCert === null) {
+      } else if (e.key === "ArrowLeft" && previewCertRef.current === null) {
         handleUserInteraction();
         prevSlide();
-      } else if (e.key === "ArrowRight" && previewCert === null) {
+      } else if (e.key === "ArrowRight" && previewCertRef.current === null) {
         handleUserInteraction();
         nextSlide();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [previewCert, handleUserInteraction, nextSlide, prevSlide]);
+  }, [handleUserInteraction, nextSlide, prevSlide]);
 
   // Scroll active timeline node into view smoothly on mobile
   useEffect(() => {
