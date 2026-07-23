@@ -639,12 +639,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2.5vw;
+  padding: 0 clamp(2rem, 4.5vw, 6rem);
 }
 .hero-cards-col {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: clamp(32px, 5.5vh, 56px);
   pointer-events: auto;
 }
 .hero-cards-left { align-items: flex-start; }
