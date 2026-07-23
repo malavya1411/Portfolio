@@ -22,6 +22,13 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/icon.svg",
+    apple: "/apple-icon.svg",
+  },
   title: {
     default: "Malavya Mankar — Full Stack Developer & AI Engineer",
     template: "%s | Malavya Mankar",
