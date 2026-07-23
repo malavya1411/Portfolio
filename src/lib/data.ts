@@ -1006,14 +1006,6 @@ export const achievements: Achievement[] = [
     highlight: false,
   },
   {
-    title: "CGPA 9.73",
-    event: "VESIT — B.Tech AI & Data Science",
-    description:
-      "Top academic record maintained while actively competing in hackathons and shipping production software.",
-    year: "2025–26",
-    highlight: false,
-  },
-  {
     title: "Successful Completion",
     event: "Hack-AI-Thon 4.0",
     description:
