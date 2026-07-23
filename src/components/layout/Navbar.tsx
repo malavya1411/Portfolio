@@ -7,8 +7,8 @@ const links = [
   ["Skills.", "#skills"],
   ["Work.", "#projects"],
   ["Open Source.", "#opensource"],
+  ["Achievements.", "#achievements"],
   ["LinkedIn.", "https://www.linkedin.com/in/malavya-mankar-002037382"],
-  ["Github.", "https://github.com/malavya1411"],
 ];
 
 export function Navbar() {
