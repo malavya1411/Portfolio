@@ -564,6 +564,240 @@ body {
 @keyframes reference-float { 50% { transform:translateY(-9px); } }
 @media(max-width:640px){.reference-hero-inner{padding-top:6rem}.reference-mascot-wrap{width:210px;height:225px;margin-bottom:1.6rem}.reference-description{max-width:530px}.reference-button{min-width:145px;min-height:53px}}
 
+/* ─── Kicker wrapper: fixed height container for slide-fade profession text ─── */
+.reference-kicker-wrap {
+  height: clamp(2.8rem, 5vw, 4.2rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+/* Remove the ::after cursor from typewriter (now using AnimatePresence) */
+.reference-kicker { margin:0; font-family:Georgia,serif; font-size:clamp(2.2rem,4.4vw,3.5rem); font-style:italic; font-weight:500; letter-spacing:-.02em; line-height:1.05; color:#f36f2e; text-align:center; }
+
+/* ─── Button micro-interactions ─── */
+.hero-btn-connect:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 18px 36px rgba(0,0,0,.22);
+}
+.hero-btn-work:hover .hero-btn-arrow {
+  transform: translateX(3px);
+  transition: transform 0.2s ease;
+}
+.hero-btn-resume:hover .hero-btn-resume-icon {
+  transform: translateY(-2px) scale(1.15);
+  transition: transform 0.2s ease;
+}
+.hero-btn-resume-icon {
+  transition: transform 0.2s ease;
+}
+.hero-btn-arrow {
+  transition: transform 0.2s ease;
+}
+
+/* ─── Cursor glow ─── */
+.hero-with-cursor-glow {
+  --glow-x: 50%;
+  --glow-y: 45%;
+}
+.hero-cursor-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 420px 360px at var(--glow-x) var(--glow-y),
+    rgba(224, 122, 95, 0.10) 0%,
+    rgba(242, 204, 143, 0.06) 40%,
+    transparent 70%
+  );
+  transition: background 0.1s ease;
+  will-change: background;
+}
+@media (max-width: 768px) { .hero-cursor-glow { display: none; } }
+
+/* ─── Ambient dot grid overlay ─── */
+.hero-ambient-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle, rgba(130, 100, 80, 0.13) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 0%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 0%, transparent 100%);
+}
+@media (max-width: 768px) { .hero-ambient-grid { opacity: 0.5; } }
+
+/* ─── Floating cards layout ─── */
+.hero-cards-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5vw;
+}
+.hero-cards-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  pointer-events: auto;
+}
+.hero-cards-left { align-items: flex-start; }
+.hero-cards-right { align-items: flex-end; }
+
+/* Hide floating cards below 1100px */
+@media (max-width: 1100px) {
+  .hero-cards-wrap { display: none; }
+}
+
+/* ─── Glassmorphism card base ─── */
+.hero-float-card {
+  min-width: 200px;
+  max-width: 230px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.07),
+    0 1px 0 rgba(255, 255, 255, 0.7) inset;
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  padding: 14px 16px;
+  cursor: pointer;
+  will-change: transform;
+  animation: hero-card-float 4.5s ease-in-out infinite;
+  transition: box-shadow 0.3s ease;
+}
+.hero-float-card--building { animation-delay: -1.5s; }
+.hero-float-card--github   { animation-delay: -0.8s; }
+.hero-float-card--edu      { animation-delay: -2.5s; }
+
+@keyframes hero-card-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-float-card { animation: none !important; }
+}
+
+/* ─── Card inner layout ─── */
+.hero-float-card-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+.hero-float-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.hero-float-card-icon--amber { background: rgba(185, 106, 59, 0.12); color: #B96A3B; }
+.hero-float-card-icon--blue  { background: rgba(61, 90, 128, 0.12); color: #3D5A80; }
+.hero-float-card-icon--dark  { background: rgba(20, 20, 20, 0.08); color: #141414; }
+.hero-float-card-icon--green { background: rgba(77, 119, 85, 0.12); color: #4D7755; }
+
+.hero-float-card-body { flex: 1; min-width: 0; }
+.hero-float-card-eyebrow {
+  display: block;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8a8070;
+  margin-bottom: 3px;
+  white-space: nowrap;
+}
+.hero-float-card-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #131313;
+  line-height: 1.2;
+  margin: 0 0 2px;
+}
+.hero-float-card-sub {
+  font-size: 0.75rem;
+  color: #7a7060;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.3;
+}
+.hero-float-card-cta {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #B96A3B;
+  white-space: nowrap;
+  margin-top: 2px;
+  flex-shrink: 0;
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+.hero-float-card:hover .hero-float-card-cta { gap: 5px; }
+
+/* Building card rotation dots */
+.hero-float-card-dots {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+  justify-content: flex-end;
+}
+.hero-float-card-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(130, 100, 80, 0.2);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.hero-float-card-dot--active {
+  background: #B96A3B;
+  transform: scale(1.3);
+}
+
+/* ─── Scroll cue ─── */
+.hero-scroll-cue {
+  position: absolute;
+  bottom: clamp(8px, 1.5vh, 16px);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: fit-content;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9a8878;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.hero-scroll-cue:hover {
+  color: #B96A3B;
+  background: rgba(185, 106, 59, 0.06);
+}
+
+
 /* Compact hero navigation — expands into the full menu on hover or focus. */
 /* Compact hero navigation — expands into the full menu on hover or focus. */
 .expandable-nav-shell{position:fixed;z-index:50;top:24px;left:50%;width:min(94vw,96rem);transform:translateX(-50%);pointer-events:none}

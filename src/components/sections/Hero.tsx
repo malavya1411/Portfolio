@@ -1,65 +1,97 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { ArrowRight, Link2, FileText } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Link2, FileText, ChevronDown } from "lucide-react";
 import { BuildMascot3D } from "@/components/ui/BuildMascot3D";
 import { HeroBackground } from "@/components/ui/HeroBackground";
+import { HeroFloatingCards } from "@/components/ui/HeroFloatingCards";
 
-const kickerWords = [
-  "AI & Full-Stack",
-  "Web",
-  "Software",
-  "Mobile App",
+const PROFESSIONS = [
+  "AI Engineer",
+  "Full Stack Developer",
+  "Mobile Developer",
+  "Web Developer",
+  "Backend Developer",
+  "Open Source Contributor",
 ];
 
-export function Hero() {
-  const [displayText, setDisplayText] = useState("");
-  const [wordIndex, setWordIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [typingSpeed, setTypingSpeed] = useState(100);
+const SLIDE_DURATION = 2200; // ms per word
 
+export function Hero() {
+  const [profIdx, setProfIdx] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Slide-fade profession rotation
   useEffect(() => {
-    const currentFullWord = kickerWords[wordIndex];
-    const handleType = () => {
-      if (!isDeleting) {
-        const nextText = currentFullWord.substring(0, displayText.length + 1);
-        setDisplayText(nextText);
-        setTypingSpeed(80);
-        if (nextText === currentFullWord) {
-          setTypingSpeed(2200);
-          setIsDeleting(true);
-        }
-      } else {
-        const nextText = currentFullWord.substring(0, displayText.length - 1);
-        setDisplayText(nextText);
-        setTypingSpeed(35);
-        if (nextText === "") {
-          setIsDeleting(false);
-          setWordIndex((prev) => (prev + 1) % kickerWords.length);
-          setTypingSpeed(320);
-        }
-      }
-    };
-    const timer = setTimeout(handleType, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [displayText, isDeleting, wordIndex, typingSpeed]);
+    const id = setInterval(() => {
+      setProfIdx((prev) => (prev + 1) % PROFESSIONS.length);
+    }, SLIDE_DURATION);
+    return () => clearInterval(id);
+  }, []);
+
+  // Cursor glow — update CSS custom properties on mouse move
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const rect = section.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    section.style.setProperty("--glow-x", `${x}%`);
+    section.style.setProperty("--glow-y", `${y}%`);
+  }, []);
+
+  const scrollToAbout = () => {
+    const about = document.getElementById("about");
+    if (about) about.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <section id="home" className="reference-hero">
+    <section
+      id="home"
+      ref={sectionRef}
+      className="reference-hero hero-with-cursor-glow"
+      onMouseMove={handleMouseMove}
+    >
       <HeroBackground />
+
+      {/* Ambient dot grid overlay */}
+      <div className="hero-ambient-grid" aria-hidden="true" />
+
+      {/* Cursor glow radial light */}
+      <div className="hero-cursor-glow" aria-hidden="true" />
+
+      {/* Floating left/right ambient cards — hidden on mobile/tablet */}
+      <div className="hero-cards-wrap">
+        <HeroFloatingCards />
+      </div>
 
       <div className="reference-hero-inner">
 
-        {/* Zone 1: Mascot at top */}
+        {/* Zone 1: Mascot */}
         <div className="reference-mascot-wrap">
           <BuildMascot3D />
         </div>
 
-        {/* Zone 2: Main center block containing tagline, title, description, and buttons */}
+        {/* Zone 2: Main center content */}
         <div className="reference-hero-center">
-          <p className="reference-kicker reference-kicker-typewriter">
-            {displayText}
-          </p>
+
+          {/* Slide-fade profession text */}
+          <div className="reference-kicker-wrap" aria-live="polite" aria-atomic="true">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={profIdx}
+                className="reference-kicker"
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -14 }}
+                transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {PROFESSIONS[profIdx]}
+              </motion.p>
+            </AnimatePresence>
+          </div>
+
           <h1 className="reference-title">Developer<span>.</span></h1>
           <p className="reference-description">
             Malavya is an AI &amp; Data Science student and full-stack developer
@@ -67,26 +99,48 @@ export function Hero() {
             developer tools to real-time systems.
           </p>
 
-          {/* CTA buttons placed inside center block to enforce strict spacing */}
+          {/* CTA buttons */}
           <div className="reference-actions">
-            <a href="#contact" className="reference-button reference-button-dark">
+            <a href="#contact" className="reference-button reference-button-dark hero-btn-connect">
               Connect <Link2 size={18} />
             </a>
-            <a href="#projects" className="reference-button reference-button-light">
-              See work <span className="reference-arrow"><ArrowRight size={18} /></span>
+            <a href="#projects" className="reference-button reference-button-light hero-btn-work">
+              See work{" "}
+              <span className="reference-arrow hero-btn-arrow">
+                <ArrowRight size={18} />
+              </span>
             </a>
             <a
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="reference-button reference-button-light"
+              className="reference-button reference-button-light hero-btn-resume"
             >
-              Resume <FileText size={18} />
+              Resume <FileText size={18} className="hero-btn-resume-icon" />
             </a>
           </div>
         </div>
 
       </div>
+
+      {/* Scroll cue */}
+      <motion.button
+        className="hero-scroll-cue"
+        onClick={scrollToAbout}
+        aria-label="Scroll to About section"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4, duration: 0.6, ease: "easeOut" }}
+        whileHover={{ scale: 1.08 }}
+      >
+        <motion.span
+          animate={{ y: [0, 4, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ChevronDown size={20} strokeWidth={2} />
+        </motion.span>
+        <span>Explore More</span>
+      </motion.button>
     </section>
   );
 }
