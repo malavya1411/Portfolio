@@ -85,7 +85,7 @@ export function OpenSource() {
             <div className="space-y-4">
               <div>
                 <span className="text-[11px] font-mono font-bold tracking-[0.2em] uppercase text-accent">
-                  06 —— OPEN SOURCE
+                  OPEN SOURCE
                 </span>
                 <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-text-primary mt-1">
                   Contributing to <em className="italic font-serif text-accent font-normal">InboxOS</em>.
@@ -162,7 +162,7 @@ export function OpenSource() {
             <div className="space-y-4">
               <div>
                 <span className="text-[11px] font-mono font-bold tracking-[0.2em] uppercase text-accent">
-                  07 —— GITHUB ACTIVITY
+                  GITHUB ACTIVITY
                 </span>
                 <div className="flex flex-wrap items-center gap-2 mt-1">
                   <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-text-primary">
