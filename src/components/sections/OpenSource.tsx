@@ -18,10 +18,10 @@ import { Container } from "@/components/ui/Container";
 import { GithubJourneyModal } from "@/components/ui/GithubJourneyModal";
 
 const BULLETS = [
-  "Founded & architected the open-source AI email workspace.",
-  "Designed AI classification & thread summarization pipelines.",
-  "Built vector database semantic search & retrieval engine.",
-  "Leading open-source core with 80 commits & 143k+ additions.",
+  "AI Classification Workflows",
+  "Thread Summarization Engine",
+  "Vector DB Semantic Search",
+  "80+ Commits & 143k+ Additions",
 ];
 
 export function OpenSource() {
@@ -93,19 +93,19 @@ export function OpenSource() {
                 </h2>
               </div>
 
-              <p className="text-xs text-text-secondary leading-relaxed font-medium">
-                Founder &amp; Lead Architect of InboxOS — an open-source AI-powered workspace for team inboxes. Built core AI classification workflows, thread summarization, and vector DB search.
+              <p className="text-xs sm:text-sm text-text-primary leading-snug font-bold">
+                Founder &amp; Lead Architect — building the open-source AI workspace for team inboxes.
               </p>
 
-              {/* 4 Compact Bullet Cards Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {/* 4 Impactful High-Contrast Cards Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {BULLETS.map((bullet, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-2 p-2.5 rounded-xl bg-bg/60 border border-border-t shadow-2xs hover:border-accent/30 transition-colors"
+                    className="flex items-center gap-2.5 p-3 rounded-2xl bg-bg/80 border border-border-strong shadow-2xs hover:border-accent/40 transition-colors"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 shrink-0" />
-                    <p className="text-[11px] text-text-secondary leading-snug font-medium">
+                    <span className="w-2 h-2 rounded-full bg-accent shrink-0" />
+                    <p className="text-xs sm:text-sm text-text-primary font-bold tracking-tight">
                       {bullet}
                     </p>
                   </div>
@@ -114,24 +114,24 @@ export function OpenSource() {
 
               {/* 3 Real Metric Cards for InboxOS */}
               <div className="grid grid-cols-3 gap-2 pt-1">
-                <div className="p-2.5 rounded-xl bg-bg/60 border border-border-t flex items-center gap-2">
-                  <Award size={14} className="text-accent shrink-0" />
+                <div className="p-2.5 rounded-xl bg-bg/80 border border-border-strong flex items-center gap-2">
+                  <Award size={16} className="text-accent shrink-0" />
                   <div>
                     <span className="text-xs sm:text-sm font-extrabold text-text-primary block leading-none">Founder</span>
                     <span className="text-[9px] font-bold uppercase text-text-tertiary">#1 Contributor</span>
                   </div>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-bg/60 border border-border-t flex items-center gap-2">
-                  <GitCommit size={14} className="text-accent shrink-0" />
+                <div className="p-2.5 rounded-xl bg-bg/80 border border-border-strong flex items-center gap-2">
+                  <GitCommit size={16} className="text-accent shrink-0" />
                   <div>
                     <span className="text-xs sm:text-sm font-extrabold text-text-primary block leading-none">80</span>
                     <span className="text-[9px] font-bold uppercase text-text-tertiary">Commits</span>
                   </div>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-bg/60 border border-border-t flex items-center gap-2">
-                  <Code2 size={14} className="text-accent shrink-0" />
+                <div className="p-2.5 rounded-xl bg-bg/80 border border-border-strong flex items-center gap-2">
+                  <Code2 size={16} className="text-accent shrink-0" />
                   <div>
                     <span className="text-xs sm:text-sm font-extrabold text-text-primary block leading-none">143k+</span>
                     <span className="text-[9px] font-bold uppercase text-text-tertiary">Lines Added</span>
@@ -180,8 +180,8 @@ export function OpenSource() {
                 </div>
               </div>
 
-              <p className="text-xs text-text-secondary leading-relaxed font-medium">
-                Live snapshot of open source contributions, repositories, commits, and community appreciation.
+              <p className="text-xs sm:text-sm text-text-primary leading-snug font-bold">
+                Live profile activity &amp; open-source contributions snapshot.
               </p>
 
               {/* 5 GitHub Metric Cards Grid */}
