@@ -69,61 +69,61 @@ export function OpenSource() {
   }, []);
 
   return (
-    <section id="opensource" className="py-12 sm:py-16 lg:py-20 relative overflow-hidden flex flex-col justify-center min-h-screen">
+    <section id="opensource" className="py-6 sm:py-8 lg:py-10 relative overflow-hidden flex flex-col justify-center">
       <Container>
         {/* Section Top Minimalist & Impactful Headline */}
         <motion.div
-          className="mb-8 sm:mb-12 max-w-3xl"
-          initial={{ opacity: 0, y: 20 }}
+          className="mb-4 sm:mb-6 max-w-3xl"
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <span className="text-xs font-mono font-bold tracking-[0.2em] uppercase text-accent">
+          <span className="text-[11px] font-mono font-bold tracking-[0.2em] uppercase text-accent">
             OPEN SOURCE &amp; GITHUB
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-text-primary mt-2">
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-text-primary mt-1">
             Building Real Software in Public<span>.</span>
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-text-secondary font-medium leading-relaxed">
+          <p className="mt-1 text-xs sm:text-sm text-text-secondary font-medium leading-normal">
             Founding open-source tools, shipping production code, and contributing to modern developer ecosystems.
           </p>
         </motion.div>
 
         {/* 2 Equal Side-by-Side Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-stretch">
           
           {/* ── LEFT SIDE: Open Source (InboxOS) ────────────────────────────── */}
           <motion.div
-            className="lg:col-span-6 p-6 sm:p-8 lg:p-10 rounded-3xl bg-surface border border-border-strong flex flex-col justify-between shadow-md hover:border-accent/40 transition-all"
-            initial={{ opacity: 0, x: -20 }}
+            className="lg:col-span-6 p-5 sm:p-6 rounded-3xl bg-surface border border-border-strong flex flex-col justify-between shadow-sm hover:border-accent/30 transition-all"
+            initial={{ opacity: 0, x: -15 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <div className="space-y-6">
+            <div className="space-y-4">
               <div>
-                <span className="text-xs font-mono font-bold tracking-[0.2em] uppercase text-accent">
+                <span className="text-[10px] font-mono font-bold tracking-[0.2em] uppercase text-accent">
                   FEATURED OPEN SOURCE
                 </span>
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-text-primary mt-2">
+                <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight text-text-primary mt-1">
                   Founding &amp; Building <em className="italic font-serif text-accent font-normal">InboxOS</em>.
                 </h3>
               </div>
 
-              <p className="text-sm sm:text-base text-text-primary leading-relaxed font-extrabold">
+              <p className="text-xs sm:text-sm text-text-primary leading-snug font-bold">
                 Founder &amp; Lead Architect — building the open-source AI workspace for modern team inboxes.
               </p>
 
               {/* 4 Impactful High-Contrast Cards Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {BULLETS.map((bullet, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-3 p-4 rounded-2xl bg-bg/80 border border-border-strong shadow-2xs hover:border-accent/40 transition-colors"
+                    className="flex items-center gap-2 p-2.5 rounded-xl bg-bg/80 border border-border-strong shadow-2xs hover:border-accent/30 transition-colors"
                   >
-                    <span className="w-2.5 h-2.5 rounded-full bg-accent shrink-0" />
-                    <p className="text-sm sm:text-base text-text-primary font-extrabold tracking-tight">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+                    <p className="text-xs text-text-primary font-bold tracking-tight">
                       {bullet}
                     </p>
                   </div>
@@ -131,144 +131,144 @@ export function OpenSource() {
               </div>
 
               {/* 3 Real Metric Cards for InboxOS */}
-              <div className="grid grid-cols-3 gap-3 pt-2">
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-bg/80 border border-border-strong flex items-center gap-2.5">
-                  <Award size={20} className="text-accent shrink-0" />
+              <div className="grid grid-cols-3 gap-2.5 pt-0.5">
+                <div className="p-2.5 rounded-xl bg-bg/80 border border-border-strong flex items-center gap-2">
+                  <Award size={16} className="text-accent shrink-0" />
                   <div>
-                    <span className="text-sm sm:text-base font-extrabold text-text-primary block leading-none">Founder</span>
-                    <span className="text-[10px] font-bold uppercase text-text-tertiary mt-1 block">#1 Contributor</span>
+                    <span className="text-xs font-extrabold text-text-primary block leading-none">Founder</span>
+                    <span className="text-[9px] font-bold uppercase text-text-tertiary mt-0.5 block">#1 Contributor</span>
                   </div>
                 </div>
 
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-bg/80 border border-border-strong flex items-center gap-2.5">
-                  <GitCommit size={20} className="text-accent shrink-0" />
+                <div className="p-2.5 rounded-xl bg-bg/80 border border-border-strong flex items-center gap-2">
+                  <GitCommit size={16} className="text-accent shrink-0" />
                   <div>
-                    <span className="text-sm sm:text-base font-extrabold text-text-primary block leading-none">80</span>
-                    <span className="text-[10px] font-bold uppercase text-text-tertiary mt-1 block">Commits</span>
+                    <span className="text-xs font-extrabold text-text-primary block leading-none">80</span>
+                    <span className="text-[9px] font-bold uppercase text-text-tertiary mt-0.5 block">Commits</span>
                   </div>
                 </div>
 
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-bg/80 border border-border-strong flex items-center gap-2.5">
-                  <Code2 size={20} className="text-accent shrink-0" />
+                <div className="p-2.5 rounded-xl bg-bg/80 border border-border-strong flex items-center gap-2">
+                  <Code2 size={16} className="text-accent shrink-0" />
                   <div>
-                    <span className="text-sm sm:text-base font-extrabold text-text-primary block leading-none">143k+</span>
-                    <span className="text-[10px] font-bold uppercase text-text-tertiary mt-1 block">Lines Added</span>
+                    <span className="text-xs font-extrabold text-text-primary block leading-none">143k+</span>
+                    <span className="text-[9px] font-bold uppercase text-text-tertiary mt-0.5 block">Lines Added</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="pt-6 border-t border-border-t mt-6">
+            <div className="pt-4 border-t border-border-t mt-4">
               <a
                 href="https://github.com/CodeLabsAI29/Inbox_OS"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-text-primary text-bg font-bold text-sm hover:scale-105 transition-all shadow-md"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-text-primary text-bg font-bold text-xs hover:scale-105 transition-all shadow-sm"
               >
-                View Contributions <ArrowRight size={15} />
+                View Contributions <ArrowRight size={13} />
               </a>
             </div>
           </motion.div>
 
           {/* ── RIGHT SIDE: Overall GitHub Activity & Live Stats ───────────── */}
           <motion.div
-            className="lg:col-span-6 p-6 sm:p-8 lg:p-10 rounded-3xl bg-surface border border-border-strong flex flex-col justify-between shadow-md hover:border-accent/40 transition-all"
-            initial={{ opacity: 0, x: 20 }}
+            className="lg:col-span-6 p-5 sm:p-6 rounded-3xl bg-surface border border-border-strong flex flex-col justify-between shadow-sm hover:border-accent/30 transition-all"
+            initial={{ opacity: 0, x: 15 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.45, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <div className="space-y-6">
+            <div className="space-y-4">
               <div>
-                <span className="text-xs font-mono font-bold tracking-[0.2em] uppercase text-accent">
+                <span className="text-[10px] font-mono font-bold tracking-[0.2em] uppercase text-accent">
                   GITHUB OVERVIEW
                 </span>
-                <div className="flex flex-wrap items-center gap-3 mt-2">
-                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-text-primary">
+                <div className="flex flex-wrap items-center gap-2 mt-1">
+                  <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight text-text-primary">
                     GitHub Profile &amp; Impact<span>.</span>
                   </h3>
                   <a
                     href="https://github.com/malavya1411"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border-strong text-xs font-bold text-text-secondary hover:text-accent hover:border-accent/40 transition-all"
+                    className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full border border-border-strong text-[11px] font-bold text-text-secondary hover:text-accent hover:border-accent/40 transition-all"
                   >
-                    @malavya1411 <ExternalLink size={12} />
+                    @malavya1411 <ExternalLink size={11} />
                   </a>
                 </div>
               </div>
 
-              <p className="text-sm sm:text-base text-text-primary leading-relaxed font-extrabold">
+              <p className="text-xs sm:text-sm text-text-primary leading-snug font-bold">
                 Live profile activity &amp; open-source contributions snapshot.
               </p>
 
               {/* 5 GitHub Metric Cards Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
-                <div className="p-4 rounded-2xl bg-bg/80 border border-border-strong shadow-2xs flex flex-col justify-between">
-                  <div className="flex items-center justify-between text-accent mb-2">
-                    <GitPullRequest size={18} />
-                    <span className="text-[10px] font-mono font-bold uppercase text-text-tertiary">PRS</span>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                <div className="p-3 rounded-2xl bg-bg/80 border border-border-strong shadow-2xs flex flex-col justify-between">
+                  <div className="flex items-center justify-between text-accent mb-1">
+                    <GitPullRequest size={15} />
+                    <span className="text-[9px] font-mono font-bold uppercase text-text-tertiary">PRS</span>
                   </div>
                   <div>
-                    <span className="text-2xl sm:text-3xl font-extrabold text-text-primary">{stats.mergedPRs}</span>
-                    <p className="text-[10px] text-text-tertiary font-medium mt-1">Shipped to main</p>
+                    <span className="text-xl font-extrabold text-text-primary">{stats.mergedPRs}</span>
+                    <p className="text-[9px] text-text-tertiary font-medium">Shipped to main</p>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-bg/80 border border-border-strong shadow-2xs flex flex-col justify-between">
-                  <div className="flex items-center justify-between text-accent mb-2">
-                    <GitCommit size={18} />
-                    <span className="text-[10px] font-mono font-bold uppercase text-text-tertiary">COMMITS</span>
+                <div className="p-3 rounded-2xl bg-bg/80 border border-border-strong shadow-2xs flex flex-col justify-between">
+                  <div className="flex items-center justify-between text-accent mb-1">
+                    <GitCommit size={15} />
+                    <span className="text-[9px] font-mono font-bold uppercase text-text-tertiary">COMMITS</span>
                   </div>
                   <div>
-                    <span className="text-2xl sm:text-3xl font-extrabold text-text-primary">{stats.totalCommits}</span>
-                    <p className="text-[10px] text-text-tertiary font-medium mt-1">Across all repos</p>
+                    <span className="text-xl font-extrabold text-text-primary">{stats.totalCommits}</span>
+                    <p className="text-[9px] text-text-tertiary font-medium">Across all repos</p>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-bg/80 border border-border-strong shadow-2xs flex flex-col justify-between">
-                  <div className="flex items-center justify-between text-accent mb-2">
-                    <FolderGit2 size={18} />
-                    <span className="text-[10px] font-mono font-bold uppercase text-text-tertiary">REPOS</span>
+                <div className="p-3 rounded-2xl bg-bg/80 border border-border-strong shadow-2xs flex flex-col justify-between">
+                  <div className="flex items-center justify-between text-accent mb-1">
+                    <FolderGit2 size={15} />
+                    <span className="text-[9px] font-mono font-bold uppercase text-text-tertiary">REPOS</span>
                   </div>
                   <div>
-                    <span className="text-2xl sm:text-3xl font-extrabold text-text-primary">{stats.publicRepos}</span>
-                    <p className="text-[10px] text-text-tertiary font-medium mt-1">Public projects</p>
+                    <span className="text-xl font-extrabold text-text-primary">{stats.publicRepos}</span>
+                    <p className="text-[9px] text-text-tertiary font-medium">Public projects</p>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-bg/80 border border-border-strong shadow-2xs flex flex-col justify-between">
-                  <div className="flex items-center justify-between text-accent mb-2">
-                    <Star size={18} />
-                    <span className="text-[10px] font-mono font-bold uppercase text-text-tertiary">STARS</span>
+                <div className="p-3 rounded-2xl bg-bg/80 border border-border-strong shadow-2xs flex flex-col justify-between">
+                  <div className="flex items-center justify-between text-accent mb-1">
+                    <Star size={15} />
+                    <span className="text-[9px] font-mono font-bold uppercase text-text-tertiary">STARS</span>
                   </div>
                   <div>
-                    <span className="text-2xl sm:text-3xl font-extrabold text-text-primary">{stats.stars}</span>
-                    <p className="text-[10px] text-text-tertiary font-medium mt-1">Community stars</p>
+                    <span className="text-xl font-extrabold text-text-primary">{stats.stars}</span>
+                    <p className="text-[9px] text-text-tertiary font-medium">Community stars</p>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-bg/80 border border-border-strong shadow-2xs flex flex-col justify-between col-span-2 sm:col-span-1">
-                  <div className="flex items-center justify-between text-accent mb-2">
-                    <Code2 size={18} />
-                    <span className="text-[10px] font-mono font-bold uppercase text-text-tertiary">OSS</span>
+                <div className="p-3 rounded-2xl bg-bg/80 border border-border-strong shadow-2xs flex flex-col justify-between col-span-2 sm:col-span-1">
+                  <div className="flex items-center justify-between text-accent mb-1">
+                    <Code2 size={15} />
+                    <span className="text-[9px] font-mono font-bold uppercase text-text-tertiary">OSS</span>
                   </div>
                   <div>
-                    <span className="text-2xl sm:text-3xl font-extrabold text-text-primary">{stats.ossContributions}</span>
-                    <p className="text-[10px] text-text-tertiary font-medium mt-1">External PRs</p>
+                    <span className="text-xl font-extrabold text-text-primary">{stats.ossContributions}</span>
+                    <p className="text-[9px] text-text-tertiary font-medium">External PRs</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Overview Modal Trigger Button */}
-            <div className="pt-6 border-t border-border-t mt-6 flex justify-center">
+            <div className="pt-4 border-t border-border-t mt-4 flex justify-center">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-text-primary text-bg font-bold text-sm shadow-md hover:scale-105 transition-all cursor-pointer group"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2 rounded-full bg-text-primary text-bg font-bold text-xs shadow-sm hover:scale-105 transition-all cursor-pointer group"
               >
                 Explore Open Source Journey{" "}
-                <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
+                <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
               </button>
             </div>
           </motion.div>
