@@ -4,6 +4,7 @@ import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { Skills } from "@/components/sections/Skills";
 import { Projects } from "@/components/sections/Projects";
+import { OpenSource } from "@/components/sections/OpenSource";
 import { Achievements } from "@/components/sections/Achievements";
 import { Contact } from "@/components/sections/Contact";
 import { LogoLoop } from "@/components/ui/LogoLoop";
@@ -53,6 +54,7 @@ export default function Home() {
         <About />
         <Skills />
         <Projects />
+        <OpenSource />
         <Achievements />
         <Contact />
 

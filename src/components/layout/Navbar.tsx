@@ -6,6 +6,7 @@ import { Mail, X, TerminalSquare } from "lucide-react";
 const links = [
   ["Skills.", "#skills"],
   ["Work.", "#projects"],
+  ["Open Source.", "#opensource"],
   ["LinkedIn.", "https://www.linkedin.com/in/malavya-mankar-002037382"],
   ["Github.", "https://github.com/malavya1411"],
 ];

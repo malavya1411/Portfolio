@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, Link2, FileText, ChevronDown } from "lucide-react";
 import { BuildMascot3D } from "@/components/ui/BuildMascot3D";
 import { HeroBackground } from "@/components/ui/HeroBackground";
-import { HeroFloatingCards } from "@/components/ui/HeroFloatingCards";
 
 // No "Developer" variants — it already sits statically below as the h1
 const PROFESSIONS = [
@@ -91,11 +90,6 @@ export function Hero() {
 
       {/* Cursor glow radial light */}
       <div className="hero-cursor-glow" aria-hidden="true" />
-
-      {/* Floating left/right ambient cards — hidden on mobile/tablet */}
-      <div className="hero-cards-wrap">
-        <HeroFloatingCards />
-      </div>
 
       <div className="reference-hero-inner">
 
