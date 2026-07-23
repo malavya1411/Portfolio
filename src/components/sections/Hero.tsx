@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ArrowRight, Link2 } from "lucide-react";
 import { BuildMascot3D } from "@/components/ui/BuildMascot3D";
+import { HeroBackground } from "@/components/ui/HeroBackground";
 
 const kickerWords = [
   "AI & Full-Stack",
@@ -45,9 +46,7 @@ export function Hero() {
 
   return (
     <section id="home" className="reference-hero">
-      <div className="reference-cloud reference-cloud-one" />
-      <div className="reference-cloud reference-cloud-two" />
-      <div className="reference-grain" />
+      <HeroBackground />
 
       <div className="reference-hero-inner">
 

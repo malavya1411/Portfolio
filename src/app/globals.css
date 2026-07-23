@@ -434,15 +434,115 @@ body {
   color: var(--accent);
 }
 
-/* Hero — reference-inspired sky composition */
-.reference-hero { position:relative; isolation:isolate; min-height:100svh; overflow:hidden; background:linear-gradient(180deg,#2477d4 0%,#a8ccf3 34%,#fbf5f0 62%,#fffaf6 100%); }
-.reference-hero::before { content:""; position:absolute; inset:0; z-index:-2; opacity:.6; background:linear-gradient(112deg,rgba(255,183,208,.75) 0%,transparent 28%),radial-gradient(ellipse at 16% 19%,rgba(255,255,255,.9) 0 7%,transparent 29%),radial-gradient(ellipse at 86% 31%,rgba(255,255,255,.75) 0 5%,transparent 21%); }
-.reference-hero::after { content:""; position:absolute; z-index:-1; inset:0; background:linear-gradient(180deg,transparent 0%,rgba(255,255,255,.48) 48%,#fffaf6 80%); }
-.reference-cloud { position:absolute; z-index:0; width:34rem; height:10rem; border-radius:50%; background:rgba(255,255,255,.6); filter:blur(24px); }.reference-cloud-one{left:-14rem;top:13rem}.reference-cloud-two{right:-17rem;top:21rem;transform:rotate(-12deg)}
-.reference-grain { position:absolute;inset:0;z-index:0;opacity:.12;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.7) .8px,transparent .8px);background-size:16px 16px; }
+/* Hero — living mesh-gradient composition */
+.reference-hero { position:relative; isolation:isolate; min-height:100svh; overflow:hidden; background:#FAF8F5; }
+.reference-hero::before { display:none; }
+.reference-hero::after { display:none; }
+
+/* ─── HeroBackground component styles ─── */
+.hero-bg-root {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-bg-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* GPU-composited layer */
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Gradient overlay: radial clear zone above center (text area), warm ivory fade at bottom */
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 70% 60% at 50% 42%,
+      rgba(250, 248, 245, 0.72) 0%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(250, 248, 245, 0.30) 55%,
+      rgba(250, 248, 245, 0.85) 80%,
+      #FAF8F5 100%
+    );
+}
+
+/* ─── Blob animations ─── */
+/* Coral blob: gentle left-right drift + slight scale breathe */
+@keyframes blob-drift-coral {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  25%  { transform: translate(38px, -26px) scale(1.04); }
+  50%  { transform: translate(18px, 32px) scale(0.97); }
+  75%  { transform: translate(-28px, 12px) scale(1.02); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+/* Sand blob: slower arc, slightly different phase */
+@keyframes blob-drift-sand {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  30%  { transform: translate(-42px, 24px) scale(1.05); }
+  60%  { transform: translate(24px, -18px) scale(0.96); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+/* Teal blob: very slow upward drift */
+@keyframes blob-drift-teal {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  40%  { transform: translate(30px, -22px) scale(1.03); }
+  70%  { transform: translate(-20px, 16px) scale(0.98); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+/* Secondary coral: opposite phase for visual interest */
+@keyframes blob-drift-coral2 {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  35%  { transform: translate(-30px, 20px) scale(1.06); }
+  65%  { transform: translate(18px, -28px) scale(0.95); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.hero-blob {
+  transform-origin: center;
+  will-change: transform;
+}
+
+.hero-blob-coral  { animation: blob-drift-coral  26s ease-in-out infinite; }
+.hero-blob-sand   { animation: blob-drift-sand   30s ease-in-out infinite; }
+.hero-blob-teal   { animation: blob-drift-teal   22s ease-in-out infinite; }
+.hero-blob-coral2 { animation: blob-drift-coral2 28s ease-in-out infinite; }
+
+/* Mobile: reduce motion energy by slowing animations 20 % */
+@media (max-width: 768px) {
+  .hero-blob-coral  { animation-duration: 32s; }
+  .hero-blob-sand   { animation-duration: 37s; }
+  .hero-blob-teal   { animation-duration: 27s; }
+  .hero-blob-coral2 { animation-duration: 34s; }
+  /* Also hide the least important blob on mobile to save battery */
+  .hero-blob-coral2 { display: none; }
+}
+
+/* Reduced motion: everything freezes, background is static ivory */
+@media (prefers-reduced-motion: reduce) {
+  .hero-blob { animation: none !important; }
+}
 .reference-hero-inner { position:relative; z-index:1; display:flex; min-height:100svh; flex-direction:column; align-items:center; justify-content:center; gap:clamp(1.5rem,3.5vh,2.5rem); padding:clamp(5.5rem,9vh,7.5rem) 1.25rem clamp(2.5rem,5vh,4rem); text-align:center; }
 .reference-mascot-wrap { display:grid; place-items:center; width:clamp(190px,22vw,300px); height:clamp(200px,27vh,320px); filter:drop-shadow(0 20px 18px rgba(36,66,102,.18)); }
-.build-mascot-3d { width:100%; height:100%; touch-action:none; cursor:crosshair; border-radius:50%; background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.82),rgba(205,231,248,.42) 52%,rgba(170,211,237,.12) 100%); }
+.build-mascot-3d { width:100%; height:100%; touch-action:none; cursor:crosshair; border-radius:50%; background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.82),rgba(235,210,190,.38) 52%,rgba(224,182,143,.06) 100%); animation: mascot-halo-pulse 6s ease-in-out infinite; }
+@keyframes mascot-halo-pulse {
+  0%, 100% { background: radial-gradient(circle at 50% 35%, rgba(255,255,255,.82), rgba(235,210,190,.38) 52%, rgba(224,182,143,.06) 100%); box-shadow: 0 0 0 0 rgba(224, 122, 95, 0); }
+  50% { background: radial-gradient(circle at 50% 38%, rgba(255,252,248,.90), rgba(242,198,158,.48) 52%, rgba(224,160,120,.12) 100%); box-shadow: 0 8px 40px 0 rgba(224, 122, 95, 0.12); }
+}
+@media (prefers-reduced-motion: reduce) { .build-mascot-3d { animation: none !important; } }
 .build-mascot-3d canvas { display:block; width:100%; height:100%; outline:none; }
 .reference-hero-center { display:flex; flex-direction:column; align-items:center; }
 .reference-kicker { margin:0; font-family:Georgia,serif; font-size:clamp(2.2rem,4.4vw,3.5rem); font-style:italic; font-weight:500; letter-spacing:-.02em; line-height:1.05; color:#f36f2e; min-height:1.15em; text-align:center; }
