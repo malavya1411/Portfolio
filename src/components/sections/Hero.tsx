@@ -3,10 +3,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Link2, FileText, ChevronDown } from "lucide-react";
-import { BuildMascot3D } from "@/components/ui/BuildMascot3D";
 import { HeroBackground } from "@/components/ui/HeroBackground";
 
-// No "Developer" variants — it already sits statically below as the h1
 const PROFESSIONS = [
   "AI & Full-Stack",
   "Web",
@@ -39,7 +37,6 @@ export function Hero() {
         setDisplayText(next);
         setTypingSpeed(TYPE_SPEED);
         if (next === currentWord) {
-          // Finished typing — pause then start deleting
           setTypingSpeed(PAUSE_AFTER);
           setIsDeleting(true);
         }
@@ -48,7 +45,6 @@ export function Hero() {
         setDisplayText(next);
         setTypingSpeed(DELETE_SPEED);
         if (next === "") {
-          // Finished deleting — advance word
           setIsDeleting(false);
           setWordIndex((prev) => (prev + 1) % PROFESSIONS.length);
           setTypingSpeed(PAUSE_BEFORE);
@@ -80,7 +76,7 @@ export function Hero() {
     <section
       id="home"
       ref={sectionRef}
-      className="reference-hero hero-with-cursor-glow"
+      className="relative min-h-[92vh] flex flex-col justify-center items-center overflow-hidden py-16 sm:py-24 hero-with-cursor-glow"
       onMouseMove={handleMouseMove}
     >
       <HeroBackground />
@@ -91,64 +87,91 @@ export function Hero() {
       {/* Cursor glow radial light */}
       <div className="hero-cursor-glow" aria-hidden="true" />
 
-      <div className="reference-hero-inner">
-
-        {/* Zone 1: Mascot */}
-        <div className="reference-mascot-wrap">
-          <BuildMascot3D />
-        </div>
-
-        {/* Zone 2: Main center content */}
-        <div className="reference-hero-center">
-
-          {/* Typewriter profession text */}
-          <p
-            className="reference-kicker reference-kicker-typewriter"
-            aria-live="polite"
-            aria-atomic="true"
+      {/* 2-Column Split Container: Text Content on LEFT, Photo on RIGHT */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 my-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          {/* ── LEFT COLUMN: Text Content & CTA Buttons ───────────────────── */}
+          <motion.div
+            className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-5 sm:space-y-6"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            {displayText}
-          </p>
-
-          <h1 className="reference-title">Developer<span>.</span></h1>
-          <p className="reference-description">
-            Malavya is an AI &amp; Data Science student and full-stack developer
-            who builds practical, people-first products — from intelligent
-            developer tools to real-time systems.
-          </p>
-
-          {/* CTA buttons */}
-          <div className="reference-actions">
-            <a href="#contact" className="reference-button reference-button-light hero-btn-connect">
-              Connect <Link2 size={18} />
-            </a>
-            <a href="#projects" className="reference-button reference-button-light hero-btn-work">
-              See work{" "}
-              <span className="reference-arrow hero-btn-arrow">
-                <ArrowRight size={18} />
-              </span>
-            </a>
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="reference-button reference-button-light hero-btn-resume"
+            {/* Typewriter profession text */}
+            <p
+              className="reference-kicker reference-kicker-typewriter text-accent font-serif italic text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight min-h-[1.2em]"
+              aria-live="polite"
+              aria-atomic="true"
             >
-              Resume <FileText size={18} className="hero-btn-resume-icon" />
-            </a>
-          </div>
-        </div>
+              {displayText}
+            </p>
 
+            <h1 className="reference-title text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-text-primary leading-none">
+              Developer<span>.</span>
+            </h1>
+
+            <p className="reference-description max-w-xl text-sm sm:text-base lg:text-lg text-text-secondary leading-relaxed font-medium">
+              Malavya is an AI &amp; Data Science student and full-stack developer
+              who builds practical, people-first products — from intelligent
+              developer tools to real-time systems.
+            </p>
+
+            {/* CTA buttons */}
+            <div className="reference-actions flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-2">
+              <a href="#contact" className="reference-button reference-button-light hero-btn-connect">
+                Connect <Link2 size={18} />
+              </a>
+              <a href="#projects" className="reference-button reference-button-light hero-btn-work">
+                See work{" "}
+                <span className="reference-arrow hero-btn-arrow">
+                  <ArrowRight size={18} />
+                </span>
+              </a>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="reference-button reference-button-light hero-btn-resume"
+              >
+                Resume <FileText size={18} className="hero-btn-resume-icon" />
+              </a>
+            </div>
+          </motion.div>
+
+          {/* ── RIGHT COLUMN: User Photo ──────────────────────────────────── */}
+          <motion.div
+            className="lg:col-span-5 flex justify-center items-center"
+            initial={{ opacity: 0, scale: 0.92, x: 30 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="relative w-full max-w-[320px] sm:max-w-[360px] lg:max-w-[400px]">
+              {/* Soft Ambient Radial Backlight Glow */}
+              <div className="absolute -inset-2 bg-gradient-to-tr from-accent/25 via-amber-500/15 to-accent/10 rounded-[2.5rem] blur-2xl opacity-70 pointer-events-none" />
+
+              {/* Rounded Waist-Length Photo Frame */}
+              <div className="relative rounded-[2.2rem] overflow-hidden border border-border-strong bg-surface shadow-2xl transition-all duration-500 hover:scale-[1.015] hover:shadow-accent/20">
+                <img
+                  src="/malavya.jpg"
+                  alt="Malavya Mankar"
+                  className="w-full h-auto object-cover object-top max-h-[460px] sm:max-h-[500px]"
+                />
+              </div>
+            </div>
+          </motion.div>
+
+        </div>
       </div>
 
       {/* Scroll cue */}
       <motion.button
-        className="hero-scroll-cue"
+        className="hero-scroll-cue mt-8"
         onClick={scrollToAbout}
         aria-label="Scroll to About section"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.4, duration: 0.6, ease: "easeOut" }}
+        transition={{ delay: 1.2, duration: 0.6, ease: "easeOut" }}
         whileHover={{ scale: 1.08 }}
       >
         <motion.span
