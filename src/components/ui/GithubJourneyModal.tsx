@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -46,7 +46,6 @@ const DEFAULT_HEATMAP_WEEKS = Array.from({ length: 52 }, (_, weekIdx) => {
 const TABS: { id: TabType; label: string; icon: React.ComponentType<{ size?: number }> }[] = [
   { id: "overview", label: "Overview", icon: Layers },
   { id: "repositories", label: "Repositories", icon: FolderGit2 },
-  { id: "contributions", label: "Contributions", icon: GitPullRequest },
   { id: "opensource", label: "Open Source", icon: Code2 },
   { id: "statistics", label: "Statistics", icon: TrendingUp },
 ];
@@ -63,6 +62,20 @@ export function GithubJourneyModal({ isOpen, onClose }: GithubJourneyModalProps)
     prs: 52,
     commits: 310,
   });
+
+  const heatmapScrollRef = useRef<HTMLDivElement>(null);
+
+  // Automatically scroll heatmap to the rightmost edge (latest contributions upfront)
+  useEffect(() => {
+    if (isOpen && activeTab === "overview") {
+      const timer = setTimeout(() => {
+        if (heatmapScrollRef.current) {
+          heatmapScrollRef.current.scrollLeft = heatmapScrollRef.current.scrollWidth;
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, activeTab, heatmapWeeks]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -270,9 +283,9 @@ export function GithubJourneyModal({ isOpen, onClose }: GithubJourneyModalProps)
                       </span>
                     </div>
 
-                    {/* 52-Week Grid */}
-                    <div className="overflow-x-auto pb-2 no-scrollbar">
-                      <div className="inline-flex gap-1.5">
+                    {/* 52-Week Grid (Auto-scrolls to latest contributions on load) */}
+                    <div ref={heatmapScrollRef} className="overflow-x-auto pb-2 no-scrollbar scroll-smooth">
+                      <div className="inline-flex gap-1.5 min-w-full justify-end">
                         {heatmapWeeks.map((week, wIdx) => (
                           <div key={wIdx} className="flex flex-col gap-1.5">
                             {week.map((level, dIdx) => {
