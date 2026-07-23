@@ -1036,11 +1036,6 @@ export const contactLinks: ContactLink[] = [
     icon: "linkedin",
   },
   {
-    label: "Devpost",
-    href: "https://devpost.com/malavya1411",
-    icon: "devpost",
-  },
-  {
     label: "LeetCode",
     href: "https://leetcode.com/u/Malavya_Mankar/",
     icon: "leetcode",

@@ -153,7 +153,6 @@ export function HeroFloatingCards() {
                 <div className="hero-float-card-icon hero-float-card-icon--dark">
                   <GitFork size={16} strokeWidth={2} />
                 </div>
-                <span className="hero-float-card-eyebrow">Open Source</span>
               </div>
               <span className="hero-float-card-badge">
                 Profile <ArrowUpRight size={12} strokeWidth={2.5} />

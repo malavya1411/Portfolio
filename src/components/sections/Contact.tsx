@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, ArrowRight } from "lucide-react";
+import { Mail, ArrowRight, ArrowUpRight } from "lucide-react";
 import { SiLeetcode } from "react-icons/si";
 import { Container } from "@/components/ui/Container";
 import { contactLinks } from "@/lib/data";
@@ -23,18 +23,9 @@ function LinkedinIcon({ size = 20 }: { size?: number }) {
   );
 }
 
-function DevpostIcon({ size = 20 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M6.002 1.61L0 12.004 6.002 22.39h11.996L24 12.004 17.998 1.61zm1.593 4.084h3.947c3.605 0 6.276 1.695 6.276 6.31 0 4.436-3.21 6.302-6.456 6.302H7.595zm2.517 2.449v7.714h1.241c2.646 0 3.862-1.55 3.862-3.861.009-2.569-1.096-3.853-3.767-3.853Z" />
-    </svg>
-  );
-}
-
 const socialIcons: Record<string, React.ComponentType<{ size?: number }>> = {
   github: GithubIcon,
   linkedin: LinkedinIcon,
-  devpost: DevpostIcon,
   leetcode: SiLeetcode,
   mail: ({ size }) => <Mail size={size} />,
 };
@@ -83,8 +74,8 @@ export function Contact() {
               </div>
             )}
 
-            {/* Social links */}
-            <div className="mt-6 flex items-center gap-3">
+            {/* Social platform CTA buttons */}
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg">
               {socials.map((link) => {
                 const Icon = socialIcons[link.icon];
                 return (
@@ -93,10 +84,19 @@ export function Contact() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={link.label}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-border-t text-text-secondary transition-all duration-200 hover:text-text-primary hover:border-border-strong hover:bg-elevated"
+                    className="flex items-center justify-between gap-3 p-3.5 rounded-2xl border border-border-strong bg-surface hover:bg-elevated hover:border-accent/40 shadow-sm transition-all duration-200 group"
                   >
-                    <Icon size={18} />
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent group-hover:scale-105 transition-transform">
+                        <Icon size={18} />
+                      </div>
+                      <span className="font-bold text-sm text-text-primary group-hover:text-accent transition-colors truncate">
+                        {link.label}
+                      </span>
+                    </div>
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-accent bg-accent/10 px-2.5 py-1 rounded-full group-hover:bg-accent group-hover:text-white transition-all shrink-0">
+                      View <ArrowUpRight size={12} strokeWidth={2.5} />
+                    </span>
                   </a>
                 );
               })}
