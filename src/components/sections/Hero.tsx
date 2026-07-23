@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowRight, Link2 } from "lucide-react";
+import { ArrowRight, Link2, FileText } from "lucide-react";
 import { BuildMascot3D } from "@/components/ui/BuildMascot3D";
 import { HeroBackground } from "@/components/ui/HeroBackground";
 
@@ -74,6 +74,14 @@ export function Hero() {
             </a>
             <a href="#projects" className="reference-button reference-button-light">
               See work <span className="reference-arrow"><ArrowRight size={18} /></span>
+            </a>
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="reference-button reference-button-light"
+            >
+              Resume <FileText size={18} />
             </a>
           </div>
         </div>
