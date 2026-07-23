@@ -69,8 +69,28 @@ export function OpenSource() {
   }, []);
 
   return (
-    <section id="opensource" className="py-8 sm:py-12 lg:py-16 relative overflow-hidden flex flex-col justify-center min-h-[calc(100vh-100px)]">
+    <section id="opensource" className="py-12 sm:py-16 lg:py-20 relative overflow-hidden flex flex-col justify-center min-h-screen">
       <Container>
+        {/* Section Top Minimalist & Impactful Headline */}
+        <motion.div
+          className="mb-8 sm:mb-12 max-w-3xl"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          <span className="text-xs font-mono font-bold tracking-[0.2em] uppercase text-accent">
+            OPEN SOURCE &amp; GITHUB
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-text-primary mt-2">
+            Building Real Software in Public<span>.</span>
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-text-secondary font-medium leading-relaxed">
+            Founding open-source tools, shipping production code, and contributing to modern developer ecosystems.
+          </p>
+        </motion.div>
+
+        {/* 2 Equal Side-by-Side Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
           
           {/* ── LEFT SIDE: Open Source (InboxOS) ────────────────────────────── */}
@@ -84,11 +104,11 @@ export function OpenSource() {
             <div className="space-y-6">
               <div>
                 <span className="text-xs font-mono font-bold tracking-[0.2em] uppercase text-accent">
-                  OPEN SOURCE
+                  FEATURED OPEN SOURCE
                 </span>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-text-primary mt-2">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-text-primary mt-2">
                   Founding &amp; Building <em className="italic font-serif text-accent font-normal">InboxOS</em>.
-                </h2>
+                </h3>
               </div>
 
               <p className="text-sm sm:text-base text-text-primary leading-relaxed font-extrabold">
@@ -161,12 +181,12 @@ export function OpenSource() {
             <div className="space-y-6">
               <div>
                 <span className="text-xs font-mono font-bold tracking-[0.2em] uppercase text-accent">
-                  GITHUB ACTIVITY
+                  GITHUB OVERVIEW
                 </span>
                 <div className="flex flex-wrap items-center gap-3 mt-2">
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-text-primary">
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-text-primary">
                     GitHub Profile &amp; Impact<span>.</span>
-                  </h2>
+                  </h3>
                   <a
                     href="https://github.com/malavya1411"
                     target="_blank"
