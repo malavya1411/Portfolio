@@ -576,23 +576,60 @@ body {
 }
 
 /* ─── Button micro-interactions ─── */
-.hero-btn-connect:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 18px 36px rgba(0,0,0,.22);
+.hero-btn-connect,
+.hero-btn-work,
+.hero-btn-resume {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: color 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s ease, box-shadow 0.25s ease;
 }
+
+.hero-btn-connect::before,
+.hero-btn-work::before,
+.hero-btn-resume::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #121212;
+  border-radius: 999px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.hero-btn-connect:hover::before,
+.hero-btn-work:hover::before,
+.hero-btn-resume:hover::before {
+  transform: scaleX(1);
+}
+
+.hero-btn-connect:hover,
+.hero-btn-work:hover,
+.hero-btn-resume:hover {
+  color: #ffffff;
+  border-color: #121212;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 14px 28px rgba(0,0,0,.22);
+}
+
 .hero-btn-work:hover .hero-btn-arrow {
   transform: translateX(3px);
-  transition: transform 0.2s ease;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 }
+
+.hero-btn-arrow {
+  transition: transform 0.25s ease, background-color 0.35s ease, color 0.35s ease;
+}
+
 .hero-btn-resume:hover .hero-btn-resume-icon {
   transform: translateY(-2px) scale(1.15);
-  transition: transform 0.2s ease;
 }
+
 .hero-btn-resume-icon {
-  transition: transform 0.2s ease;
-}
-.hero-btn-arrow {
-  transition: transform 0.2s ease;
+  transition: transform 0.25s ease;
 }
 
 /* ─── Cursor glow ─── */

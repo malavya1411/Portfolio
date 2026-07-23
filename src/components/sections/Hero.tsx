@@ -125,7 +125,7 @@ export function Hero() {
 
           {/* CTA buttons */}
           <div className="reference-actions">
-            <a href="#contact" className="reference-button reference-button-dark hero-btn-connect">
+            <a href="#contact" className="reference-button reference-button-light hero-btn-connect">
               Connect <Link2 size={18} />
             </a>
             <a href="#projects" className="reference-button reference-button-light hero-btn-work">
