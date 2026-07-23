@@ -115,41 +115,38 @@ export function Achievements() {
   };
 
   return (
-    <section id="achievements" className="section-padding overflow-hidden relative">
+    <section id="achievements" className="py-10 sm:py-14 overflow-hidden relative">
       <Container>
-        {/* Section Heading */}
+        {/* Section Heading — Tightened Spacing & Bigger Typography */}
         <motion.div
-          className="mb-12 text-center max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
+          className="mb-8 sm:mb-10 text-center max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <span className="mb-3 inline-block text-xs font-bold tracking-[0.2em] uppercase text-accent">
+          <span className="mb-2 inline-block text-sm font-extrabold tracking-[0.22em] uppercase text-accent">
             Achievements
           </span>
-          <h2 className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+          <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-text-primary">
             Recognition
           </h2>
-          <p className="mt-3 text-base text-text-secondary">
+          <p className="mt-2 text-base sm:text-lg text-text-secondary font-medium">
             Highlights from hackathons, competitions, and honors.
           </p>
         </motion.div>
 
-        {/* ─── 1. TIMELINE TRACK WITH 100% PERFECT ALIGNMENT ─────────────────── */}
-        <div className="relative mb-14 max-w-4xl mx-auto px-2 sm:px-6">
+        {/* ─── 1. TIMELINE TRACK WITH LARGER FONTS & TIGHTER SPACING ─────────── */}
+        <div className="relative mb-8 sm:mb-10 max-w-4xl mx-auto px-2 sm:px-6">
           <div
             ref={timelineRef}
             aria-label="Achievement timeline"
-            className="overflow-x-auto py-3 scrollbar-none no-scrollbar snap-x relative min-w-full"
+            className="overflow-x-auto py-2 scrollbar-none no-scrollbar snap-x relative min-w-full"
           >
             <div className="flex items-center justify-between min-w-full relative px-[40px] sm:px-[45px]">
-              {/* Single Shared Track Container: Holds BOTH Gray Line and Active Orange Line */}
+              {/* Track Lines */}
               <div className="absolute left-[40px] sm:left-[45px] right-[40px] sm:right-[45px] top-[39px] h-[2px] pointer-events-none z-0 hidden sm:block">
-                {/* Unfilled Gray Background Line */}
                 <div className="absolute inset-0 bg-border-strong/60" />
-
-                {/* Active Orange Progress Line */}
                 <motion.div
                   className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-accent to-accent-hover"
                   initial={false}
@@ -166,16 +163,16 @@ export function Achievements() {
                   <button
                     key={item.title + idx}
                     onClick={() => goToSlide(idx)}
-                    className="flex flex-col items-center group relative cursor-pointer focus:outline-none snap-center shrink-0 z-10 w-[80px] sm:w-[90px]"
+                    className="flex flex-col items-center group relative cursor-pointer focus:outline-none snap-center shrink-0 z-10 w-[85px] sm:w-[95px]"
                     aria-label={`Go to ${item.title} (${item.year})`}
                     aria-current={isActive ? "true" : undefined}
                   >
-                    {/* Year / Date Label */}
+                    {/* Year / Date Label — Enlarged to text-sm */}
                     <span
-                      className={`text-xs font-mono h-6 flex items-center justify-center transition-all duration-300 ${
+                      className={`text-sm font-mono h-6 flex items-center justify-center transition-all duration-300 ${
                         isActive
                           ? "font-bold text-accent scale-110"
-                          : "font-medium text-text-tertiary group-hover:text-text-secondary"
+                          : "font-semibold text-text-tertiary group-hover:text-text-secondary"
                       }`}
                     >
                       {item.year}
@@ -183,7 +180,6 @@ export function Achievements() {
 
                     {/* Circular Node Row */}
                     <div className="h-7 flex items-center justify-center relative w-full my-0.5">
-                      {/* Active Ring Indicator */}
                       {isActive && (
                         <motion.div
                           layoutId="active-node-halo"
@@ -203,12 +199,12 @@ export function Achievements() {
                       </div>
                     </div>
 
-                    {/* Short Title Label below node */}
+                    {/* Short Title Label below node — Enlarged to text-xs/text-sm */}
                     <span
-                      className={`mt-1 text-[11px] leading-tight font-medium transition-all duration-300 max-w-[85px] text-center line-clamp-2 ${
+                      className={`mt-1 text-xs sm:text-sm leading-tight font-semibold transition-all duration-300 max-w-[90px] text-center line-clamp-2 ${
                         isActive
                           ? "font-bold text-text-primary scale-105"
-                          : "text-text-tertiary opacity-75 group-hover:opacity-100"
+                          : "text-text-tertiary opacity-80 group-hover:opacity-100"
                       }`}
                     >
                       {item.title}
@@ -220,15 +216,15 @@ export function Achievements() {
           </div>
         </div>
 
-        {/* ─── 2. COVER FLOW CERTIFICATE CAROUSEL (SOLID CRISP CARDS) ───────────────────── */}
-        <div className="relative min-h-[460px] sm:min-h-[500px] flex items-center justify-center px-4">
+        {/* ─── 2. COVER FLOW CERTIFICATE CAROUSEL ───────────────────────────── */}
+        <div className="relative min-h-[440px] sm:min-h-[480px] flex items-center justify-center px-2 sm:px-4">
           {/* Navigation Buttons Overlay */}
           <button
             onClick={() => {
               handleUserInteraction();
               prevSlide();
             }}
-            className="absolute left-2 sm:left-6 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-surface text-text-primary border border-border-strong shadow-xl hover:scale-110 hover:bg-elevated hover:text-accent transition-all cursor-pointer"
+            className="absolute left-1 sm:left-4 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-surface text-text-primary border border-border-strong shadow-xl hover:scale-110 hover:bg-elevated hover:text-accent transition-all cursor-pointer"
             aria-label="Previous certificate"
           >
             <ChevronLeft size={22} />
@@ -239,14 +235,14 @@ export function Achievements() {
               handleUserInteraction();
               nextSlide();
             }}
-            className="absolute right-2 sm:right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-surface text-text-primary border border-border-strong shadow-xl hover:scale-110 hover:bg-elevated hover:text-accent transition-all cursor-pointer"
+            className="absolute right-1 sm:right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-surface text-text-primary border border-border-strong shadow-xl hover:scale-110 hover:bg-elevated hover:text-accent transition-all cursor-pointer"
             aria-label="Next certificate"
           >
             <ChevronRight size={22} />
           </button>
 
           {/* Cards Stack Container */}
-          <div className="relative w-full max-w-4xl h-[420px] sm:h-[460px] flex items-center justify-center">
+          <div className="relative w-full max-w-4xl h-[410px] sm:h-[450px] flex items-center justify-center">
             {achievements.map((item, index) => {
               // Calculate relative circular offset
               let offset = index - activeIndex;
@@ -263,12 +259,12 @@ export function Achievements() {
               // Cover Flow horizontal offsets
               let xOffset = 0;
               if (isPrev) xOffset = -340;
-              if (isNext) xOffset = 330;
+              if (isNext) xOffset = 340;
 
               return (
                 <motion.div
                   key={item.title + index}
-                  className={`absolute w-[310px] sm:w-[380px] md:w-[420px] rounded-3xl border bg-surface p-6 sm:p-7 shadow-2xl transition-shadow duration-300 ${
+                  className={`absolute w-[320px] sm:w-[400px] md:w-[440px] rounded-3xl border bg-surface p-6 sm:p-7 shadow-2xl transition-shadow duration-300 ${
                     isCenter
                       ? "border-accent/50 ring-2 ring-accent/20 shadow-accent/20 z-30"
                       : "border-border-strong cursor-pointer z-10"
@@ -314,7 +310,7 @@ export function Achievements() {
                   )}
 
                   {/* Thumbnail / Certificate Image Container */}
-                  <div className="relative w-full h-38 sm:h-44 rounded-2xl overflow-hidden mb-5 bg-elevated border border-border-strong flex items-center justify-center group/img">
+                  <div className="relative w-full h-40 sm:h-48 rounded-2xl overflow-hidden mb-4 bg-elevated border border-border-strong flex items-center justify-center group/img">
                     {item.certificate ? (
                       <img
                         src={item.certificate}
@@ -327,7 +323,7 @@ export function Achievements() {
                         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10 text-accent mb-2 shadow-inner">
                           <Icon size={24} />
                         </div>
-                        <span className="text-[11px] font-bold text-text-tertiary uppercase tracking-wider">
+                        <span className="text-xs font-bold text-text-tertiary uppercase tracking-wider">
                           Official Distinction
                         </span>
                       </div>
@@ -351,16 +347,16 @@ export function Achievements() {
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h3 className="text-base sm:text-lg font-bold text-text-primary truncate">
+                        <h3 className="text-lg sm:text-xl font-extrabold text-text-primary truncate">
                           {item.title}
                         </h3>
                         {item.rank && (
-                          <span className="text-[11px] font-extrabold px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
+                          <span className="text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">
                             {item.rank}
                           </span>
                         )}
                       </div>
-                      <p className="text-xs font-semibold text-accent/90 mt-0.5">{item.event}</p>
+                      <p className="text-sm font-semibold text-accent mt-0.5">{item.event}</p>
                     </div>
 
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent shadow-sm">
@@ -369,13 +365,13 @@ export function Achievements() {
                   </div>
 
                   {/* Description */}
-                  <p className="text-xs sm:text-sm text-text-secondary leading-relaxed line-clamp-3 mb-4">
+                  <p className="text-sm sm:text-base text-text-secondary leading-relaxed line-clamp-3 mb-4">
                     {item.description}
                   </p>
 
                   {/* Footer Info */}
-                  <div className="flex items-center justify-between pt-3 border-t border-border-strong text-xs">
-                    <span className="font-mono text-text-tertiary font-medium">{item.year}</span>
+                  <div className="flex items-center justify-between pt-3 border-t border-border-strong text-sm">
+                    <span className="font-mono text-text-tertiary font-semibold">{item.year}</span>
                     {item.certificate ? (
                       <button
                         onClick={(e) => {
@@ -386,12 +382,12 @@ export function Achievements() {
                       >
                         View Certificate{" "}
                         <ExternalLink
-                          size={13}
+                          size={14}
                           className="transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
                         />
                       </button>
                     ) : (
-                      <span className="text-[11px] font-semibold text-text-tertiary/70">Verified Distinction</span>
+                      <span className="text-xs font-semibold text-text-tertiary/80">Verified Distinction</span>
                     )}
                   </div>
                 </motion.div>
@@ -401,7 +397,7 @@ export function Achievements() {
         </div>
 
         {/* Counter Indicator */}
-        <div className="mt-8 text-center text-xs font-mono text-text-tertiary">
+        <div className="mt-6 text-center text-xs font-mono text-text-tertiary font-semibold">
           Certificate <span className="font-bold text-text-primary">{activeIndex + 1}</span> of{" "}
           <span>{total}</span>
         </div>
