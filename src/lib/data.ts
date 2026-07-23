@@ -996,6 +996,7 @@ export const achievements: Achievement[] = [
       "Led team AlgoMinds in building CrisisSync, selected for Google's global developer challenge focused on real-world impact.",
     year: "2026",
     highlight: false,
+    certificate: "/images/google_solution_challenge_certificate.jpg",
   },
   {
     title: "Invictus Hackathon",
