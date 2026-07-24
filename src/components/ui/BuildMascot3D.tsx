@@ -37,7 +37,6 @@ export function BuildMascot3D() {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
-    // A slightly low, fixed point of view gives the small mascot a little presence.
     camera.position.set(0, -0.05, 9);
     camera.lookAt(0, -0.45, 0);
 
@@ -73,7 +72,6 @@ export function BuildMascot3D() {
       return mesh;
     };
 
-    // A softly bevelled, vinyl-toy silhouette: body sits behind the face and chest plate.
     torso.position.y = -0.72;
     add(new RoundedBoxGeometry(2.42, 1.85, 1.12, 8, 0.38), orange, [0, 0, 0], torso);
     add(new THREE.SphereGeometry(1.05, 32, 20), orangeAccent, [0, -0.28, -0.08], torso).scale.set(1, 0.55, 0.72);
@@ -88,7 +86,6 @@ export function BuildMascot3D() {
     const faceRim = add(new THREE.TorusGeometry(0.69, 0.07, 14, 48), orangeAccent, [0, 0, 0.72], head);
     faceRim.scale.y = 1.02;
 
-    // Separate pupils ride on a subtly curved face, so the character actually looks toward the pointer.
     const leftPupil = add(new THREE.SphereGeometry(0.13, 20, 12), eye, [-0.21, 0, 0.84], head);
     const rightPupil = add(new THREE.SphereGeometry(0.13, 20, 12), eye, [0.21, 0, 0.84], head);
     leftPupil.scale.y = 1.4;
@@ -144,39 +141,49 @@ export function BuildMascot3D() {
     const target = new THREE.Vector2();
     const current = new THREE.Vector2();
     const pointerVelocity = new THREE.Vector2();
-    const previousPointer = new THREE.Vector2();
-    let hasPointer = false;
+    const previousTarget = new THREE.Vector2();
     let lastPointerTime = performance.now();
+    let hasPointer = false;
     let wasIdle = false;
     let perk = 0;
     let blinkUntil = 0;
     let nextBlinkAt = 0;
+
     const resize = () => {
       const { width, height } = mount.getBoundingClientRect();
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
     };
-    const move = (event: PointerEvent) => {
-      const bounds = mount.getBoundingClientRect();
-      if (!bounds.width || !bounds.height) return;
+
+    // Global window mousemove listener so tracking works across the entire viewport/hero section
+    const onWindowMouseMove = (event: MouseEvent) => {
+      const mountBounds = mount.getBoundingClientRect();
+      if (!mountBounds.width || !mountBounds.height) return;
+
+      const cx = mountBounds.left + mountBounds.width * 0.5;
+      const cy = mountBounds.top + mountBounds.height * 0.5;
+
+      const halfW = window.innerWidth * 0.5;
+      const halfH = window.innerHeight * 0.5;
+
       const now = performance.now();
-      const nextTarget = new THREE.Vector2(
-        THREE.MathUtils.clamp((event.clientX - bounds.left) / bounds.width * 2 - 1, -1, 1),
-        THREE.MathUtils.clamp((event.clientY - bounds.top) / bounds.height * 2 - 1, -1, 1),
-      );
+      const nx = THREE.MathUtils.clamp((event.clientX - cx) / halfW, -1, 1);
+      const ny = THREE.MathUtils.clamp((event.clientY - cy) / halfH, -1, 1);
+      const nextTarget = new THREE.Vector2(nx, ny);
+
       if (hasPointer) {
         const elapsed = Math.max((now - lastPointerTime) / 1000, 0.016);
-        pointerVelocity.copy(nextTarget).sub(previousPointer).multiplyScalar(1 / elapsed).clampLength(0, 4);
+        pointerVelocity.copy(nextTarget).sub(previousTarget).multiplyScalar(1 / elapsed).clampLength(0, 4);
       }
       if (wasIdle) perk = 1;
       target.copy(nextTarget);
-      previousPointer.copy(nextTarget);
+      previousTarget.copy(nextTarget);
       hasPointer = true;
       lastPointerTime = now;
       wasIdle = false;
     };
-    const leave = () => target.set(0, 0);
+
     let frame = 0;
     const animate = () => {
       frame = requestAnimationFrame(animate);
@@ -194,29 +201,49 @@ export function BuildMascot3D() {
         }
         perk = Math.max(0, perk - 0.045);
         pointerVelocity.multiplyScalar(0.9);
-        current.lerp(target, 0.065);
-        robot.rotation.y = THREE.MathUtils.lerp(robot.rotation.y, current.x * 0.12, 0.09);
-        robot.rotation.x = THREE.MathUtils.lerp(robot.rotation.x, -current.y * 0.06, 0.09);
+
+        // Single smooth lerp for fluid, cohesive motion
+        current.lerp(target, 0.05);
+
+        // Entire robot body rotates as one unified 3D entity
+        robot.rotation.y = current.x * 0.55;
+        robot.rotation.x = current.y * 0.35;
+
+        // Subtle relative head accent to complement full body motion
+        head.rotation.y = current.x * 0.15;
+        head.rotation.x = current.y * 0.10;
+
+        // Reset torso rotation so it stays locked to the body group
+        torso.rotation.y = 0;
+        torso.rotation.x = 0;
+
         const breathing = wasIdle ? Math.sin(time * 2.1) : Math.sin(time * 1.4) * 0.35;
         const perkBounce = perk * Math.sin((1 - perk) * Math.PI) * 0.23;
         robot.position.y = breathing * 0.075 + perkBounce;
-        torso.scale.set(1 - breathing * 0.018 + perk * 0.06, 1 + breathing * 0.03 - perk * 0.075, 1 - breathing * 0.018 + perk * 0.06);
-        head.rotation.y = THREE.MathUtils.lerp(head.rotation.y, current.x * 0.35, 0.11);
-        head.rotation.x = THREE.MathUtils.lerp(head.rotation.x, -current.y * 0.22, 0.11);
-        torso.rotation.y = THREE.MathUtils.lerp(torso.rotation.y, current.x * 0.17, 0.09);
-        torso.rotation.x = THREE.MathUtils.lerp(torso.rotation.x, -current.y * 0.1, 0.09);
-        leftArm.rotation.z = THREE.MathUtils.lerp(leftArm.rotation.z, 0.13 - current.x * 0.16 + Math.sin(time * 1.8) * 0.04 - perk * 0.33, 0.08);
-        rightArm.rotation.z = THREE.MathUtils.lerp(rightArm.rotation.z, -0.13 - current.x * 0.16 - Math.sin(time * 1.8) * 0.04 + perk * 0.33, 0.08);
-        const antennaWiggle = pointerVelocity.x * 0.2 + Math.sin(time * (wasIdle ? 1.4 : 7.5)) * (wasIdle ? 0.1 : pointerVelocity.length() * 0.07);
-        antenna.rotation.z = THREE.MathUtils.lerp(antenna.rotation.z, -current.x * 0.25 + antennaWiggle, 0.055);
-        antenna.rotation.x = THREE.MathUtils.lerp(antenna.rotation.x, pointerVelocity.y * 0.055, 0.07);
-        leftPupil.position.x = -0.21 + current.x * 0.075;
-        leftPupil.position.y = -current.y * 0.06;
-        rightPupil.position.x = 0.21 + current.x * 0.075;
-        rightPupil.position.y = -current.y * 0.06;
+        torso.scale.set(
+          1 - breathing * 0.018 + perk * 0.06,
+          1 + breathing * 0.03 - perk * 0.075,
+          1 - breathing * 0.018 + perk * 0.06,
+        );
+
+        // Arms stay attached and tilt cleanly with the body
+        leftArm.rotation.z = 0.13 - current.x * 0.25 + Math.sin(time * 1.8) * 0.04 - perk * 0.33;
+        rightArm.rotation.z = -0.13 - current.x * 0.25 - Math.sin(time * 1.8) * 0.04 + perk * 0.33;
+
+        // Antenna movement synced with velocity
+        const antennaWiggle = pointerVelocity.x * 0.15 + Math.sin(time * (wasIdle ? 1.4 : 7.5)) * (wasIdle ? 0.1 : pointerVelocity.length() * 0.05);
+        antenna.rotation.z = -current.x * 0.15 + antennaWiggle;
+        antenna.rotation.x = -pointerVelocity.y * 0.05;
+
+        // Eye pupil shifts in sync with body motion
+        leftPupil.position.x = -0.21 + current.x * 0.10;
+        leftPupil.position.y = -current.y * 0.08;
+        rightPupil.position.x = 0.21 + current.x * 0.10;
+        rightPupil.position.y = -current.y * 0.08;
         const eyelid = time < blinkUntil ? 0.08 : 1;
         leftPupil.scale.y = 1.4 * eyelid;
         rightPupil.scale.y = 1.4 * eyelid;
+
         key.position.x = 3.5 + current.x * 2.3;
         key.position.y = 4.5 - current.y * 1.4;
         tipLight.intensity = 1.5 + Math.sin(time * 3) * 0.5;
@@ -228,14 +255,14 @@ export function BuildMascot3D() {
     resize();
     const observer = new ResizeObserver(resize);
     observer.observe(mount);
-    mount.addEventListener("pointermove", move, { passive: true });
-    mount.addEventListener("pointerleave", leave, { passive: true });
+
+    window.addEventListener("mousemove", onWindowMouseMove, { passive: true });
     animate();
+
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
-      mount.removeEventListener("pointermove", move);
-      mount.removeEventListener("pointerleave", leave);
+      window.removeEventListener("mousemove", onWindowMouseMove);
       scene.traverse((object) => {
         if (!(object instanceof THREE.Mesh)) return;
         object.geometry.dispose();
