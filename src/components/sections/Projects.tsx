@@ -25,21 +25,26 @@ function GithubIcon({ size = 20 }: { size?: number }) {
 }
 
 function ProjectThumbnail({ coverImage, title }: { coverImage?: string; title: string }) {
-  if (coverImage) {
-    return (
-      <div className="w-full h-full relative overflow-hidden select-none">
+  return (
+    <div className="w-full h-full relative overflow-hidden select-none bg-gradient-to-br from-slate-100 to-slate-200">
+      {coverImage ? (
         <img
           src={coverImage}
           alt={`${title} thumbnail`}
           className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center p-4 text-center">
+          <span className="text-xs font-bold text-slate-400">Thumbnail Preview</span>
+        </div>
+      )}
+      {/* Sleek hover glass overlay + "Click here" prompt */}
+      <div className="absolute inset-0 bg-black/35 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center pointer-events-none z-10">
+        <span className="px-4 py-2 rounded-full bg-white/95 text-text-primary text-xs font-semibold shadow-lg backdrop-blur-md transform scale-90 group-hover:scale-100 transition-all duration-300 flex items-center gap-1.5 border border-white/50 tracking-wide">
+          Click here
+          <ArrowUpRight size={14} className="text-accent" />
+        </span>
       </div>
-    );
-  }
-
-  return (
-    <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 text-center">
-      <span className="text-xs font-bold text-slate-400">Thumbnail Preview</span>
     </div>
   );
 }

@@ -51,6 +51,13 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               <span className="text-text-tertiary text-xs font-mono">No preview</span>
             </div>
           )}
+          {/* Sleek hover glass overlay + "Click here" prompt */}
+          <div className="absolute inset-0 bg-black/35 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center pointer-events-none z-10">
+            <span className="px-4 py-2 rounded-full bg-white/95 text-text-primary text-xs font-semibold shadow-lg backdrop-blur-md transform scale-90 group-hover:scale-100 transition-all duration-300 flex items-center gap-1.5 border border-white/50 tracking-wide">
+              Click here
+              <ArrowUpRight size={14} className="text-accent" />
+            </span>
+          </div>
         </div>
 
         {/* Footer */}
