@@ -296,15 +296,13 @@ export function Projects() {
                 </Link>
               ))}
             </div>
-            {hasMore && (
-              <Link
-                href="/projects"
-                className="group inline-flex items-center gap-2.5 rounded-full border border-black/10 bg-white px-6 py-3 text-sm font-semibold text-text-secondary shadow-sm transition-all duration-200 hover:border-accent/40 hover:bg-accent/5 hover:text-accent hover:shadow-md"
-              >
-                View all {filteredProjects.length} projects
-                <ArrowUpRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-            )}
+            <Link
+              href="/projects"
+              className="group inline-flex items-center gap-2.5 rounded-full border border-black/10 bg-white px-6 py-3 text-sm font-semibold text-text-secondary shadow-sm transition-all duration-200 hover:border-accent/40 hover:bg-accent/5 hover:text-accent hover:shadow-md"
+            >
+              View all {activeTab === "Featured Projects" ? projects.length : filteredProjects.length} projects
+              <ArrowUpRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
           </div>
         )}
 
