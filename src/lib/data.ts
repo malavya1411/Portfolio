@@ -251,7 +251,7 @@ export const projects: Project[] = [
     demo: "https://distil-dnf1.vercel.app",
     demoAvailableOnRequest: false,
     badge: "RAG Platform",
-    featured: true,
+    featured: false,
     year: "2026",
     coverImage: "/images/distil.png",
     status: "COMPLETED",
