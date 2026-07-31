@@ -228,6 +228,69 @@ export const skillGroups: SkillGroup[] = [
 
 export const projects: Project[] = [
   {
+    title: "Distil",
+    slug: "distil",
+    summary:
+      "Upload a contract, ToS, privacy policy, or research paper — ask it questions in plain English and get sub-second answers with verbatim source citations, not paraphrased guesses.",
+    role: "Solo Developer",
+    context: "Personal Project",
+    techStack: [
+      "React 18",
+      "Vite",
+      "Node.js",
+      "Express",
+      "Gemini API",
+      "Groq",
+      "Vercel",
+      "Render",
+    ],
+    outcome:
+      "Built a full-stack grounded RAG platform for legal and academic documents featuring domain-aware chunking, 3072-dim embeddings, a hard 0.55 relevance cutoff, ~350ms Groq LPU response times with exact page/section citations, and zero-disk session privacy.",
+    tags: ["AI", "Full-Stack", "RAG"],
+    github: "https://github.com/malavya1411/Distil",
+    demo: "https://distil-dnf1.vercel.app",
+    demoAvailableOnRequest: false,
+    badge: "RAG Platform",
+    featured: true,
+    year: "2026",
+    coverImage: "/images/distil.png",
+    status: "COMPLETED",
+    categoryTag: "GROUNDED RAG · FULL STACK",
+    dateString: "JULY 2026 · PERSONAL PROJECT",
+    features: [
+      "Domain-aware chunking (legal clause boundaries vs. academic section headings) with 15% sliding overlap for context continuity",
+      "Threshold-gated retrieval (noMatch: true fallback) so the system declines rather than fabricates when confidence is low (<0.55)",
+      "Sub-second generation (~350ms) via Groq LPU hardware, with automatic fallback to a smaller model under rate limits",
+      "Three workspace views: multi-turn RAG chat with citation cards, an extracted-clauses panel, and a risk/compliance matrix (Data Privacy, Liability, Termination, Financial, IP) with severity scoring",
+      "Session-isolated, in-memory vector store — zero disk persistence, data discarded on session end",
+    ],
+    caseStudy: {
+      overview:
+        "Distil is a full-stack RAG platform built for documents where precision matters. Instead of arbitrary character chunking, it splits legal text along section/clause boundaries and academic papers along structural headings, embeds them with Gemini's 3072-dim embedding model, and retrieves via cosine similarity with a hard 0.55 relevance threshold — if nothing clears the bar, it refuses to answer rather than guess. Answers are generated on Groq's LPU hardware (~350ms) with citations tied back to exact page/section.",
+      problemStatement:
+        "Standard RAG implementations rely on arbitrary character-length chunking, which frequently severs legal clause logic or academic context. Furthermore, generic LLMs tend to hallucinate plausibly when documentation is incomplete. Distil solves this with domain-aware structural chunking, verbatim citation enforcement, and a hard relevance threshold that explicitly refuses to answer when confidence is low.",
+      architecture:
+        "A decoupled web architecture featuring a React 18 + Vite frontend hosted on Vercel and a Node.js/Express REST backend hosted on Render. Document text is embedded using Gemini's 3072-dim embedding model (gemini-embedding-001) into a session-isolated in-memory vector index. High-speed grounded generation is performed via Groq's LPU infrastructure executing llama-3.3-70b-versatile with automatic model fallback.",
+      technicalDecisions: [
+        "Domain-Aware Structural Chunking — Splits legal documents along clause boundaries and academic papers along headings with a 15% sliding overlap to maintain semantic continuity across chunk splits.",
+        "Hard 0.55 Relevance Threshold Cutoff — Implemented cosine similarity gating (noMatch: true) that halts model generation and notifies the user if no chunk meets the confidence threshold.",
+        "Groq LPU Hardware Acceleration — Achieved sub-second (~350ms) generation with verbatim source citations, backed by automatic fallback to secondary models under rate limits.",
+        "Three Workspace Views — Provides multi-turn RAG chat with interactive citation cards, an extracted-clauses drawer, and a risk/compliance matrix (Data Privacy, Liability, Termination, Financial, IP) with severity scoring.",
+        "Session-Isolated In-Memory Vector Store — Engineered zero-disk persistence where embeddings and uploaded text live entirely in memory for the duration of the session and are discarded upon session close.",
+      ],
+      challenges: [
+        "Preserving Legal Clause Integrity — Preventing standard splitters from breaking nested sections or numbered clauses required custom regex parsing patterns for legal contracts and academic papers.",
+        "Tuning Cosine Similarity Cutoff — Finding the optimal relevance threshold (0.55) that successfully eliminates false positives without rejecting valid but subtly phrased reference passages.",
+        "Sub-Second Roundtrip Latency — Optimizing the entire pipeline (file parse -> embedding generation -> vector search -> Groq LPU inference) to finish end-to-end within ~350ms.",
+      ],
+      learnings: [
+        "Threshold-gated retrieval is essential for document AI: declining to answer when confidence is low builds far more user trust than producing plausible guesses.",
+        "Domain-aware chunking based on semantic structure (headings & clauses) significantly outperforms static character chunking in retrieval quality.",
+        "Session-isolated, zero-persistence memory provides an effective privacy guarantee for users handling confidential contracts and research drafts.",
+      ],
+    },
+  },
+  {
     title: "HireMind",
     slug: "hiremind",
     summary:

@@ -68,12 +68,12 @@ export function Projects() {
     return () => window.removeEventListener("hashchange", handleHash);
   }, []);
 
-  // Order for featured top 5 — inbox-os first
-  const FEATURED_ORDER = ["inbox-os", "git-stat", "code-explainer", "orbital-watch", "onboard-ai"];
+  // Order for featured top 5 — distil & inbox-os first
+  const FEATURED_ORDER = ["distil", "inbox-os", "git-stat", "code-explainer", "orbital-watch", "onboard-ai"];
   // Order for hackathon featured top 5
   const HACKATHON_ORDER = ["git-stat", "orbital-watch", "gig-shield", "onboard-ai", "crisis-sync"];
   // Order for personal projects
-  const PERSONAL_ORDER = ["inbox-os", "code-explainer", "canopyml", "ai-finder", "code-scope"];
+  const PERSONAL_ORDER = ["distil", "inbox-os", "code-explainer", "canopyml", "ai-finder", "code-scope"];
 
   // Filter projects based on tabs
   const getFilteredProjects = () => {
@@ -161,7 +161,7 @@ export function Projects() {
     } else if (cmd === "skills") {
       response = "Languages : TypeScript, JavaScript, Python, C++\nFrontend  : Next.js 15, React, Tailwind CSS\nBackend   : Node.js, Express, PostgreSQL, Supabase";
     } else if (cmd === "projects") {
-      response = "Core Projects:\n- OrbitalWatch : Real-time 3D space tracking & collision dashboard\n- HireMind     : Recruiter AI candidate profiling platform\n- OnboardAI    : Autonomous dev RAG onboarding agent\n- CrisisSync   : Real-time maps disaster response system";
+      response = "Core Projects:\n- Distil        : Grounded RAG platform for legal & academic documents\n- InboxOS       : Open-source AI email operating system & pipeline\n- OrbitalWatch : Real-time 3D space tracking & collision dashboard\n- HireMind     : Recruiter AI candidate profiling platform\n- OnboardAI    : Autonomous dev RAG onboarding agent";
     } else if (cmd === "contact") {
       response = "Email    : malavyamankar@gmail.com\nGitHub   : github.com/malavya1411\nLinkedIn : linkedin.com/in/malavya-mankar-002037382";
     } else if (cmd === "clear") {
