@@ -4,13 +4,14 @@ import { motion } from "framer-motion";
 
 const DISPLAY_TAGS: Record<string, string> = {
   "All": "All",
-  "AI": "AI",
+  "AI": "AI & ML",
   "Full-Stack": "Full Stack",
-  "Frontend": "Frontend",
   "DevTools": "DevTools",
-  "SaaS": "SaaS",
-  "Enterprise": "Enterprise",
+  "Open Source": "Open Source",
+  "Frontend": "Frontend",
   "Mobile": "Mobile",
+  "3D & WebGL": "3D & WebGL",
+  "Web3": "Web3",
 };
 
 interface ProjectFilterProps {

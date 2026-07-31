@@ -246,7 +246,7 @@ export const projects: Project[] = [
     ],
     outcome:
       "Built a full-stack grounded RAG platform for legal and academic documents featuring domain-aware chunking, 3072-dim embeddings, a hard 0.55 relevance cutoff, ~350ms Groq LPU response times with exact page/section citations, and zero-disk session privacy.",
-    tags: ["AI", "Full-Stack", "RAG"],
+    tags: ["AI", "Full-Stack"],
     github: "https://github.com/malavya1411/Distil",
     demo: "https://distil-dnf1.vercel.app",
     demoAvailableOnRequest: false,
@@ -311,7 +311,7 @@ export const projects: Project[] = [
     ],
     outcome:
       "Developed a complete AI recruitment platform featuring resume parsing, job description intelligence, explainable candidate ranking, GitHub/LeetCode analysis, blind screening, and hiring analytics dashboards.",
-    tags: ["AI", "Full-Stack", "HRTech"],
+    tags: ["AI", "Full-Stack"],
     github: "https://github.com/malavya1411/HireMind",
     demo: "https://hire-mind-client.vercel.app/",
     demoAvailableOnRequest: false,
@@ -478,7 +478,7 @@ export const projects: Project[] = [
     techStack: ["React", "TypeScript", "Vite", "Gemini API"],
     outcome:
       "80+ agent database with intelligent semantic search, rate limiting, input validation, and a refined dark-mode UI.",
-    tags: ["AI", "Frontend", "SaaS"],
+    tags: ["AI", "Frontend"],
     github: "https://github.com/malavya1411/AI-FINDER",
     demo: null,
     demoAvailableOnRequest: true,
@@ -505,7 +505,7 @@ export const projects: Project[] = [
     techStack: ["React", "Node.js", "Express", "PostgreSQL", "JWT", "Tailwind", "Recharts"],
     outcome:
       "Full CRUD inventory system with JWT authentication, role-based access control, and Recharts analytics dashboard.",
-    tags: ["Full-Stack", "Enterprise"],
+    tags: ["Full-Stack"],
     github: "https://github.com/malavya1411/electrolyte-inventory-system",
     demo: null,
     demoAvailableOnRequest: false,
@@ -539,7 +539,7 @@ export const projects: Project[] = [
       "Nginx",
     ],
     outcome: "Built an end-to-end deep learning platform using ResNet50 for 10-class land cover classification (EuroSAT) and temporal forest loss comparisons, featuring singleton FastAPI inference and automated PDF reports.",
-    tags: ["AI/ML", "Satellite", "Python"],
+    tags: ["AI", "Full-Stack"],
     github: "https://github.com/malavya1411/CanopyML",
     demo: "https://canopyml.vercel.app",
     badge: null,
@@ -601,7 +601,7 @@ export const projects: Project[] = [
     ],
     outcome:
       "Built an open-source real-time Space Situational Awareness (SSA) platform using an APScheduler-driven Celestrak ingestion engine and SGP4 propagation algorithms, streaming telemetry at 60 FPS via Socket.IO.",
-    tags: ["AI/ML", "Space", "Full-Stack"],
+    tags: ["3D & WebGL", "AI", "Full-Stack"],
     github: "https://github.com/parthnarkar/OrbitalWatch",
     demo: "https://orbital-watch-bay.vercel.app/",
     demoAvailableOnRequest: false,
@@ -789,7 +789,7 @@ export const projects: Project[] = [
     ],
     outcome:
       "Built a client-side adaptive explanation engine that scales UI layouts (from step-by-step state tracking cards to multi-file codebase explorers) based on code line counts, with Monaco gutter overlays and multi-format exports.",
-    tags: ["AI", "Frontend", "Developer Tools"],
+    tags: ["AI", "DevTools"],
     github: "https://github.com/malavya1411/CodeExplainer",
     demo: "https://code-explainer-flame.vercel.app/",
     demoAvailableOnRequest: false,
@@ -849,7 +849,7 @@ export const projects: Project[] = [
     ],
     outcome:
       "Designed and built a unified career mapping and college comparison MVP in a 4-day sprint, implementing Firebase authentication, a comparison layout for up to 4 schools, and a real-time Firestore-backed Kanban application status tracker.",
-    tags: ["Education", "Full-Stack", "MVP"],
+    tags: ["Full-Stack"],
     github: "https://github.com/malavya1411/CareerCompass",
     demo: "https://career-compass-three-azure.vercel.app/",
     demoAvailableOnRequest: false,
@@ -908,7 +908,7 @@ export const projects: Project[] = [
     ],
     outcome:
       "Developed a speculative cognitive emulation platform using TanStack Start and Nitro server handlers, implementing five structurally distinct non-human processing models (decentralized, network, collective, entropic, parallel) that dynamically shape visual representations and signal-to-noise metrics.",
-    tags: ["Speculative Design", "AI", "R&D"],
+    tags: ["AI", "DevTools"],
     github: "https://github.com/malavya1411/Xenocognition-Simulator",
     demo: null,
     demoAvailableOnRequest: false,
@@ -966,7 +966,7 @@ export const projects: Project[] = [
     ],
     outcome:
       "Developed a local-first VS Code extension leveraging the TypeScript Compiler API to analyze source code ASTs, compute Cyclomatic and Cognitive complexity scores, and visualize file dependencies without cloud APIs or network requests.",
-    tags: ["TypeScript", "Developer Tools", "VS Code"],
+    tags: ["DevTools"],
     github: "https://github.com/malavya1411/CodeScope",
     demo: null,
     demoAvailableOnRequest: false,
@@ -1105,11 +1105,24 @@ export const contactLinks: ContactLink[] = [
   },
 ];
 
-/* ─── Filter tags ─── */
+const PREFERRED_TAG_ORDER = [
+  "All",
+  "AI",
+  "Full-Stack",
+  "DevTools",
+  "Open Source",
+  "Frontend",
+  "Mobile",
+  "3D & WebGL",
+  "Web3",
+];
+
+const extractedTags = new Set(projects.flatMap((p) => p.tags));
 
 export const allTags: string[] = [
   "All",
-  ...Array.from(new Set(projects.flatMap((p) => p.tags))),
+  ...PREFERRED_TAG_ORDER.filter((t) => t !== "All" && extractedTags.has(t)),
+  ...Array.from(extractedTags).filter((t) => !PREFERRED_TAG_ORDER.includes(t)),
 ];
 
 /* ─── Computed Stats (single source of truth) ─── */
