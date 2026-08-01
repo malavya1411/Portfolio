@@ -2,7 +2,7 @@
 
 <p align="center">
   <strong>AI & Full-Stack Developer</strong><br/>
-  Building intelligent, production-ready systems with modern web technologies and applied AI.
+  Building intelligent, production ready systems with modern web technologies and applied AI.
 </p>
 
 <p align="center">
@@ -14,9 +14,9 @@
 
 ## About
 
-This portfolio showcases my work as an AI & Full-Stack Developer, highlighting projects, hackathon achievements, technical skills, and engineering experience.
+This portfolio showcases my work as an AI & Full Stack Developer, highlighting projects, hackathon achievements, technical skills, and engineering experience.
 
-Currently pursuing a B.Tech in Artificial Intelligence & Data Science at VESIT, Mumbai, I focus on building scalable web applications, AI-powered systems, developer tools, and real-world products that solve meaningful problems.
+Currently pursuing a B.Tech in Artificial Intelligence & Data Science at VESIT, Mumbai, I focus on building scalable web applications, AI powered systems, developer tools, and real world products that solve meaningful problems.
 
 ---
 
