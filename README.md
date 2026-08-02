@@ -27,7 +27,7 @@ Currently pursuing a B.Tech in Artificial Intelligence & Data Science at VESIT, 
 - Project showcase with detailed case studies
 - Achievement and certification sections
 - SEO optimized metadata
-- Mobile-first design
+- Mobile first design
 - Fast performance with Next.js App Router
 
 ---
@@ -55,13 +55,13 @@ Currently pursuing a B.Tech in Artificial Intelligence & Data Science at VESIT, 
 ## Featured Projects
 
 ### GitStat
-Open-source GitHub intelligence platform that analyzes developer activity, contribution quality, and repository health to provide actionable engineering insights.
+Open source GitHub intelligence platform that analyzes developer activity, contribution quality, and repository health to provide actionable engineering insights.
 
 ### CrisisSync
-Real-time emergency coordination platform designed to improve communication and resource allocation during crisis situations.
+Real time emergency coordination platform designed to improve communication and resource allocation during crisis situations.
 
 ### OnboardAI
-AI-powered onboarding assistant leveraging retrieval-augmented generation (RAG) to help developers quickly understand unfamiliar codebases.
+AI powered onboarding assistant leveraging retrieval-augmented generation (RAG) to help developers quickly understand unfamiliar codebases.
 
 
 ---
