@@ -47,9 +47,6 @@ Currently pursuing a B.Tech in Artificial Intelligence & Data Science at VESIT, 
 ### 3D & Graphics
 - Three.js
 
-### Deployment
-- Vercel
-
 ---
 
 ## Featured Projects
