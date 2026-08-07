@@ -65,7 +65,7 @@ AI powered onboarding assistant leveraging retrieval-augmented generation (RAG) 
 
 ## Achievements
 
-- Runner-Up at National Hackathons
+- Runner Up at National Hackathons
 - Top 6 Finalist at Syrus 2026 among 500+ teams
 - Multiple hackathon participations and technical competitions
 - Lead contributor and team lead at AlgoMinds
