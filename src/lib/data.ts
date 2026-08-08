@@ -1017,6 +1017,16 @@ export const projects: Project[] = [
 
 export const achievements: Achievement[] = [
   {
+    title: "Google Cloud Study Jam",
+    event: "GDGoC VESIT · Dept. of CMPN",
+    description:
+      "Earned official Certificate of Completion for 20 Google Cloud courses during Study Jam October 2025, covering GCP Compute, Storage, AppSheet, Pub/Sub, Dataplex, Vertex AI, and Gemini.",
+    year: "2025",
+    highlight: false,
+    rank: "20 Courses",
+    certificate: "/images/google_cloud_study_jam_certificate.jpg",
+  },
+  {
     title: "Top 6 Finalist",
     event: "Syrus 2026 Hackathon",
     description:
@@ -1079,16 +1089,6 @@ export const achievements: Achievement[] = [
     year: "2026",
     highlight: false,
     certificate: "/images/hackaithon_certificate.png",
-  },
-  {
-    title: "Google Cloud Study Jam",
-    event: "GDGoC VESIT · Dept. of CMPN",
-    description:
-      "Earned official Certificate of Completion for 20 Google Cloud courses during Study Jam October 2025, covering GCP Compute, Storage, AppSheet, Pub/Sub, Dataplex, Vertex AI, and Gemini.",
-    year: "2025",
-    highlight: false,
-    rank: "20 Courses",
-    certificate: "/images/google_cloud_study_jam_certificate.jpg",
   },
 ];
 
