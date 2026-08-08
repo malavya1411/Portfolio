@@ -11,7 +11,6 @@ import {
   ChevronRight,
   ExternalLink,
   X,
-  Sparkles,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { achievements } from "@/lib/data";
@@ -338,7 +337,7 @@ export function Achievements() {
                         }}
                         className="absolute inset-0 bg-black/50 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-white text-xs font-bold cursor-pointer"
                       >
-                        <Sparkles size={16} className="text-accent" /> Expand Certificate
+                        Expand Certificate
                       </button>
                     )}
                   </div>
