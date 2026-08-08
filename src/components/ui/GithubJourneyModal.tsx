@@ -9,6 +9,7 @@ import {
   GitCommit,
   FolderGit2,
   Star,
+  GitFork,
   Users,
   UserCheck,
   Flame,
@@ -19,6 +20,18 @@ import {
 } from "lucide-react";
 import { SiGithub, SiTypescript, SiPython, SiReact, SiGo } from "react-icons/si";
 import { projects } from "@/lib/data";
+
+function parseGithubUrl(url?: string): { owner: string; repo: string } | null {
+  if (!url) return null;
+  try {
+    const cleanUrl = url.replace(/\/$/, "");
+    const parts = cleanUrl.split("github.com/")[1]?.split("/");
+    if (parts && parts.length >= 2) {
+      return { owner: parts[0], repo: parts[1] };
+    }
+  } catch {}
+  return null;
+}
 
 interface GithubJourneyModalProps {
   isOpen: boolean;
@@ -54,6 +67,7 @@ export function GithubJourneyModal({ isOpen, onClose }: GithubJourneyModalProps)
   const [activeTab, setActiveTab] = useState<TabType>("overview");
   const [contributionTotal, setContributionTotal] = useState(970);
   const [heatmapWeeks, setHeatmapWeeks] = useState<number[][]>(DEFAULT_HEATMAP_WEEKS);
+  const [repoStatsMap, setRepoStatsMap] = useState<Record<string, { stars: number; forks: number }>>({});
   const [userStats, setUserStats] = useState({
     followers: 12,
     following: 10,
@@ -87,13 +101,30 @@ export function GithubJourneyModal({ isOpen, onClose }: GithubJourneyModalProps)
           fetch("https://api.github.com/users/malavya1411"),
           fetch("https://api.github.com/users/malavya1411/repos?per_page=100"),
         ]);
+
+        const statsMap: Record<string, { stars: number; forks: number }> = {};
+
         if (userRes.ok) {
           const data = await userRes.json();
           let starsCount = 8;
           if (reposRes.ok) {
-            const reposData: Array<{ stargazers_count?: number }> = await reposRes.json();
+            const reposData: Array<{ name?: string; full_name?: string; stargazers_count?: number; forks_count?: number }> = await reposRes.json();
             if (Array.isArray(reposData)) {
               starsCount = reposData.reduce((acc, r) => acc + (r.stargazers_count || 0), 0);
+              reposData.forEach((r) => {
+                if (r.name) {
+                  statsMap[r.name.toLowerCase()] = {
+                    stars: r.stargazers_count || 0,
+                    forks: r.forks_count || 0,
+                  };
+                }
+                if (r.full_name) {
+                  statsMap[r.full_name.toLowerCase()] = {
+                    stars: r.stargazers_count || 0,
+                    forks: r.forks_count || 0,
+                  };
+                }
+              });
             }
           }
 
@@ -105,6 +136,53 @@ export function GithubJourneyModal({ isOpen, onClose }: GithubJourneyModalProps)
             stars: starsCount,
           }));
         }
+
+        // Fetch external repos that are in projects but not in malavya1411's user repos
+        const externalRepos = projects
+          .map((p) => parseGithubUrl(p.github))
+          .filter((parsed): parsed is { owner: string; repo: string } => {
+            if (!parsed) return false;
+            const fullKey = `${parsed.owner}/${parsed.repo}`.toLowerCase();
+            const repoKey = parsed.repo.toLowerCase();
+            return !statsMap[fullKey] && !statsMap[repoKey];
+          });
+
+        const uniqueRepos = Array.from(
+          new Set(externalRepos.map((r) => `${r.owner}/${r.repo}`))
+        ).map((str) => {
+          const [owner, repo] = str.split("/");
+          return { owner, repo };
+        });
+
+        if (uniqueRepos.length > 0) {
+          const externalResults = await Promise.allSettled(
+            uniqueRepos.map((r) =>
+              fetch(`https://api.github.com/repos/${r.owner}/${r.repo}`).then((res) =>
+                res.ok ? res.json() : null
+              )
+            )
+          );
+
+          externalResults.forEach((res) => {
+            if (res.status === "fulfilled" && res.value) {
+              const r = res.value;
+              if (r.name) {
+                statsMap[r.name.toLowerCase()] = {
+                  stars: r.stargazers_count || 0,
+                  forks: r.forks_count || 0,
+                };
+              }
+              if (r.full_name) {
+                statsMap[r.full_name.toLowerCase()] = {
+                  stars: r.stargazers_count || 0,
+                  forks: r.forks_count || 0,
+                };
+              }
+            }
+          });
+        }
+
+        setRepoStatsMap(statsMap);
       } catch {
         // Fallback
       }
@@ -351,48 +429,61 @@ export function GithubJourneyModal({ isOpen, onClose }: GithubJourneyModalProps)
                   transition={{ duration: 0.3 }}
                   className="grid grid-cols-1 md:grid-cols-2 gap-4"
                 >
-                  {projects.map((p) => (
-                    <div
-                      key={p.slug}
-                      className="p-5 rounded-2xl bg-surface border border-border-strong hover:border-accent/40 shadow-sm transition-all flex flex-col justify-between"
-                    >
-                      <div>
-                        <div className="flex items-center justify-between gap-2 mb-2">
-                          <h4 className="font-bold text-base text-text-primary flex items-center gap-2">
-                            <FolderGit2 size={16} className="text-accent" /> {p.title}
-                          </h4>
+                  {projects.map((p) => {
+                    const parsed = parseGithubUrl(p.github);
+                    const fullKey = parsed ? `${parsed.owner}/${parsed.repo}`.toLowerCase() : "";
+                    const repoKey = parsed ? parsed.repo.toLowerCase() : "";
+                    const liveStats = repoStatsMap[fullKey] || repoStatsMap[repoKey];
+
+                    // Live stats or per-project data fallback (InboxOS has 12 stars, 16 forks on GitHub)
+                    const starsCount = liveStats?.stars ?? p.stars ?? (p.slug === "inbox-os" ? 12 : 0);
+                    const forksCount = liveStats?.forks ?? p.forks ?? (p.slug === "inbox-os" ? 16 : 0);
+
+                    return (
+                      <div
+                        key={p.slug}
+                        className="p-5 rounded-2xl bg-surface border border-border-strong hover:border-accent/40 shadow-sm transition-all flex flex-col justify-between"
+                      >
+                        <div>
+                          <div className="flex items-center justify-between gap-2 mb-2">
+                            <h4 className="font-bold text-base text-text-primary flex items-center gap-2">
+                              <FolderGit2 size={16} className="text-accent" /> {p.title}
+                            </h4>
+                            {p.github && (
+                              <a
+                                href={p.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-text-tertiary hover:text-accent transition-colors"
+                              >
+                                <ExternalLink size={15} />
+                              </a>
+                            )}
+                          </div>
+                          <p className="text-xs text-text-secondary line-clamp-2 leading-relaxed mb-4 font-medium">
+                            {p.summary}
+                          </p>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-3 border-t border-border-t text-xs text-text-tertiary font-mono">
+                          <div className="flex items-center gap-2 font-bold">
+                            <span className="w-2.5 h-2.5 rounded-full bg-accent" />
+                            <span>{p.tags[0] || "TypeScript"}</span>
+                          </div>
                           {p.github && (
-                            <a
-                              href={p.github}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-text-tertiary hover:text-accent transition-colors"
-                            >
-                              <ExternalLink size={15} />
-                            </a>
+                            <div className="flex items-center gap-3">
+                              <span className="flex items-center gap-1 font-bold" title="GitHub Stars">
+                                <Star size={12} /> {starsCount}
+                              </span>
+                              <span className="flex items-center gap-1 font-bold" title="GitHub Forks">
+                                <GitFork size={12} /> {forksCount}
+                              </span>
+                            </div>
                           )}
                         </div>
-                        <p className="text-xs text-text-secondary line-clamp-2 leading-relaxed mb-4 font-medium">
-                          {p.summary}
-                        </p>
                       </div>
-
-                      <div className="flex items-center justify-between pt-3 border-t border-border-t text-xs text-text-tertiary font-mono">
-                        <div className="flex items-center gap-2 font-bold">
-                          <span className="w-2.5 h-2.5 rounded-full bg-accent" />
-                          <span>{p.tags[0] || "TypeScript"}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="flex items-center gap-1 font-bold">
-                            <Star size={12} /> 12
-                          </span>
-                          <span className="flex items-center gap-1 font-bold">
-                            <GitPullRequest size={12} /> 4
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </motion.div>
               )}
 

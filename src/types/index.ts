@@ -45,6 +45,8 @@ export interface Project {
   featured: boolean;
   year: string;
   certificate?: string;
+  stars?: number;
+  forks?: number;
 }
 
 export interface Achievement {
