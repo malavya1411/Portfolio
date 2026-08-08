@@ -142,9 +142,9 @@ export function Achievements() {
             aria-label="Achievement timeline"
             className="overflow-x-auto py-2 scrollbar-none no-scrollbar snap-x relative min-w-full"
           >
-            <div className="flex items-center justify-between min-w-full relative px-[40px] sm:px-[45px]">
+            <div className="flex items-start justify-between min-w-full relative px-[40px] sm:px-[45px]">
               {/* Track Lines */}
-              <div className="absolute left-[40px] sm:left-[45px] right-[40px] sm:right-[45px] top-[39px] h-[2px] pointer-events-none z-0 hidden sm:block">
+              <div className="absolute left-[40px] sm:left-[45px] right-[40px] sm:right-[45px] top-[38px] h-[2px] pointer-events-none z-0 hidden sm:block">
                 <div className="absolute inset-0 bg-border-strong/60" />
                 <motion.div
                   className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-accent to-accent-hover"
