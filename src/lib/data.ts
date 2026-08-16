@@ -148,8 +148,8 @@ let aboutData: AboutData = {
   bio: _aboutBio,
   stats: [
     { label: "CGPA", value: "9.73", description: "Second year, B.Tech AI & DS" },
-    { label: "Hackathons", value: "5+", description: "Hackathons competed" },
-    { label: "Projects", value: "6+", description: "Production projects shipped" },
+    { label: "Hackathons", value: "9+", description: "Hackathons competed" },
+    { label: "Projects", value: "15+", description: "Production projects shipped" },
   ],
 };
 
@@ -1139,60 +1139,17 @@ export const allTags: string[] = [
 
 /* ─── Computed Stats (single source of truth) ─── */
 // Re-assign aboutData.stats so counts are always derived from the actual data arrays.
-// projectCount = total projects; hackathonCount = unique hackathons competed.
+// projectCount = total projects; hackathonCount = total hackathons / hackathon projects.
 const _projectCount = projects.length;
 
-const getHackathonsCount = () => {
-  const keys = new Set<string>();
-
-  // Extract from achievements
-  achievements.forEach((a) => {
-    const text = `${a.title} ${a.event} ${a.description}`.toLowerCase();
-    if (
-      text.includes("hackathon") || 
-      text.includes("challenge") || 
-      text.includes("hack-ai-thon")
-    ) {
-      if (text.includes("syrus")) keys.add("syrus");
-      else if (text.includes("unimerge")) keys.add("unimerge");
-      else if (text.includes("summer")) keys.add("summer-hackathon");
-      else if (text.includes("solution challenge")) keys.add("solution-challenge");
-      else if (text.includes("invictus")) keys.add("invictus");
-      else if (text.includes("hack-ai-thon")) keys.add("hack-ai-thon");
-      else {
-        const name = a.event.toLowerCase().includes("hackathon") ? a.event : a.title;
-        keys.add(name.toLowerCase().trim());
-      }
-    }
-  });
-
-  // Extract from projects
-  projects.forEach((p) => {
-    const isHack =
-      p.status === "HACKATHON" ||
-      p.status === "RUNNER-UP" ||
-      p.status === "GOOGLE CHALLENGE" ||
-      p.context.toLowerCase().includes("hackathon") ||
-      (p.badge && p.badge.toLowerCase().includes("hackathon"));
-
-    if (isHack) {
-      const text = `${p.title} ${p.context} ${p.badge || ""}`.toLowerCase();
-      if (text.includes("syrus")) keys.add("syrus");
-      else if (text.includes("unimerge")) keys.add("unimerge");
-      else if (text.includes("summer")) keys.add("summer-hackathon");
-      else if (text.includes("solution challenge")) keys.add("solution-challenge");
-      else if (text.includes("invictus")) keys.add("invictus");
-      else if (text.includes("hack-ai-thon")) keys.add("hack-ai-thon");
-      else {
-        keys.add(p.context.split("—")[0].trim().toLowerCase());
-      }
-    }
-  });
-
-  return keys.size;
-};
-
-const _hackathonCount = getHackathonsCount();
+const _hackathonCount = projects.filter(
+  (p) =>
+    p.status === "HACKATHON" ||
+    p.status === "RUNNER-UP" ||
+    p.status === "GOOGLE CHALLENGE" ||
+    p.slug === "jr-06" ||
+    p.context.toLowerCase().includes("hackathon")
+).length;
 
 aboutData = {
   bio: _aboutBio,
