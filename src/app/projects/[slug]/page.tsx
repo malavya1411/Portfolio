@@ -95,30 +95,58 @@ function SectionHeading({ icon, label }: { icon: React.ReactNode; label: string 
   );
 }
 
-// Architecture pipeline step
-function PipelineStep({
-  step,
-  title,
-  desc,
-  isLast,
-}: {
-  step: number;
-  title: string;
-  desc: string;
-  isLast: boolean;
-}) {
-  return (
-    <div className="cs-pipeline-step">
-      <div className="cs-pipeline-step-num">{step}</div>
-      <div className="cs-pipeline-step-body">
-        <p className="cs-pipeline-step-title">{title}</p>
-        <p className="cs-pipeline-step-desc">{desc}</p>
-      </div>
-      {!isLast && (
-        <ArrowRight className="cs-pipeline-arrow" />
-      )}
-    </div>
-  );
+// Architecture parser helper
+function parseArchitecture(archText?: string) {
+  if (!archText) return null;
+  if (!archText.includes("→")) {
+    return { isPipeline: false, rawText: archText, intro: "", outro: "", steps: [] };
+  }
+
+  const arrowIndex = archText.indexOf("→");
+  const firstColon = archText.indexOf(":");
+  let intro = "";
+  let pipelinePart = archText;
+  let outro = "";
+
+  // If there's a colon before the first arrow (e.g. "A 5-layer pipeline separates concerns cleanly: Ingestion ...")
+  if (firstColon !== -1 && firstColon < arrowIndex) {
+    intro = archText.slice(0, firstColon + 1).trim();
+    pipelinePart = archText.slice(firstColon + 1).trim();
+  }
+
+  // Check if there is an outro sentence after the last ')'
+  const lastParen = pipelinePart.lastIndexOf(")");
+  if (lastParen !== -1 && lastParen < pipelinePart.length - 1) {
+    const trailing = pipelinePart.slice(lastParen + 1).trim();
+    if (trailing.replace(/^[.\s]+/, "").length > 0) {
+      outro = trailing.replace(/^[.\s]+/, "").trim();
+      pipelinePart = pipelinePart.slice(0, lastParen + 1).trim();
+    }
+  }
+
+  const rawSegments = pipelinePart.split("→").map((s) => s.trim());
+  const steps = rawSegments.map((seg) => {
+    const match = seg.match(/^([^(]+)\(([^)]+)\)/);
+    if (match) {
+      let cleanTitle = match[1].trim();
+      if (cleanTitle.includes(":")) {
+        const parts = cleanTitle.split(":");
+        cleanTitle = parts[parts.length - 1].trim();
+      }
+      return {
+        title: cleanTitle,
+        desc: match[2].trim(),
+      };
+    } else {
+      if (seg.includes(":")) {
+        const [t, ...rest] = seg.split(":");
+        return { title: t.trim(), desc: rest.join(":").trim() };
+      }
+      return { title: seg, desc: "" };
+    }
+  });
+
+  return { isPipeline: true, rawText: archText, intro, outro, steps };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
@@ -128,23 +156,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   if (!project) notFound();
 
   const cs = project.caseStudy;
-
-  // Parse architecture into pipeline steps if it looks like a layered pipeline (contains →)
-  const isPipeline = cs?.architecture?.includes("→");
-  const pipelineSteps: { title: string; desc: string }[] = [];
-  if (isPipeline && cs?.architecture) {
-    const segments = cs.architecture.split("→").map((s) => s.trim());
-    segments.forEach((seg) => {
-      const match = seg.match(/^([^(]+)\(([^)]+)\)/);
-      if (match) {
-        pipelineSteps.push({ title: match[1].trim(), desc: match[2].trim() });
-      } else {
-        // fallback — treat whole segment as title
-        pipelineSteps.push({ title: seg.split(":")[0]?.trim() || seg, desc: seg.split(":").slice(1).join(":").trim() || "" });
-      }
-    });
-  }
-
   const hasStats = project.stars !== undefined || project.forks !== undefined;
   const isOpenSource = project.badge === "Open Source" || project.context?.toLowerCase().includes("open source");
 
@@ -268,27 +279,48 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </section>
             )}
 
-            {/* Architecture — pipeline if possible */}
-            {cs?.architecture && (
-              <section className="cs-section">
-                <SectionHeading icon={<Code2 className="w-3.5 h-3.5" />} label="Architecture" />
-                {isPipeline && pipelineSteps.length > 1 ? (
-                  <div className="cs-pipeline">
-                    {pipelineSteps.map((step, i) => (
-                      <PipelineStep
-                        key={i}
-                        step={i + 1}
-                        title={step.title}
-                        desc={step.desc}
-                        isLast={i === pipelineSteps.length - 1}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <p className="cs-body-text">{cs.architecture}</p>
-                )}
-              </section>
-            )}
+            {/* Architecture */}
+            {cs?.architecture && (() => {
+              const parsed = parseArchitecture(cs.architecture);
+              return (
+                <section className="cs-section">
+                  <SectionHeading icon={<Code2 className="w-3.5 h-3.5" />} label="Architecture" />
+                  {parsed?.isPipeline && parsed.steps.length > 1 ? (
+                    <div className="cs-pipeline-container">
+                      {parsed.intro && <p className="cs-body-text mb-1">{parsed.intro}</p>}
+                      <div className="cs-pipeline-flow">
+                        {parsed.steps.map((step, i) => (
+                          <div key={i} className="cs-pipeline-step-wrapper">
+                            <div className="cs-pipeline-step">
+                              <div className="cs-pipeline-step-header">
+                                <span className="cs-pipeline-step-num">{i + 1}</span>
+                                <span className="cs-pipeline-step-title">{step.title}</span>
+                              </div>
+                              {step.desc && <p className="cs-pipeline-step-desc">{step.desc}</p>}
+                            </div>
+                            {i < parsed.steps.length - 1 && (
+                              <div className="cs-pipeline-arrow-wrap" aria-hidden="true">
+                                <ArrowRight className="cs-pipeline-arrow" />
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                      {parsed.outro && (
+                        <div className="cs-pipeline-outro">
+                          <span className="cs-pipeline-outro-icon">✦</span>
+                          <span>{parsed.outro}</span>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="cs-arch-box">
+                      <p className="cs-body-text">{cs.architecture}</p>
+                    </div>
+                  )}
+                </section>
+              );
+            })()}
 
             {/* Technical Decisions */}
             {cs?.technicalDecisions && cs.technicalDecisions.length > 0 && (
