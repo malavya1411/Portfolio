@@ -213,21 +213,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <div className="cs-stats-bar">
                   {project.stars !== undefined && (
                     <StatPill
-                      icon={<Star className="w-3.5 h-3.5" />}
+                      icon={<Star className="w-4 h-4" />}
                       value={project.stars}
                       label="Stars"
                     />
                   )}
                   {project.forks !== undefined && (
                     <StatPill
-                      icon={<GitFork className="w-3.5 h-3.5" />}
+                      icon={<GitFork className="w-4 h-4" />}
                       value={project.forks}
                       label="Forks"
                     />
                   )}
                   {project.dateString && (
                     <StatPill
-                      icon={<Calendar className="w-3.5 h-3.5" />}
+                      icon={<Calendar className="w-4 h-4" />}
                       value={project.dateString.split("·")[0]?.trim() || project.year}
                       label={project.dateString.split("·")[1]?.trim() || "Released"}
                     />
