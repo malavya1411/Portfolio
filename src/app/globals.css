@@ -313,12 +313,12 @@ body {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  background: #18181b;
+  background: #141518;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
   overflow: hidden;
-  font-family: var(--font-mono), monospace;
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   text-align: left;
 }
 
@@ -326,8 +326,9 @@ body {
   display: flex;
   align-items: center;
   padding: 12px 18px;
-  background: #202024;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: #1e1f24;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  user-select: none;
 }
 
 .terminal-dots {
@@ -354,28 +355,58 @@ body {
 
 .terminal-body {
   padding: 20px;
-  height: 320px;
+  height: 360px;
   overflow-y: auto;
   color: #38bdf8;
   font-size: 0.88rem;
   line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+.terminal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.terminal-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .terminal-line {
   white-space: pre-wrap;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+.terminal-line-cmd {
+  color: #a5f3fc;
+  font-weight: 600;
+}
+
+.terminal-line-error {
+  color: #f87171;
 }
 
 .terminal-form {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 12px;
+  margin-top: 8px;
+  padding-bottom: 4px;
 }
 
 .terminal-prompt {
   color: #38bdf8;
   font-weight: 700;
+  user-select: none;
 }
 
 .terminal-input {
@@ -386,6 +417,7 @@ body {
   color: #f4f4f5;
   font-family: inherit;
   font-size: inherit;
+  caret-color: #38bdf8;
 }
 
 /* ─── Top Right Nav Actions ─── */

@@ -58,7 +58,20 @@ export function Projects() {
     ""
   ]);
   const [terminalInput, setTerminalInput] = useState("");
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState<number>(-1);
   const terminalInputRef = useRef<HTMLInputElement>(null);
+  const terminalBodyRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll terminal body to bottom whenever history updates or tab changes
+  useEffect(() => {
+    if (activeTab === "Terminal") {
+      if (terminalBodyRef.current) {
+        terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+      }
+      terminalInputRef.current?.focus();
+    }
+  }, [terminalHistory, activeTab]);
 
   // Auto-switch to Terminal tab when navigated via #terminal hash
   useEffect(() => {
@@ -153,31 +166,84 @@ export function Projects() {
   const displayedProjects = activeTab === "Terminal" ? filteredProjects : filteredProjects.slice(0, MAX_DISPLAY);
   const hasMore = filteredProjects.length > MAX_DISPLAY;
 
+  const AVAILABLE_COMMANDS = ["help", "bio", "skills", "projects", "contact", "clear", "whoami", "date", "exit"];
+
+  const handleTerminalKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (commandHistory.length === 0) return;
+      const nextIndex = historyIndex === -1 ? commandHistory.length - 1 : Math.max(0, historyIndex - 1);
+      setHistoryIndex(nextIndex);
+      setTerminalInput(commandHistory[nextIndex]);
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (commandHistory.length === 0 || historyIndex === -1) return;
+      const nextIndex = historyIndex + 1;
+      if (nextIndex >= commandHistory.length) {
+        setHistoryIndex(-1);
+        setTerminalInput("");
+      } else {
+        setHistoryIndex(nextIndex);
+        setTerminalInput(commandHistory[nextIndex]);
+      }
+    } else if (e.key === "Tab") {
+      e.preventDefault();
+      const current = terminalInput.trim().toLowerCase();
+      if (!current) return;
+      const match = AVAILABLE_COMMANDS.find((c) => c.startsWith(current));
+      if (match) {
+        setTerminalInput(match);
+      }
+    } else if (e.ctrlKey && e.key.toLowerCase() === "l") {
+      e.preventDefault();
+      setTerminalHistory([]);
+      setTerminalInput("");
+    }
+  };
+
   const handleTerminalCommand = (e: React.FormEvent) => {
     e.preventDefault();
-    const cmd = terminalInput.trim().toLowerCase();
-    if (!cmd) return;
+    const rawInput = terminalInput.trim();
+    if (!rawInput) return;
 
+    // Record in command history
+    setCommandHistory((prev) => [...prev, rawInput]);
+    setHistoryIndex(-1);
+
+    const cmd = rawInput.toLowerCase();
     let response = "";
+
     if (cmd === "help") {
-      response = "Available commands:\n  - bio      : About Malavya\n  - skills   : Technical stack\n  - projects : Core highlights\n  - contact  : Reach out info\n  - clear    : Clear screen";
+      response = "Available commands:\n  - bio      : About Malavya\n  - skills   : Technical stack\n  - projects : Core highlights\n  - contact  : Reach out info\n  - whoami   : Current user session\n  - date     : Show current date & time\n  - clear    : Clear screen (or Ctrl+L)\n  - exit     : Return to Featured Projects";
     } else if (cmd === "bio") {
       response = "Malavya Mankar is an AI & Data Science B.Tech student at VESIT, Mumbai. Shipped 6+ production tools, placed top 6 at Syrus 2026, and runner-up at national hackathons.";
     } else if (cmd === "skills") {
-      response = "Languages : TypeScript, JavaScript, Python, C++\nFrontend  : Next.js 15, React, Tailwind CSS\nBackend   : Node.js, Express, PostgreSQL, Supabase";
+      response = "Languages : TypeScript, JavaScript, Python, C++\nFrontend  : Next.js 15, React, Tailwind CSS\nBackend   : Node.js, Express, PostgreSQL, Supabase\nAI & ML   : RAG, LangChain, Embeddings, LLM Orchestration";
     } else if (cmd === "projects") {
       response = "Core Projects:\n- Distil        : Grounded RAG platform for legal & academic documents\n- InboxOS       : Open-source AI email operating system & pipeline\n- OrbitalWatch : Real-time 3D space tracking & collision dashboard\n- HireMind     : Recruiter AI candidate profiling platform\n- OnboardAI    : Autonomous dev RAG onboarding agent";
-    } else if (cmd === "contact") {
+    } else if (cmd === "contact" || cmd === "socials") {
       response = "Email    : malavyamankar@gmail.com\nGitHub   : github.com/malavya1411\nLinkedIn : linkedin.com/in/malavya-mankar-002037382";
+    } else if (cmd === "whoami") {
+      response = "guest@portfolio.malavya.dev (Interactive Guest Session)";
+    } else if (cmd === "date") {
+      response = new Date().toLocaleString();
+    } else if (cmd.startsWith("echo ")) {
+      response = rawInput.slice(5);
+    } else if (cmd.startsWith("sudo")) {
+      response = "Permission denied: sudo privileges are restricted to Malavya :)";
+    } else if (cmd === "exit") {
+      setActiveTab("Featured Projects");
+      setTerminalInput("");
+      return;
     } else if (cmd === "clear") {
       setTerminalHistory([]);
       setTerminalInput("");
       return;
     } else {
-      response = `Command not found: '${cmd}'. Type 'help' for options.`;
+      response = `Command not found: '${rawInput}'. Type 'help' for options.`;
     }
 
-    setTerminalHistory((prev) => [...prev, `> ${terminalInput}`, response, ""]);
+    setTerminalHistory((prev) => [...prev, `> ${rawInput}`, response, ""]);
     setTerminalInput("");
   };
 
@@ -221,8 +287,13 @@ export function Projects() {
         {activeTab === "Terminal" ? (
           /* Retro Interactive Terminal Emulator */
           <div 
-            className="terminal-viewport"
-            onClick={() => terminalInputRef.current?.focus()}
+            className="terminal-viewport cursor-text"
+            onClick={() => {
+              terminalInputRef.current?.focus();
+              if (terminalBodyRef.current) {
+                terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+              }
+            }}
           >
             <div className="terminal-header">
               <div className="terminal-dots">
@@ -232,20 +303,30 @@ export function Projects() {
               </div>
               <span className="terminal-title">malavya@portfolio:~</span>
             </div>
-            <div className="terminal-body">
+            <div className="terminal-body" ref={terminalBodyRef}>
               {terminalHistory.map((line, i) => (
-                <div key={i} className="terminal-line">{line}</div>
+                <div 
+                  key={i} 
+                  className={`terminal-line ${line.startsWith("> ") ? "terminal-line-cmd" : line.startsWith("Command not found") ? "terminal-line-error" : ""}`}
+                >
+                  {line}
+                </div>
               ))}
               <form onSubmit={handleTerminalCommand} className="terminal-form">
-                <span className="terminal-prompt">$</span>
+                <span className="terminal-prompt">&gt;</span>
                 <input
                   ref={terminalInputRef}
                   type="text"
                   value={terminalInput}
                   onChange={(e) => setTerminalInput(e.target.value)}
+                  onKeyDown={handleTerminalKeyDown}
                   className="terminal-input"
                   autoFocus
                   placeholder="type command..."
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
+                  spellCheck="false"
                 />
               </form>
             </div>
