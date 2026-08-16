@@ -32,7 +32,6 @@ export function Footer() {
           <p className="text-sm text-text-tertiary">
             &copy; {new Date().getFullYear()}{" "}
             <span className="text-text-secondary">{siteMetadata.name}</span>
-            . Built with Next.js.
           </p>
 
           <div className="flex items-center gap-2">
