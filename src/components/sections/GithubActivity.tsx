@@ -179,7 +179,7 @@ export function GithubActivity() {
             onClick={() => setIsModalOpen(true)}
             className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-surface border border-border-strong hover:border-accent text-text-primary hover:text-accent font-bold text-sm shadow-md hover:shadow-xl transition-all cursor-pointer group"
           >
-            Explore My Open Source Journey{" "}
+            Explore GitHub Journey{" "}
             <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
           </button>
         </div>

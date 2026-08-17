@@ -267,7 +267,7 @@ export function OpenSource() {
                 onClick={() => setIsModalOpen(true)}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-full bg-text-primary text-bg font-bold text-xs shadow-sm hover:scale-105 transition-all cursor-pointer group"
               >
-                Explore Open Source Journey{" "}
+                Explore GitHub Journey{" "}
                 <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
               </button>
             </div>

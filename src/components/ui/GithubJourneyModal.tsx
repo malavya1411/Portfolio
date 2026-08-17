@@ -247,7 +247,7 @@ export function GithubJourneyModal({ isOpen, onClose }: GithubJourneyModalProps)
                 </div>
                 <div>
                   <h3 className="font-bold text-lg leading-tight text-text-primary flex items-center gap-2">
-                    Open Source Journey
+                    GitHub Journey
                   </h3>
                   <p className="text-xs text-text-tertiary font-mono">@malavya1411</p>
                 </div>
