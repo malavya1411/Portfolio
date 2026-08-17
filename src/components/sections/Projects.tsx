@@ -91,7 +91,7 @@ export function Projects() {
   // Order for hackathon featured top 5
   const HACKATHON_ORDER = ["git-stat", "orbital-watch", "gig-shield", "onboard-ai", "crisis-sync"];
   // Order for personal projects
-  const PERSONAL_ORDER = ["distil", "inbox-os", "code-explainer", "canopyml", "ai-finder", "code-scope"];
+  const PERSONAL_ORDER = ["git-stat", "inbox-os", "code-explainer", "distil", "canopyml", "code-scope", "ai-finder"];
 
   // Filter projects based on tabs
   const getFilteredProjects = () => {
@@ -108,7 +108,10 @@ export function Projects() {
       });
     } else if (activeTab === "Personal") {
       filtered = projects.filter(
-        (p) => p.context === "Personal Project" || p.context === "Open Source Project"
+        (p) =>
+          p.context === "Personal Project" ||
+          p.context === "Open Source Project" ||
+          p.slug === "git-stat"
       );
       // Sort by PERSONAL_ORDER
       return filtered.sort((a, b) => {
@@ -146,7 +149,10 @@ export function Projects() {
     }
     if (tab === "Personal") {
       return projects.filter(
-        (p) => p.context === "Personal Project" || p.context === "Open Source Project"
+        (p) =>
+          p.context === "Personal Project" ||
+          p.context === "Open Source Project" ||
+          p.slug === "git-stat"
       ).length;
     }
     if (tab === "Hackathons") {
