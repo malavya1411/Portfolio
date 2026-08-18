@@ -187,7 +187,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               )}
               <span className="cs-badge cs-badge-muted">{project.year}</span>
               {project.status === "RUNNER-UP" && (
-                <span className="cs-badge cs-badge-gold">🏆 Runner-Up</span>
+                <span className="cs-badge cs-badge-gold">Runner Up</span>
               )}
               {project.status === "GOOGLE CHALLENGE" && (
                 <span className="cs-badge cs-badge-blue">🌐 Google Challenge</span>

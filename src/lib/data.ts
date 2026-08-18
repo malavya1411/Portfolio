@@ -422,14 +422,14 @@ export const projects: Project[] = [
     summary:
       "GitHub contributor health dashboard — visualise team velocity, commit patterns, and AI-generated contributor insights.",
     role: "Lead Developer",
-    context: "Unimerge Hackathon — Runner-Up",
+    context: "Unimerge Hackathon — Runner Up",
     techStack: ["React", "Vite", "Tailwind", "Node.js", "Express", "Supabase", "GitHub OAuth", "Gemini 1.5 Flash"],
     outcome:
       "Full analytics dashboard with GitHub OAuth, contributor health scoring, and AI-generated summaries. Resolved complex CORS and OAuth deployment issues at speed.",
     tags: ["Full-Stack", "AI", "DevTools"],
     github: "https://github.com/malavya1411/GitStat",
     demo: "https://git-stat-olive.vercel.app",
-    badge: "Runner-Up",
+    badge: "Runner Up",
     featured: true,
     year: "2026",
     certificate: "/images/unimerge_certificate.jpg",
@@ -1037,7 +1037,7 @@ export const achievements: Achievement[] = [
     certificate: "/images/syrus_certificate.png",
   },
   {
-    title: "Runner-Up",
+    title: "Runner Up",
     event: "Unimerge Hackathon",
     description:
       "Built GitStat, a GitHub contributor health dashboard with AI-powered insights, OAuth integration, and production-grade deployment.",
