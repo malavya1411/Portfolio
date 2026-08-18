@@ -421,11 +421,11 @@ export const projects: Project[] = [
     slug: "git-stat",
     summary:
       "GitHub contributor health dashboard — visualise team velocity, commit patterns, and AI-generated contributor insights.",
-    role: "Lead Developer",
-    context: "Unimerge Hackathon — Runner Up",
+    role: "Solo Developer",
+    context: "Unimerge Hackathon (Solo) — Runner Up",
     techStack: ["React", "Vite", "Tailwind", "Node.js", "Express", "Supabase", "GitHub OAuth", "Gemini 1.5 Flash"],
     outcome:
-      "Full analytics dashboard with GitHub OAuth, contributor health scoring, and AI-generated summaries. Resolved complex CORS and OAuth deployment issues at speed.",
+      "Full analytics dashboard built solo with GitHub OAuth, contributor health scoring, and AI-generated summaries. Resolved complex CORS and OAuth deployment issues at speed.",
     tags: ["Full-Stack", "AI", "DevTools"],
     github: "https://github.com/malavya1411/GitStat",
     demo: "https://git-stat-olive.vercel.app",
@@ -436,7 +436,7 @@ export const projects: Project[] = [
     coverImage: "/images/git_stat.png",
     status: "RUNNER-UP",
     categoryTag: "ANALYTICS · FULL STACK",
-    dateString: "APRIL 2026 · UNIMERGE HACKATHON",
+    dateString: "APRIL 2026 · UNIMERGE SOLO HACKATHON",
     features: [
       "Contributor health scoring analytics dashboard",
       "GitHub OAuth secure integration & analytics",
@@ -444,7 +444,7 @@ export const projects: Project[] = [
     ],
     caseStudy: {
       overview:
-        "GitStat is a GitHub contributor health dashboard built to surface team velocity, burnout signals, and AI-generated insights about individual contributors. It was built under hackathon conditions (36 hours) and later shipped to production at git-stat-olive.vercel.app.",
+        "GitStat is a GitHub contributor health dashboard built solo during the 36-hour Unimerge Hackathon to surface team velocity, burnout signals, and AI-generated insights about individual contributors. It secured Runner Up and was later shipped to production at git-stat-olive.vercel.app.",
       problemStatement:
         "Engineering teams lack real-time visibility into contributor health and code velocity. Burnout often goes undetected until it's too late. GitStat addresses this by aggregating GitHub activity data into an actionable health score per contributor.",
       architecture:
@@ -1038,9 +1038,9 @@ export const achievements: Achievement[] = [
   },
   {
     title: "Runner Up",
-    event: "Unimerge Hackathon",
+    event: "Unimerge Hackathon (Solo)",
     description:
-      "Built GitStat, a GitHub contributor health dashboard with AI-powered insights, OAuth integration, and production-grade deployment.",
+      "Built GitStat as a solo developer during the 36-hour Unimerge Hackathon, creating a GitHub contributor health dashboard with AI-powered insights, OAuth integration, and production-grade deployment.",
     year: "2026",
     highlight: true,
     rank: "#2",

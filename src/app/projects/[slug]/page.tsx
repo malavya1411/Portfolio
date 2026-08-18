@@ -456,7 +456,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   <span className="cs-meta-key">
                     <Award className="w-3.5 h-3.5" /> Status
                   </span>
-                  <span className="cs-meta-val cs-meta-val-accent">{project.status}</span>
+                  <span className="cs-meta-val cs-meta-val-accent">{project.status.replace(/-/g, " ")}</span>
                 </div>
               )}
             </div>
