@@ -611,6 +611,7 @@ export const projects: Project[] = [
     featured: true,
     year: "2026",
     coverImage: "/images/orbital_watch.png",
+    certificate: "/images/isro_hackathon_certificate.jpg",
     status: "HACKATHON",
     categoryTag: "3D WEBGL · FASTAPI",
     dateString: "JUNE 2026 · HACKATHON PROJECT",
@@ -1016,6 +1017,15 @@ export const projects: Project[] = [
 /* ─── Achievements ─── */
 
 export const achievements: Achievement[] = [
+  {
+    title: "Idea Submission & Participation",
+    event: "Bharatiya Antariksh Hackathon 2026 (ISRO)",
+    description:
+      "Recognized by the Indian Space Research Organisation (ISRO) and Hack2skill for participation and successful idea submission addressing real-world space challenges in the national hackathon.",
+    year: "2026",
+    highlight: true,
+    certificate: "/images/isro_hackathon_certificate.jpg",
+  },
   {
     title: "Google Cloud Study Jam",
     event: "GDGoC VESIT · Dept. of CMPN",
