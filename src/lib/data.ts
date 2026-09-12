@@ -1018,15 +1018,6 @@ export const projects: Project[] = [
 
 export const achievements: Achievement[] = [
   {
-    title: "Idea Submission & Participation",
-    event: "Bharatiya Antariksh Hackathon 2026 (ISRO)",
-    description:
-      "Recognized by the Indian Space Research Organisation (ISRO) and Hack2skill for participation and successful idea submission addressing real-world space challenges in the national hackathon.",
-    year: "2026",
-    highlight: true,
-    certificate: "/images/isro_hackathon_certificate.jpg",
-  },
-  {
     title: "Google Cloud Study Jam",
     event: "GDGoC VESIT · Dept. of CMPN",
     description:
@@ -1099,6 +1090,15 @@ export const achievements: Achievement[] = [
     year: "2026",
     highlight: false,
     certificate: "/images/hackaithon_certificate.png",
+  },
+  {
+    title: "Idea Submission & Participation",
+    event: "Bharatiya Antariksh Hackathon 2026 (ISRO)",
+    description:
+      "Recognized by the Indian Space Research Organisation (ISRO) and Hack2skill for participation and successful idea submission addressing real-world space challenges in the national hackathon.",
+    year: "2026",
+    highlight: true,
+    certificate: "/images/isro_hackathon_certificate.jpg",
   },
 ];
 
