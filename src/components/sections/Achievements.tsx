@@ -91,12 +91,13 @@ export function Achievements() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleUserInteraction, nextSlide, prevSlide]);
 
-  // Scroll active timeline node into view smoothly on mobile
+  // Scroll active timeline node into view smoothly on mobile / small viewports
   useEffect(() => {
     if (timelineRef.current) {
-      const activeEl = timelineRef.current.children[activeIndex] as HTMLElement;
+      const container = timelineRef.current;
+      const buttons = container.querySelectorAll<HTMLButtonElement>("button");
+      const activeEl = buttons[activeIndex];
       if (activeEl) {
-        const container = timelineRef.current;
         const scrollLeft =
           activeEl.offsetLeft - container.clientWidth / 2 + activeEl.clientWidth / 2;
         container.scrollTo({ left: Math.max(0, scrollLeft), behavior: "smooth" });
@@ -135,16 +136,16 @@ export function Achievements() {
           </p>
         </motion.div>
 
-        {/* ─── 1. TIMELINE TRACK WITH LARGER FONTS & TIGHTER SPACING ─────────── */}
-        <div className="relative mb-8 sm:mb-10 max-w-4xl mx-auto px-2 sm:px-6">
+        {/* ─── 1. TIMELINE TRACK WITH BALANCED SPACING & FLUID RESPONSIVENESS ─── */}
+        <div className="relative mb-8 sm:mb-10 max-w-5xl mx-auto px-2 sm:px-4">
           <div
             ref={timelineRef}
             aria-label="Achievement timeline"
-            className="overflow-x-auto py-2 scrollbar-none no-scrollbar snap-x relative min-w-full"
+            className="overflow-x-auto py-2 scrollbar-none no-scrollbar snap-x relative w-full"
           >
-            <div className="flex items-start justify-between min-w-full relative px-[40px] sm:px-[45px]">
+            <div className="flex items-start justify-between min-w-[780px] lg:min-w-0 w-full relative px-4 sm:px-6">
               {/* Track Lines */}
-              <div className="absolute left-[40px] sm:left-[45px] right-[40px] sm:right-[45px] top-[38px] h-[2px] pointer-events-none z-0 hidden sm:block">
+              <div className="absolute left-[34px] sm:left-[42px] right-[34px] sm:right-[42px] top-[39px] h-[2px] pointer-events-none z-0 hidden sm:block">
                 <div className="absolute inset-0 bg-border-strong/60" />
                 <motion.div
                   className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-accent to-accent-hover"
@@ -162,13 +163,13 @@ export function Achievements() {
                   <button
                     key={item.title + idx}
                     onClick={() => goToSlide(idx)}
-                    className="flex flex-col items-center group relative cursor-pointer focus:outline-none snap-center shrink-0 z-10 w-[85px] sm:w-[95px]"
+                    className="flex flex-col items-center group relative cursor-pointer focus:outline-none snap-center shrink-0 lg:shrink lg:flex-1 z-10 w-[78px] sm:w-[86px] lg:w-auto px-0.5"
                     aria-label={`Go to ${item.title} (${item.year})`}
                     aria-current={isActive ? "true" : undefined}
                   >
-                    {/* Year / Date Label — Enlarged to text-sm */}
+                    {/* Year / Date Label */}
                     <span
-                      className={`text-sm font-mono h-6 flex items-center justify-center transition-all duration-300 ${
+                      className={`text-xs sm:text-sm font-mono h-6 flex items-center justify-center transition-all duration-300 ${
                         isActive
                           ? "font-bold text-accent scale-110"
                           : "font-semibold text-text-tertiary group-hover:text-text-secondary"
@@ -198,9 +199,9 @@ export function Achievements() {
                       </div>
                     </div>
 
-                    {/* Short Title Label below node — Enlarged to text-xs/text-sm */}
+                    {/* Short Title Label below node */}
                     <span
-                      className={`mt-1 text-xs sm:text-sm leading-tight font-semibold transition-all duration-300 max-w-[90px] text-center line-clamp-2 ${
+                      className={`mt-1 text-[11px] sm:text-xs leading-tight font-semibold transition-all duration-300 w-full text-center line-clamp-2 ${
                         isActive
                           ? "font-bold text-text-primary scale-105"
                           : "text-text-tertiary opacity-80 group-hover:opacity-100"
