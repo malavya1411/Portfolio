@@ -3,11 +3,11 @@
 
   --logoloop-gap: 32px;
   --logoloop-logoHeight: 28px;
-  --logoloop-fadeColorAuto: #F7F8FA;
+  --logoloop-fadeColorAuto: var(--bg, #F5F2E8);
 }
 
 .dark .logoloop {
-  --logoloop-fadeColorAuto: #080D12;
+  --logoloop-fadeColorAuto: var(--bg, #111015);
 }
 
 .logoloop--vertical {
@@ -149,7 +149,7 @@
   background: linear-gradient(
     to right,
     var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
-    rgba(0, 0, 0, 0) 100%
+    transparent 100%
   );
 }
 
@@ -158,7 +158,7 @@
   background: linear-gradient(
     to left,
     var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
-    rgba(0, 0, 0, 0) 100%
+    transparent 100%
   );
 }
 
@@ -176,7 +176,7 @@
   background: linear-gradient(
     to bottom,
     var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
-    rgba(0, 0, 0, 0) 100%
+    transparent 100%
   );
 }
 
@@ -186,7 +186,7 @@
   background: linear-gradient(
     to top,
     var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
-    rgba(0, 0, 0, 0) 100%
+    transparent 100%
   );
 }
 
